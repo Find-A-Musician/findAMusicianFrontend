@@ -1,10 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import axios, {
-  Axios,
-  AxiosRequestConfig,
-  AxiosResponse,
-  AxiosInstance,
-} from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosInstance } from 'axios';
 import { AuthContext } from './AuthContext';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import { apiUrl } from '../config/Url';
@@ -14,8 +9,8 @@ type AxiosContextType = {
   publicAxios: AxiosInstance;
 };
 
-const axiosContext = createContext<AxiosContextType | null>(null);
-const { Provider } = axiosContext;
+const AxiosContext = createContext<AxiosContextType | null>(null);
+const { Provider } = AxiosContext;
 
 function AxiosProvider({ children }: { children: React.ReactNode }) {
   const authContext = useContext(AuthContext);
@@ -75,6 +70,7 @@ function AxiosProvider({ children }: { children: React.ReactNode }) {
           refreshToken: '',
           accessToken: '',
           authenticated: false,
+          profil: null,
         });
       });
   }
@@ -93,4 +89,4 @@ function AxiosProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export { axiosContext, AxiosProvider };
+export { AxiosContext, AxiosProvider };
