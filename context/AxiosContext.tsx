@@ -75,7 +75,9 @@ function AxiosProvider({ children }: { children: React.ReactNode }) {
       });
   }
 
-  createAuthRefreshInterceptor(authAxios, refreshAuthLogic);
+  createAuthRefreshInterceptor(authAxios, refreshAuthLogic, {
+    statusCodes: [401, 403],
+  });
 
   return (
     <Provider
