@@ -1,13 +1,18 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { AuthProvider } from '../context/AuthContext';
-import { AxiosProvider } from '../context/AxiosContext';
+import useAxios from '../hooks/useAxios';
+import createAuthRefreshInterceptor from 'axios-auth-refresh';
 function MyApp({ Component, pageProps }: AppProps) {
+  const { authAxios, refreshAuthLogic } = useAxios();
+
+  createAuthRefreshInterceptor(authAxios, refreshAuthLogic, {
+    statusCodes: [401, 403],
+  });
+
   return (
     <AuthProvider>
-      <AxiosProvider>
-        <Component {...pageProps} />
-      </AxiosProvider>
+      <Component {...pageProps} />
     </AuthProvider>
   );
 }

@@ -1,9 +1,14 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import { AxiosContext } from './AxiosContext';
-import { rejects } from 'assert';
-
+import useAxios from '../hooks/useAxios';
+import axios from 'axios';
+import { apiUrl } from '../config/Url';
 type Instruments = {
+  id: string;
+  name: string;
+}[];
+
+type Genres = {
   id: string;
   name: string;
 }[];
@@ -25,6 +30,7 @@ type Profil = {
   promotion?: 'L1' | 'L2' | 'L3' | 'M1' | 'M2';
   location?: 'Douai' | 'Lille';
   instruments?: Instruments;
+  genres?: Genres;
 } | null;
 
 type AuthStateType = {
@@ -40,7 +46,9 @@ type AuthContextType = {
   getAccessToken: () => string;
   getRefreshToken: () => string;
   isAuthenticated: () => boolean;
+  login: (email: string, password: string) => Promise<void | string>;
   logout: () => void;
+  loadingProfil: boolean;
 } | null;
 
 const AuthContext = createContext<AuthContextType>(null);
@@ -48,7 +56,7 @@ const AuthContext = createContext<AuthContextType>(null);
 const { Provider } = AuthContext;
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  const axiosContext = useContext(AxiosContext);
+  const { authAxios, publicAxios } = useAxios();
 
   const [authState, setAuthState] = useState<AuthStateType>({
     accessToken: '',
@@ -57,16 +65,65 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     profil: null,
   });
 
-  useEffect(() => {
-    const accessToken = Cookies.get('accessToken');
-    const refreshToken = Cookies.get('refreshToken');
+  const [loadingProfil, setLoadinProfil] = useState(true);
 
-    console.log('tokens', accessToken, refreshToken);
+  useEffect(() => {
+    async function loadUserProfilFromCookie() {
+      const refreshToken = Cookies.get('refreshToken');
+      if (refreshToken) {
+        console.log('refresh token', refreshToken);
+        try {
+          const {
+            data: { accessToken },
+          } = await publicAxios.post<{
+            accessToken: string;
+          }>('/refresh_token', { refreshToken });
+          setAuthState({
+            refreshToken,
+            accessToken: accessToken || '',
+            authenticated: true,
+            profil: null,
+          });
+
+          console.log('accessToken');
+          console.log(accessToken);
+
+          // We have to get our own axios call bcs the axios hook cannot access the auth context yet
+          // We should fit it i think
+          const userProfilResponse = await axios({
+            method: 'GET',
+            url: `${apiUrl}/profil`,
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+
+          console.log(userProfilResponse);
+
+          setAuthState({
+            ...authState,
+            profil: userProfilResponse?.data || null,
+          });
+        } catch (err) {
+          console.log(JSON.stringify(err));
+          console.log('Auth Context Load Profil Error', err);
+          // Need to redirect to the login page
+        }
+      }
+      setLoadinProfil(false);
+    }
+    loadUserProfilFromCookie();
   }, []);
 
   async function login(email: string, password: string) {
+    console.log('is axios context undefines ? ', publicAxios, authAxios);
     try {
-      const loginReponse = await axiosContext?.publicAxios.post<{
+      const {
+        data: {
+          token: { accessToken, refreshToken },
+          musician,
+        },
+      } = await publicAxios.post<{
         token: Token;
         musician: Profil;
       }>('/login', {
@@ -74,11 +131,31 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         password,
       });
 
+      console.log('accesstoken', accessToken);
+      console.log('refrsh', refreshToken);
+      console.log('musician', musician);
+      console.log('auth', !!musician);
+
       setAuthState({
-        accessToken: loginReponse?.data.token.accessToken || '',
-        refreshToken: loginReponse?.data.token.refreshToken || '',
-        authenticated: !!loginReponse?.data.musician,
-        profil: loginReponse?.data.musician || null,
+        accessToken: accessToken || '',
+        refreshToken: refreshToken || '',
+        authenticated: !!musician,
+        profil: musician || null,
+      });
+
+      // Refresh cookie expires in 360 days
+      Cookies.set('refreshToken', getRefreshToken(), {
+        secure: process.env.NODE_ENV !== 'development',
+        sameSite: 'strict',
+        expires: 360,
+      });
+
+      const currentDate = new Date();
+
+      // Access token expires in 5 min
+      Cookies.set('accessToken', getAccessToken(), {
+        secure: process.env.NODE_ENV !== 'development',
+        sameSite: 'strict',
       });
 
       return new Promise<void>((resolve) => {
@@ -92,7 +169,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   async function logout() {
-    await axiosContext?.authAxios.delete('/logout');
+    await authAxios.delete('/logout');
 
     setAuthState({
       accessToken: '',
@@ -100,6 +177,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       authenticated: false,
       profil: null,
     });
+
+    //clear cookie
+
+    Cookies.remove('accessToken');
+    Cookies.remove('refreshToken');
   }
 
   function getAccessToken() {
@@ -122,7 +204,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         getAccessToken,
         getRefreshToken,
         isAuthenticated,
+        login,
         logout,
+        loadingProfil,
       }}
     >
       {children}
@@ -130,4 +214,8 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export { AuthContext, AuthProvider };
+function useAuth() {
+  return useContext(AuthContext);
+}
+
+export { AuthContext, AuthProvider, useAuth };
