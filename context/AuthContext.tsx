@@ -70,27 +70,22 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     async function loadUserProfilFromCookie() {
       const refreshToken = Cookies.get('refreshToken');
-      if (refreshToken) {
-        console.log('refresh token', refreshToken);
+      if (refreshToken && authState && publicAxios) {
         try {
           const {
             data: { accessToken },
           } = await publicAxios.post<{
             accessToken: string;
           }>('/refresh_token', { refreshToken });
-          setAuthState({
-            refreshToken,
-            accessToken: accessToken || '',
-            authenticated: true,
-            profil: null,
-          });
 
-          console.log('accessToken');
-          console.log(accessToken);
+          // Set the new accessToken in the cookie as Session cookie
+          setCookie('accessToken', accessToken);
 
-          // We have to get our own axios call bcs the axios hook cannot access the auth context yet
+          // We have to set up our own axios call here bcs
+          // the axios hook cannot access the auth context yet
           // We should fit it i think
-          const userProfilResponse = await axios({
+
+          const { data: profil } = await axios({
             method: 'GET',
             url: `${apiUrl}/profil`,
             headers: {
@@ -98,11 +93,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
             },
           });
 
-          console.log(userProfilResponse);
-
           setAuthState({
-            ...authState,
-            profil: userProfilResponse?.data || null,
+            refreshToken,
+            accessToken: accessToken || '',
+            authenticated: true,
+            profil: profil || null,
           });
         } catch (err) {
           console.log(JSON.stringify(err));
@@ -131,11 +126,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         password,
       });
 
-      console.log('accesstoken', accessToken);
-      console.log('refrsh', refreshToken);
-      console.log('musician', musician);
-      console.log('auth', !!musician);
-
       setAuthState({
         accessToken: accessToken || '',
         refreshToken: refreshToken || '',
@@ -143,20 +133,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         profil: musician || null,
       });
 
-      // Refresh cookie expires in 360 days
-      Cookies.set('refreshToken', getRefreshToken(), {
-        secure: process.env.NODE_ENV !== 'development',
-        sameSite: 'strict',
-        expires: 360,
-      });
+      setCookie('refreshToken', refreshToken);
 
-      const currentDate = new Date();
-
-      // Access token expires in 5 min
-      Cookies.set('accessToken', getAccessToken(), {
-        secure: process.env.NODE_ENV !== 'development',
-        sameSite: 'strict',
-      });
+      setCookie('accessToken', accessToken);
 
       return new Promise<void>((resolve) => {
         resolve();
@@ -169,19 +148,23 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   async function logout() {
-    await authAxios.delete('/logout');
+    try {
+      await authAxios.delete('/logout');
 
-    setAuthState({
-      accessToken: '',
-      refreshToken: '',
-      authenticated: false,
-      profil: null,
-    });
+      setAuthState({
+        accessToken: '',
+        refreshToken: '',
+        authenticated: false,
+        profil: null,
+      });
 
-    //clear cookie
-
-    Cookies.remove('accessToken');
-    Cookies.remove('refreshToken');
+      //clear cookie
+      Cookies.remove('accessToken');
+      Cookies.remove('refreshToken');
+    } catch (err) {
+      console.log('logout err');
+      console.log(err);
+    }
   }
 
   function getAccessToken() {
@@ -216,6 +199,23 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
 function useAuth() {
   return useContext(AuthContext);
+}
+
+function setCookie(key: 'accessToken' | 'refreshToken', value: String) {
+  const options: {
+    secure: boolean;
+    sameSite: 'strict' | 'Strict' | 'lax' | 'Lax' | 'none' | 'None' | undefined;
+    expires?: number;
+  } = {
+    secure: process.env.NODE_ENV !== 'development',
+    sameSite: 'strict',
+  };
+
+  if (key === 'refreshToken') {
+    options['expires'] = 360;
+  }
+
+  Cookies.set(key, value, options);
 }
 
 export { AuthContext, AuthProvider, useAuth };

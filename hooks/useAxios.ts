@@ -1,7 +1,6 @@
 import React, { createContext, useContext } from 'react';
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosInstance } from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import createAuthRefreshInterceptor from 'axios-auth-refresh';
 import { apiUrl } from '../config/Url';
 
 export default function useAxios() {
@@ -18,7 +17,10 @@ export default function useAxios() {
   authAxios.interceptors.request.use(
     (config) => {
       if (config.headers && !config.headers.Authorization) {
+        console.log('PUT THE HEADER DUDE ');
         config.headers.Authorization = `Bearer ${authContext?.getAccessToken()}`;
+      } else {
+        console.log('WHAT IS THE FUCK');
       }
 
       return config;

@@ -14,7 +14,6 @@ export default function Login(): JSX.Element {
     e.preventDefault();
     try {
       const login = await auth?.login(email, password);
-      console.log('login hes been successfull');
     } catch (err) {
       console.log('login has failed');
       console.log(err);
@@ -23,34 +22,51 @@ export default function Login(): JSX.Element {
   }
 
   return (
-    <div>
-      <p>romain.guar01@gmail.com</p>
-      <p>romain123</p>
-      <form onSubmit={(e) => submitForm(e)}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Envoyer</button>
-        {error && <p>{error}</p>}
-      </form>
+    <>
+      {auth?.loadingProfil ? <p>loading profil ...</p> : null}
+      {!auth?.loadingProfil && !auth?.isAuthenticated() ? (
+        <div>
+          <p>romain.guar01@gmail.com</p>
+          <p>romain123</p>
+          <form onSubmit={(e) => submitForm(e)}>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button type="submit">Envoyer</button>
+            {error && <p>{error}</p>}
+          </form>
+        </div>
+      ) : (
+        <div>
+          <div>
+            <h1>
+              {auth.authState.profil?.givenName}{' '}
+              {auth.authState.profil?.familyName}
+            </h1>
+            <div>
+              {' '}
+              {auth.authState.profil?.genres?.map(({ id, name }) => (
+                <p key={id}> play {name}</p>
+              ))}
+            </div>
+          </div>
 
-      <p>Profil :</p>
-      <p>{JSON.stringify(auth?.authState.profil)}</p>
-
-      <p
-        onClick={() => {
-          auth?.logout();
-        }}
-      >
-        Logout
-      </p>
-    </div>
+          <button
+            onClick={() => {
+              auth?.logout();
+            }}
+          >
+            Logout
+          </button>
+        </div>
+      )}
+    </>
   );
 }

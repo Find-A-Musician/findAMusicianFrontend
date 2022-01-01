@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const { authAxios, refreshAuthLogic } = useAxios();
 
   createAuthRefreshInterceptor(authAxios, refreshAuthLogic, {
-    statusCodes: [401, 403],
+    statusCodes: [403],
   });
 
   return (
