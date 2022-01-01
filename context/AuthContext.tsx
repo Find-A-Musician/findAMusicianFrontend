@@ -45,6 +45,7 @@ type AuthContextType = {
   setAuthState: React.Dispatch<React.SetStateAction<AuthStateType>>;
   getAccessToken: () => string;
   getRefreshToken: () => string;
+  getProfil: () => Profil;
   isAuthenticated: () => boolean;
   login: (email: string, password: string) => Promise<void | string>;
   logout: () => void;
@@ -95,9 +96,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
           setAuthState({
             refreshToken,
-            accessToken: accessToken || '',
+            accessToken: accessToken,
             authenticated: true,
-            profil: profil || null,
+            profil: profil,
           });
         } catch (err) {
           console.log(JSON.stringify(err));
@@ -111,7 +112,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   async function login(email: string, password: string) {
-    console.log('is axios context undefines ? ', publicAxios, authAxios);
     try {
       const {
         data: {
@@ -126,11 +126,13 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         password,
       });
 
+      console.log(musician);
+
       setAuthState({
-        accessToken: accessToken || '',
-        refreshToken: refreshToken || '',
+        accessToken: accessToken,
+        refreshToken: refreshToken,
         authenticated: !!musician,
-        profil: musician || null,
+        profil: musician,
       });
 
       setCookie('refreshToken', refreshToken);
@@ -149,7 +151,16 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
   async function logout() {
     try {
-      await authAxios.delete('/logout');
+      // Have to call our own axios call again bcs
+      // authState is undefined in the axios hook here again
+
+      await axios({
+        method: 'delete',
+        url: `${apiUrl}/logout`,
+        headers: {
+          Authorization: `Bearer ${getAccessToken()}`,
+        },
+      });
 
       setAuthState({
         accessToken: '',
@@ -179,6 +190,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     return authState.authenticated;
   }
 
+  function getProfil() {
+    return authState.profil;
+  }
+
   return (
     <Provider
       value={{
@@ -186,6 +201,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         setAuthState,
         getAccessToken,
         getRefreshToken,
+        getProfil,
         isAuthenticated,
         login,
         logout,

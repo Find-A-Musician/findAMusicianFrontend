@@ -21,10 +21,23 @@ export default function Login(): JSX.Element {
     }
   }
 
+  useEffect(() => {
+    async function genres() {
+      const { data } = await authAxios('/genres');
+      console.log(data);
+    }
+
+    if (auth?.isAuthenticated()) {
+      genres();
+    }
+  }, [auth?.isAuthenticated()]);
+
   return (
     <>
       {auth?.loadingProfil ? <p>loading profil ...</p> : null}
-      {!auth?.loadingProfil && !auth?.isAuthenticated() ? (
+      {!auth?.loadingProfil &&
+      !auth?.isAuthenticated() &&
+      !auth?.authState.profil ? (
         <div>
           <p>romain.guar01@gmail.com</p>
           <p>romain123</p>
@@ -60,7 +73,8 @@ export default function Login(): JSX.Element {
 
           <button
             onClick={() => {
-              auth?.logout();
+              // auth?.logout();
+              auth.logout();
             }}
           >
             Logout

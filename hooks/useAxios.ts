@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import { useContext } from 'react';
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosInstance } from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { apiUrl } from '../config/Url';
@@ -18,6 +18,7 @@ export default function useAxios() {
     (config) => {
       if (config.headers && !config.headers.Authorization) {
         console.log('PUT THE HEADER DUDE ');
+        console.log(authContext);
         config.headers.Authorization = `Bearer ${authContext?.getAccessToken()}`;
       } else {
         console.log('WHAT IS THE FUCK');
