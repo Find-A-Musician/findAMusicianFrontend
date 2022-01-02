@@ -12,12 +12,12 @@ type Genres = {
   name: string;
 }[];
 
-type Token = {
+export type Token = {
   accessToken: string;
   refreshToken: string;
 };
 
-type Profil = {
+export type Profil = {
   id?: string;
   email: string;
   givenName?: string;
@@ -47,9 +47,25 @@ type AuthContextType = {
   getProfil: () => Profil;
   isAuthenticated: () => boolean;
   loadingProfil: boolean;
-} | null;
+};
 
-const AuthContext = createContext<AuthContextType>(null);
+const AuthContext = createContext<AuthContextType>({
+  authState: {} as AuthStateType,
+  setAuthState: {} as React.Dispatch<React.SetStateAction<AuthStateType>>,
+  getAccessToken: () => {
+    return '';
+  },
+  getRefreshToken: () => {
+    return '';
+  },
+  getProfil: () => {
+    return {} as Profil;
+  },
+  isAuthenticated: () => {
+    return false;
+  },
+  loadingProfil: true,
+});
 
 const { Provider } = AuthContext;
 
@@ -143,7 +159,7 @@ function useAuth() {
   return useContext(AuthContext);
 }
 
-function setCookie(key: 'accessToken' | 'refreshToken', value: String) {
+export function setCookie(key: 'accessToken' | 'refreshToken', value: String) {
   const options: {
     secure: boolean;
     sameSite: 'strict' | 'Strict' | 'lax' | 'Lax' | 'none' | 'None' | undefined;

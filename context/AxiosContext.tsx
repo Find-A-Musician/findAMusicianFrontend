@@ -8,9 +8,12 @@ import createAuthRefreshInterceptor from 'axios-auth-refresh';
 type AxiosContextType = {
   publicAxios: AxiosInstance;
   authAxios: AxiosInstance;
-} | null;
+};
 
-const AxiosContext = createContext<AxiosContextType>(null);
+const AxiosContext = createContext<AxiosContextType>({
+  authAxios: axios.create(),
+  publicAxios: axios.create(),
+});
 
 const { Provider } = AxiosContext;
 
@@ -93,4 +96,8 @@ function AxiosProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export { AxiosContext, AxiosProvider };
+function useAxios() {
+  return useContext(AxiosContext);
+}
+
+export { AxiosContext, AxiosProvider, useAxios };
