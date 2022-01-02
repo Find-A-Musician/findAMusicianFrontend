@@ -1,9 +1,20 @@
-import { useContext } from 'react';
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosInstance } from 'axios';
-import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
+import React, { createContext, useContext } from 'react';
 import { apiUrl } from '../config/Url';
+import { AuthContext } from './AuthContext';
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import createAuthRefreshInterceptor from 'axios-auth-refresh';
 
-export default function useAxios() {
+type AxiosContextType = {
+  publicAxios: AxiosInstance;
+  authAxios: AxiosInstance;
+} | null;
+
+const AxiosContext = createContext<AxiosContextType>(null);
+
+const { Provider } = AxiosContext;
+
+function AxiosProvider({ children }: { children: React.ReactNode }) {
   const authContext = useContext(AuthContext);
 
   const authAxios = axios.create({
@@ -17,11 +28,7 @@ export default function useAxios() {
   authAxios.interceptors.request.use(
     (config) => {
       if (config.headers && !config.headers.Authorization) {
-        console.log('PUT THE HEADER DUDE ');
-        console.log(authContext);
         config.headers.Authorization = `Bearer ${authContext?.getAccessToken()}`;
-      } else {
-        console.log('WHAT IS THE FUCK');
       }
 
       return config;
@@ -70,5 +77,20 @@ export default function useAxios() {
       });
   }
 
-  return { publicAxios, authAxios, refreshAuthLogic };
+  createAuthRefreshInterceptor(authAxios, refreshAuthLogic, {
+    statusCodes: [403],
+  });
+
+  return (
+    <Provider
+      value={{
+        authAxios,
+        publicAxios,
+      }}
+    >
+      {children}
+    </Provider>
+  );
 }
+
+export { AxiosContext, AxiosProvider };
