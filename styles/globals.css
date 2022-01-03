@@ -1,16 +1,21 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+:root {
+  --main-gradient: linear-gradient(
+    90deg,
+    #ce0412 0%,
+    #af1026 26.04%,
+    #58335e 100%
+  );
+  --red: #af1026;
+  --purple: #58335e;
+  --error: #e53935;
+  --success: #388e3c;
+  --blue: #26c6da;
+  --yellow: #c0ca33;
+  --pink: #d81b60;
+  --orange: #fb8c00;
 }
 
 * {
   box-sizing: border-box;
+  font-family: 'Asap', sans-serif;
 }
