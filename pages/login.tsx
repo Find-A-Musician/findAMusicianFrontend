@@ -43,7 +43,7 @@ export default function Login(): JSX.Element {
       if (router.query.redirectTo) {
         router.push(router.query.redirectTo as string);
       } else {
-        router.push('/dashboard');
+        router.push('/musician');
       }
     } catch (err) {
       setError(JSON.stringify(err));

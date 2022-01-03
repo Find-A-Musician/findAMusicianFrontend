@@ -22,7 +22,7 @@ export default function RouteGuard({
 
   function checkAuth(path: string) {
     if (isAuthenticated() && PublicRoute.includes(path)) {
-      router.push('/dashboard');
+      router.push('/musician');
     } else if (
       !isAuthenticated() &&
       !loadingProfil &&

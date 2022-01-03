@@ -1,4 +1,4 @@
-function findUrl() {
+function findApiUrl() {
   switch (process.env.NODE_ENV) {
     case 'development':
       return 'http://localhost:8000';
@@ -7,6 +7,6 @@ function findUrl() {
   }
 }
 
-const apiUrl = findUrl();
+const apiUrl = findApiUrl();
 
 export { apiUrl };

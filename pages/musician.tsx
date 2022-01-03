@@ -3,7 +3,7 @@ import { useAxios } from '../context/AxiosContext';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 
-export default function Dashboard(): JSX.Element {
+export default function Musician(): JSX.Element {
   const { getProfil, setAuthState } = useAuth();
   const { authAxios } = useAxios();
   const router = useRouter();
