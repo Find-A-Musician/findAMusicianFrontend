@@ -1,18 +1,14 @@
 import Button from './button';
 import { Meta, Story } from '@storybook/react';
+import { ComponentProps } from 'react';
 
 export default {
-  title: 'Button',
+  title: 'Form/Button',
   component: Button,
   argTypes: {
     label: {
       type: 'string',
       defaultValue: 'Click Me',
-    },
-    layout: {
-      control: { type: 'select' },
-      options: ['filled', 'bordered'],
-      defaultValue: 'filled',
     },
     bold: {
       type: 'boolean',
@@ -28,4 +24,10 @@ export default {
   },
 } as Meta;
 
-export { Button };
+export const Filled = (props: ComponentProps<typeof Button>) => (
+  <Button {...props} layout="filled" />
+);
+
+export const Bordered = (props: ComponentProps<typeof Button>) => (
+  <Button {...props} layout="bordered" />
+);

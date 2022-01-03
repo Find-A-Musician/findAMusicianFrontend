@@ -69,7 +69,8 @@ export default function Login(): JSX.Element {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button layout="filled" label="Se connecter" />
+            <Button label="Se connecter" layout="bordered" isLarge bold />
+            <Button label="Se connecter" layout="filled" isLarge bold />
             {error && <p>{error}</p>}
           </form>
         </div>
