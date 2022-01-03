@@ -40,7 +40,11 @@ export default function Login(): JSX.Element {
       setCookie('accessToken', accessToken);
       setCookie('refreshToken', refreshToken);
 
-      router.push('/dashboard');
+      if (router.query.redirectTo) {
+        router.push(router.query.redirectTo as string);
+      } else {
+        router.push('/dashboard');
+      }
     } catch (err) {
       setError(JSON.stringify(err));
     }
