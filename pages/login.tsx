@@ -2,18 +2,21 @@ import { FormEvent, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useAxios } from '../context/AxiosContext';
 import { Profil, Token, setCookie } from '../context/AuthContext';
-import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
+
 export default function Login(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const auth = useAuth();
   const axios = useAxios();
+  const router = useRouter();
 
   async function Login(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const {
         data: {
@@ -36,36 +39,17 @@ export default function Login(): JSX.Element {
       // set the cookie
       setCookie('accessToken', accessToken);
       setCookie('refreshToken', refreshToken);
+
+      router.push('/dashboard');
     } catch (err) {
       setError(JSON.stringify(err));
     }
-  }
-
-  async function Logout() {
-    try {
-      await axios.authAxios.delete('/logout');
-
-      Cookies.remove('accessToken');
-      Cookies.remove('refreshToken');
-
-      auth.setAuthState({
-        accessToken: '',
-        refreshToken: '',
-        profil: null,
-        authenticated: false,
-      });
-    } catch (err) {
-      console.log('logout error', JSON.stringify(err));
-    }
-  }
-
-  if (auth.loadingProfil) {
-    return <p>Loading profil ...</p>;
+    setLoading(false);
   }
 
   return (
     <>
-      {!auth.isAuthenticated() ? (
+      {!loading ? (
         <div>
           <p>romain.guar01@gmail.com</p>
           <p>romain123</p>
@@ -86,27 +70,7 @@ export default function Login(): JSX.Element {
         </div>
       ) : (
         <div>
-          <div>
-            <h1>
-              {auth.authState.profil?.givenName}{' '}
-              {auth.authState.profil?.familyName}
-            </h1>
-            <div>
-              {' '}
-              {auth.authState.profil?.genres?.map(({ id, name }) => (
-                <p key={id}> play {name}</p>
-              ))}
-            </div>
-          </div>
-
-          <button
-            onClick={() => {
-              // auth?.logout();
-              Logout();
-            }}
-          >
-            Logout
-          </button>
+          <p> Authentification en cours ... </p>
         </div>
       )}
     </>

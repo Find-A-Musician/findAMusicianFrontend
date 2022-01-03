@@ -2,11 +2,14 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { AuthProvider } from '../context/AuthContext';
 import { AxiosProvider } from '../context/AxiosContext';
+import RouteGuard from './routeGuard';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <AxiosProvider>
-        <Component {...pageProps} />
+        <RouteGuard>
+          <Component {...pageProps} />
+        </RouteGuard>
       </AxiosProvider>
     </AuthProvider>
   );

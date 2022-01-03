@@ -18,18 +18,18 @@ export type Token = {
 };
 
 export type Profil = {
-  id?: string;
+  id: string;
   email: string;
-  givenName?: string;
-  familyName?: string;
+  givenName: string;
+  familyName: string;
   phone?: string | null;
   facebook_url?: string | null;
   twitter_url?: string | null;
   instagram_url?: string | null;
-  promotion?: 'L1' | 'L2' | 'L3' | 'M1' | 'M2';
-  location?: 'Douai' | 'Lille';
-  instruments?: Instruments;
-  genres?: Genres;
+  promotion: 'L1' | 'L2' | 'L3' | 'M1' | 'M2';
+  location: 'Douai' | 'Lille';
+  instruments: Instruments;
+  genres: Genres;
 } | null;
 
 type AuthStateType = {
@@ -82,7 +82,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     async function loadUserProfilFromCookie() {
       const refreshToken = Cookies.get('refreshToken');
-      if (refreshToken && authState) {
+      if (refreshToken) {
         try {
           const {
             data: { accessToken },
