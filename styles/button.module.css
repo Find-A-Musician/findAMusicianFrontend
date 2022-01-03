@@ -1,0 +1,29 @@
+.container {
+  padding: 0.8rem 1rem;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition: all ease 200ms;
+}
+
+.container:hover {
+  transform: scale(1.005);
+}
+
+.filled {
+  color: white;
+  background: var(--main-gradient);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.large {
+  min-width: 12rem;
+}
+
+.button span {
+  transform: rotate(50deg);
+}

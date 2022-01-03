@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { useAxios } from '../context/AxiosContext';
 import { Profil, Token, setCookie } from '../context/AuthContext';
 import { useRouter } from 'next/router';
+import Button from '../components/button';
 
 export default function Login(): JSX.Element {
   const [email, setEmail] = useState('');
@@ -68,7 +69,7 @@ export default function Login(): JSX.Element {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button type="submit">Envoyer</button>
+            <Button layout="filled" label="Se connecter" />
             {error && <p>{error}</p>}
           </form>
         </div>

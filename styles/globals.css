@@ -1,10 +1,11 @@
 :root {
   --main-gradient: linear-gradient(
     90deg,
-    #ce0412 0%,
-    #af1026 26.04%,
-    #58335e 100%
+    rgba(206, 4, 18, 1) 0%,
+    rgba(175, 16, 38, 1) 26.04%,
+    rgba(88, 51, 94, 1) 100%
   );
+
   --red: #af1026;
   --purple: #58335e;
   --error: #e53935;
