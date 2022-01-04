@@ -61,7 +61,7 @@ export default function Login(): JSX.Element {
           <p>romain123</p>
           <form
             onSubmit={(e) => Login(e)}
-            className="flex flex-col items-center"
+            className="flex flex-col items-center mx-auto h-72 justify-around"
           >
             <TextInput
               type="email"
