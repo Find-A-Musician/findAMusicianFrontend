@@ -24,7 +24,7 @@ export default function Button({
         {...props}
         className={`text-white ${
           bold ? 'font-bold' : ''
-        } bg-gradient-to-r from-red-gradient via-middle-gradient to-purple-gradient rounded-3xl ${
+        } bg-gradient-to-r from-red-600 via-red-800 to-purple-1000 rounded-3xl ${
           isLarge ? 'py-2 px-14' : 'px-4 py-2'
         } rounded-3xl `}
       >
@@ -39,7 +39,7 @@ export default function Button({
         {...props}
         className={`text-black ${
           bold ? 'font-bold' : ''
-        } bg-gradient-to-r from-red-gradient via-middle-gradient to-purple-gradient rounded-3xl relative flex items-center justify-center  py-1 px-1`}
+        } bg-gradient-to-r from-red-600 via-red-800 to-purple-1000 rounded-3xl relative flex items-center justify-center  py-1 px-1`}
       >
         <span
           className={`bg-white rounded-3xl ${

@@ -59,20 +59,26 @@ export default function Login(): JSX.Element {
         <div>
           <p>romain.guar01@gmail.com</p>
           <p>romain123</p>
-          <form onSubmit={(e) => Login(e)}>
+          <form
+            onSubmit={(e) => Login(e)}
+            className="flex flex-col items-center"
+          >
             <TextInput
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              autoComplete="email"
             />
             <TextInput
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="password"
+              autoComplete="password"
             />
 
-            <Button label="Se connecter" layout="bordered" isLarge bold />
-            <Button label="Se connecter" layout="filled" isLarge bold />
+            <Button type="submit" label="Se connecter" bold />
             {error && <p>{error}</p>}
           </form>
         </div>
