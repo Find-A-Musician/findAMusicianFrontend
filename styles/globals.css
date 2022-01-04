@@ -14,6 +14,13 @@
   --yellow: #c0ca33;
   --pink: #d81b60;
   --orange: #fb8c00;
+
+  --box-shadow: 0px 0px 20px rgba(205, 205, 205, 0.75);
+
+  --small-border-radius: 1.1rem;
+  --big-border-radius: 1.3rem;
+
+  --border: 0.2rem;
 }
 
 * {

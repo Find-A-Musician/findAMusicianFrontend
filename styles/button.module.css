@@ -1,6 +1,6 @@
 .container {
   padding: 0.8rem 1rem;
-  border-radius: 1.3rem;
+  border-radius: var(--big-border-radius);
   cursor: pointer;
   text-align: center;
   transition: all ease 200ms;
@@ -21,8 +21,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 4px solid transparent;
-  border-radius: 1.3rem;
+  border: var(--border) solid transparent;
+  border-radius: var(--big-border-radius);
   background-clip: padding-box;
 }
 .bordered::after {
@@ -34,11 +34,11 @@
   background: var(--main-gradient);
   content: '';
   z-index: -1;
-  border-radius: 1.3rem;
+  border-radius: var(--big-border-radius);
 }
 
 .bold {
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 .large {
