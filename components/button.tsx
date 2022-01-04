@@ -1,4 +1,3 @@
-import style from '../styles/button.module.css';
 import type { ButtonHTMLAttributes } from 'react';
 
 type ButtonProps = {
@@ -20,9 +19,9 @@ export default function Button({
   Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'>): JSX.Element {
   return (
     <button
-      className={`${style.container} ${
-        layout === 'filled' ? style.filled : style.bordered
-      } ${bold ? style.bold : ''} ${isLarge ? style.large : ''}`}
+      className={`${bold ? 'font-bold' : ''} ${
+        layout === 'filled'
+      }  rounded-lg`}
       {...props}
     >
       {label}

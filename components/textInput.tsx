@@ -1,4 +1,3 @@
-import style from '../styles/textInput.module.css';
 import type { InputHTMLAttributes } from 'react';
 import { types } from '@storybook/addons';
 
@@ -21,7 +20,7 @@ export default function TextInput({
   ...props
 }: TextInputProps & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>) {
   return (
-    <div className={`${style.container}`}>
+    <div>
       <input type={type} {...props} />
     </div>
   );

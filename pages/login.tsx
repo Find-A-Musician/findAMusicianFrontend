@@ -4,6 +4,7 @@ import { useAxios } from '../context/AxiosContext';
 import { Profil, Token, setCookie } from '../context/AuthContext';
 import { useRouter } from 'next/router';
 import Button from '../components/button';
+import TextInput from '../components/textInput';
 
 export default function Login(): JSX.Element {
   const [email, setEmail] = useState('');
@@ -59,16 +60,17 @@ export default function Login(): JSX.Element {
           <p>romain.guar01@gmail.com</p>
           <p>romain123</p>
           <form onSubmit={(e) => Login(e)}>
-            <input
+            <TextInput
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <input
+            <TextInput
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+
             <Button label="Se connecter" layout="bordered" isLarge bold />
             <Button label="Se connecter" layout="filled" isLarge bold />
             {error && <p>{error}</p>}

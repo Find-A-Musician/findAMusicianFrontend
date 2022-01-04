@@ -2,33 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --main-gradient: linear-gradient(
-    90deg,
-    rgba(206, 4, 18, 1) 0%,
-    rgba(175, 16, 38, 1) 26.04%,
-    rgba(88, 51, 94, 1) 100%
-  );
-
-  --red: #af1026;
-  --purple: #58335e;
-  --error: #e53935;
-  --success: #388e3c;
-  --blue: #26c6da;
-  --yellow: #c0ca33;
-  --pink: #d81b60;
-  --orange: #fb8c00;
-
-  --box-shadow: 0px 0px 20px rgba(205, 205, 205, 0.75);
-
-  --small-border-radius: 1.1rem;
-  --big-border-radius: 1.3rem;
-
-  --border: 0.2rem;
-}
-
 * {
   box-sizing: border-box;
   font-family: 'Asap', sans-serif;
-  font-size: 1rem;
 }

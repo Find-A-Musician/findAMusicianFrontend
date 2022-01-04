@@ -11,22 +11,9 @@ module.exports = {
   webpackFinal: async (config) => {
     config.module.rules.push({
       test: /\.scss$/,
-      use: [
-        'style-loader',
-        {
-          loader: 'css-loader',
-          options: {
-            modules: {
-              auto: true,
-            },
-          },
-        },
-      ],
-      include: path.resolve(__dirname, '../'),
+      use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
     });
+
     return config;
-  },
-  core: {
-    builder: 'webpack5',
   },
 };

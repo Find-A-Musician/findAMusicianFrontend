@@ -15,7 +15,11 @@ module.exports = {
       pink: '#d81b60',
       orange: '#fb8c00',
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        asap: ['Asap', 'sans-serif'],
+      },
+    },
   },
-  plugins: [],
+  postcssOptions: {},
 };
