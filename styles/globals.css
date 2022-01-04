@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --main-gradient: linear-gradient(
     90deg,
@@ -26,4 +30,5 @@
 * {
   box-sizing: border-box;
   font-family: 'Asap', sans-serif;
+  font-size: 1rem;
 }
