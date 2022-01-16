@@ -1,34 +1,9 @@
 import { useAuth } from '../context/AuthContext';
-import { useAxios } from '../context/AxiosContext';
-import { useRouter } from 'next/router';
-import Cookies from 'js-cookie';
 
 export default function Musician(): JSX.Element {
-  const { getProfil, setAuthState } = useAuth();
-  const { authAxios } = useAxios();
-  const router = useRouter();
+  const { getProfil } = useAuth();
 
   const profil = getProfil();
-
-  async function Logout() {
-    try {
-      await authAxios.delete('/logout');
-
-      Cookies.remove('accessToken');
-      Cookies.remove('refreshToken');
-
-      setAuthState({
-        accessToken: '',
-        refreshToken: '',
-        profil: null,
-        authenticated: false,
-      });
-
-      router.push('/login');
-    } catch (err) {
-      console.log('logout error', JSON.stringify(err));
-    }
-  }
 
   return (
     <div>
@@ -48,7 +23,6 @@ export default function Musician(): JSX.Element {
       <p>
         Vous êtes en {profil?.promotion} à {profil?.location}{' '}
       </p>
-      <button onClick={() => Logout()}>Logout</button>
     </div>
   );
 }

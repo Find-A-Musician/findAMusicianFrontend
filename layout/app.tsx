@@ -1,18 +1,48 @@
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
+import { faDoorOpen, faCog } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../context/AuthContext';
-import React from 'react';
+import React, { useState } from 'react';
+import useOnClickOutside from '../hooks/useOnClickOutside';
+import { useAxios } from '../context/AxiosContext';
+import Cookies from 'js-cookie';
 
 export default function AppLayout({
   children,
 }: {
   children: React.ReactNode;
 }): JSX.Element {
-  const { pathname } = useRouter();
-  const { getProfil } = useAuth();
+  const { pathname, push } = useRouter();
+  const { getProfil, setAuthState, isAuthenticated } = useAuth();
+  const { authAxios } = useAxios();
+  const [settingModal, setSettingModal] = useState(false);
+
+  const settingModalRef = useOnClickOutside(() => {
+    setSettingModal(false);
+  });
+
   const profil = getProfil();
-  const { isAuthenticated } = useAuth();
+
+  async function Logout() {
+    try {
+      await authAxios.delete('/logout');
+
+      Cookies.remove('accessToken');
+      Cookies.remove('refreshToken');
+
+      setAuthState({
+        accessToken: '',
+        refreshToken: '',
+        profil: null,
+        authenticated: false,
+      });
+
+      push('/login');
+    } catch (err) {
+      console.log('logout error', JSON.stringify(err));
+    }
+  }
 
   return (
     <div className="min-h-screen w-full flex flex-col py-2">
@@ -58,9 +88,41 @@ export default function AppLayout({
                 <span>99</span>
               </div>
             </div>
-            <div className="flex items-center mx-2">
+            <div
+              className="flex items-center mx-2 cursor-pointer relative"
+              onClick={() => {
+                setSettingModal(!settingModal);
+              }}
+              ref={settingModalRef}
+            >
               <div className="rounded-full w-7 h-7 bg-red-800 mx-2"></div>
-              <p>Romain Guarinoni</p>
+              <p>
+                {' '}
+                {profil?.givenName} {profil?.familyName}
+              </p>
+              {settingModal && (
+                <div className="absolute top-10 shadow-xl border-2 rounded-sm right-0">
+                  <ul className="text-gray-700">
+                    <li className="flex items-center py-3 px-2 transition-all hover:bg-red-100 hover:text-black ">
+                      <span className="mx-2">
+                        <FontAwesomeIcon icon={faCog} />
+                      </span>{' '}
+                      Paramètres
+                    </li>
+                    <li
+                      onClick={() => {
+                        Logout();
+                      }}
+                      className="flex items-center py-3 px-2 transition-all hover:bg-red-100 hover:text-black"
+                    >
+                      <span className="mx-2">
+                        <FontAwesomeIcon icon={faDoorOpen} />
+                      </span>{' '}
+                      Se déconnecter{' '}
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -87,4 +149,3 @@ function isLinkSelected(pathName: string, link: string): string {
     return '';
   }
 }
-//font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-800 to-purple-1000
