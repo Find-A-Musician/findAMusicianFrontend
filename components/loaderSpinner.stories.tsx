@@ -8,6 +8,7 @@ export default {
     size: {
       options: SPINNER_SIZE,
       control: { type: 'select' },
+      defaultValue: 'sm',
     },
   },
 } as Meta;
