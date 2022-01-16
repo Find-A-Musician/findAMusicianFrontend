@@ -1,11 +1,12 @@
 const path = require('path');
 
 module.exports = {
-  stories: ['../components/*.stories.tsx'],
+  stories: ['../components/*.stories.tsx', '../layout/*.stories.tsx'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-actions',
+    'storybook-addon-next-router',
   ],
   typescript: { reactDocgen: false },
   webpackFinal: async (config) => {
