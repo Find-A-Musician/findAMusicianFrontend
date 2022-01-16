@@ -1,15 +1,26 @@
 import StatsInfo from './statsInfo';
 import { Meta } from '@storybook/react';
+import { ComponentProps } from 'react';
 
 export default {
   title: 'Miscellaneous/StatsInfo',
   component: StatsInfo,
+  argTypes: {
+    number: {
+      type: 'number',
+      defaultValue: 999,
+    },
+    label: {
+      type: 'string',
+      defaultValue: 'musiciens inscrits',
+    },
+  },
 } as Meta;
 
-export const withNumber = () => {
-  return <StatsInfo label="musiciens inscrits" number={999} />;
+export const withNumber = (props: ComponentProps<typeof StatsInfo>) => {
+  return <StatsInfo {...props} />;
 };
 
-export const loading = () => {
-  return <StatsInfo label="musiciens inscrits" number={null} />;
+export const loading = (props: ComponentProps<typeof StatsInfo>) => {
+  return <StatsInfo {...props} number={null} />;
 };
