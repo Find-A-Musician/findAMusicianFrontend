@@ -52,15 +52,3 @@ export default function Button({
     );
   }
 }
-
-/* <button */
-// className={`relative ${bold ? 'font-bold' : ''} ${
-// layout === 'filled'
-// ? 'bg-gradient-to-r from-red-gradient via-middle-gradient to-purple-gradient text-white '
-// : 'bg-white text-black before:bg-gradient-to-r from-red-gradient via-middle-gradient to-purple-gradient before:absolute before:top-[-5px] before:left-[-5px] before:right-[-5px] before:bottom-[-5px] before:-z-10 before:rounded-3xl'
-// } ${isLarge ? 'py-2 px-14' : 'px-4 py-2'} rounded-3xl `}
-// {...props}
-/* > */
-/* {} */
-/* {label} */
-/* </button> */

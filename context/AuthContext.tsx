@@ -32,7 +32,7 @@ export type Profil = {
   genres: Genres;
 } | null;
 
-type AuthStateType = {
+export type AuthStateType = {
   accessToken: string;
   refreshToken: string;
   authenticated: boolean;
