@@ -47,7 +47,10 @@ export default function AppLayout({
   return (
     <div className="min-h-screen w-full flex flex-col py-2">
       <div className="flex w-full items-center justify-between px-5">
-        <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-800 to-purple-1000  ">
+        <h2
+          className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-800 to-purple-1000 cursor-pointer"
+          onClick={() => push('/musician')}
+        >
           Find a musician
         </h2>
 
@@ -58,6 +61,7 @@ export default function AppLayout({
                 pathname,
                 'musician',
               )}`}
+              onClick={() => push('/musician')}
             >
               musiciens
             </li>
@@ -66,6 +70,7 @@ export default function AppLayout({
                 pathname,
                 'groups',
               )}`}
+              onClick={() => push('/groups')}
             >
               groupes
             </li>
@@ -74,6 +79,7 @@ export default function AppLayout({
                 pathname,
                 'events',
               )}`}
+              onClick={() => push('/events')}
             >
               évènements
             </li>
@@ -131,9 +137,9 @@ export default function AppLayout({
       <div className="w-full flex justify-center">
         <div className="flex items-center text-gray-500">
           <p className="mx-1 cursor-pointer">Nous contacter</p>
-          <p className="mx-1 cursor-pointer">|</p>
+          <p className="mx-1">|</p>
           <p className="mx-1 cursor-pointer">Aide & services</p>
-          <p className="mx-1 cursor-pointer">|</p>
+          <p className="mx-1 ">|</p>
           <p className="mx-1 cursor-pointer">FAQ</p>
         </div>
       </div>
