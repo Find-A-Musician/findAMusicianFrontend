@@ -62,7 +62,7 @@ export default function LoginModal({
   return (
     <form
       onSubmit={Login}
-      className="flex flex-col items-center justify-around py-3 w-full max-w-sm rounded-2xl h-96 bg-white"
+      className="flex flex-col items-center justify-around py-3 sm:w-96 w-80 rounded-2xl h-96 bg-white"
     >
       <h2 className="text-red-800 font-black text-xl">Connecte toi !</h2>
       {error && <p className="text-red-600">Email ou mot de passe incorrect</p>}
