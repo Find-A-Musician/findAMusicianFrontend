@@ -27,6 +27,9 @@ module.exports = {
       animation: {
         'enter-right': 'enter-right 300ms ease-in-out',
       },
+      grayscale: {
+        50: '50%',
+      },
     },
   },
   postcssOptions: {},

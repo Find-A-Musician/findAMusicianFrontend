@@ -1,92 +1,62 @@
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useAxios } from '../context/AxiosContext';
-import { Profil, Token, setCookie } from '../context/AuthContext';
 import { useRouter } from 'next/router';
+import login_illustration from '../assets/login_illustration.svg';
+import Image from 'next/image';
 import Button from '../components/button';
-import TextInput from '../components/textInput';
+import StatsInfo from '../components/statsInfo';
+import LoginModal from '../components/loginModal';
+import PopUp from '../components/popUp';
 
 export default function Login(): JSX.Element {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const auth = useAuth();
-  const axios = useAxios();
-  const router = useRouter();
-
-  async function Login(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const {
-        data: {
-          token: { accessToken, refreshToken },
-          musician,
-        },
-      } = await axios?.publicAxios.post<{
-        musician: Profil;
-        token: Token;
-      }>('/login', { email, password });
-
-      // Set the auth context
-      auth.setAuthState({
-        accessToken,
-        refreshToken,
-        profil: musician,
-        authenticated: true,
-      });
-
-      // set the cookie
-      setCookie('accessToken', accessToken);
-      setCookie('refreshToken', refreshToken);
-
-      if (router.query.redirectTo) {
-        router.push(router.query.redirectTo as string);
-      } else {
-        router.push('/musician');
-      }
-    } catch (err) {
-      setError(JSON.stringify(err));
-    }
-    setLoading(false);
-  }
+  const [logginModal, setLogginModal] = useState(false);
 
   return (
-    <>
-      {!loading ? (
-        <div>
-          <p>romain.guar01@gmail.com</p>
-          <p>romain123</p>
-          <form
-            onSubmit={(e) => Login(e)}
-            className="flex flex-col items-center mx-auto h-72 justify-around"
-          >
-            <TextInput
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              autoComplete="email"
+    <div>
+      <div className="w-full h-96 my-28 flex justify-around items-center ">
+        <div className="h-60 max-w-xl w-full flex flex-col justify-between items-start ">
+          <h2 className="text-3xl">
+            Rejoins la communauté de musiciens de <br />
+            <strong className="text-red-700 font-bold">
+              l’IMT Lille Douai
+            </strong>
+          </h2>
+          <p className="text-xl">
+            Trouve des musiciens qui jouent les même styles de musiques que toi,
+            contacte-les, créez des groupes et participent aux évènements de
+            l’école.
+          </p>
+          <div className="flex w-full items-center justify-between">
+            <Button label="S'inscrire" layout="filled" bold isLarge />
+            <Button
+              label="Se connecter"
+              layout="bordered"
+              bold
+              isLarge
+              onClick={() => setLogginModal(true)}
             />
-            <TextInput
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="password"
-              autoComplete="password"
-            />
-
-            <Button type="submit" label="Se connecter" bold />
-            {error && <p>{error}</p>}
-          </form>
+          </div>
         </div>
-      ) : (
-        <div>
-          <p> Authentification en cours ... </p>
-        </div>
+        <Image
+          src={login_illustration}
+          alt="Musiciens illustrations"
+          layout="fixed"
+          width={1000}
+          height={500}
+        />
+      </div>
+      <div className="flex w-full items-center justify-around my-36">
+        <StatsInfo label="musiciens inscrits" number={999} />
+        <StatsInfo label="groupes" number={999} />
+        <StatsInfo label="évènements en cours" number={999} />
+      </div>
+      {logginModal && (
+        <PopUp close={() => setLogginModal(false)}>
+          {' '}
+          <LoginModal onForgetPassword={() => {}} />{' '}
+        </PopUp>
       )}
-    </>
+    </div>
   );
 }

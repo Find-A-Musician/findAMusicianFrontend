@@ -29,10 +29,10 @@ export default function AppLayout({
   const profil = getProfil();
 
   return (
-    <div className="min-h-screen w-full flex flex-col py-2">
+    <div className="min-h-screen w-full flex flex-col py-2 px-5">
       {hambergerMenu && <HambergerMenu close={() => setHambergerMenu(false)} />}
 
-      <div className="flex w-full items-center justify-between px-5">
+      <div className="flex w-full items-center justify-between">
         <h2
           className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-800 to-purple-1000 cursor-pointer"
           onClick={() => {
@@ -148,7 +148,7 @@ export default function AppLayout({
 function isLinkSelected(pathName: string, link: string): string {
   const path = pathName.split('/')[1];
   if (path === link) {
-    return 'text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-800 to-purple-1000';
+    return `text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-800 to-purple-1000`;
   } else {
     return '';
   }
