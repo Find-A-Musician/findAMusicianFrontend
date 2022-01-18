@@ -33,8 +33,8 @@ export default function Login(): JSX.Element {
             </strong>
           </h2>
           <p className="text-xl md:text-left text-center">
-            Trouve des musiciens qui jouent les même styles de musiques que toi,
-            contacte-les, créez des groupes et participent aux évènements de
+            Trouve des musiciens qui jouent les mêmes styles de musiques que
+            toi, contacte-les, crées des groupes et participe aux évènements de
             l’école.
           </p>
           <div className="flex flex-wrap w-full items-center md:justify-between justify-center">
