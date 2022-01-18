@@ -9,16 +9,16 @@ export default function StatsInfo({
   number: number | null;
 }): JSX.Element {
   return (
-    <p className="flex flex-wrap justify-start items-center">
+    <div className="flex flex-wrap justify-start items-center">
       {number !== null && number !== undefined ? (
-        <span className="text-red-700 font-bold text-3xl mx-3">{number}</span>
+        <span className="text-red-700 font-bold text-4xl mx-3">{number}</span>
       ) : (
         <span className="mx-3">
           <LoaderSpinner size="sm" />
         </span>
       )}
 
-      <span className="text-black font-bold text-sm"> {label} </span>
-    </p>
+      <span className="text-black text-lg font-bold "> {label} </span>
+    </div>
   );
 }

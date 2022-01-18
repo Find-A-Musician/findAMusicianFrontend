@@ -8,9 +8,7 @@ export default function loaderSpinner({ size }: { size: Size }): JSX.Element {
       className={`${getSize(
         size,
       )} rounded-full border-4 border-gray-200 border-t-red-700 animate-spin`}
-    >
-      <div></div>
-    </div>
+    ></div>
   );
 }
 
