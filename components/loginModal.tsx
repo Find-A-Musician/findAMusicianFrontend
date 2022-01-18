@@ -66,26 +66,20 @@ export default function LoginModal({
     >
       <h2 className="text-red-800 font-black text-xl">Connecte toi !</h2>
       {error && <p className="text-red-600">Email ou mot de passe incorrect</p>}
+      <TextInput
+        type="email"
+        id="emailInputLogin"
+        label="Email"
+        placeholder="Entrez votre email"
+        autoComplete="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
       <div className="flex flex-col items-start">
-        <label htmlFor="emailInputLogin" className="font-bold">
-          Email
-        </label>
-        <TextInput
-          type="email"
-          id="emailInputLogin"
-          placeholder="Entrez votre email"
-          autoComplete="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col items-start">
-        <label htmlFor="passwordInputLogin" className="font-bold">
-          Mot de passe
-        </label>
         <TextInput
           type="password"
           id="passwordInputLogin"
+          label="Mot de passe"
           placeholder="Entrez votre mot de passe"
           autoComplete="password"
           value={password}
