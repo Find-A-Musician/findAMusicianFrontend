@@ -22,23 +22,22 @@ export default function Login(): JSX.Element {
   const [logginModal, setLogginModal] = useState(false);
 
   const { data, error } = useSwr<StatsInfoType>('/info', publicAxios.get);
-  console.log(data);
   return (
     <div>
-      <div className="w-full h-96 my-40 flex justify-around items-center ">
+      <div className="w-full h-96 my-10 md:my-40 flex md:flex-col lg:flex-row justify-around items-center ">
         <div className="h-60 max-w-xl w-full flex flex-col justify-between items-start ">
-          <h2 className="text-3xl">
+          <h2 className="text-3xl md:text-left text-center">
             Rejoins la communauté de musiciens de <br />
             <strong className="text-red-700 font-bold">
               l’IMT Lille Douai
             </strong>
           </h2>
-          <p className="text-xl">
+          <p className="text-xl md:text-left text-center">
             Trouve des musiciens qui jouent les même styles de musiques que toi,
             contacte-les, créez des groupes et participent aux évènements de
             l’école.
           </p>
-          <div className="flex w-full items-center justify-between">
+          <div className="flex flex-wrap w-full items-center md:justify-between justify-center">
             <Button label="S'inscrire" layout="filled" bold isLarge />
             <Button
               label="Se connecter"
@@ -49,16 +48,18 @@ export default function Login(): JSX.Element {
             />
           </div>
         </div>
-        <Image
-          src={login_illustration}
-          alt="Musiciens illustrations"
-          layout="fixed"
-          width={1000}
-          height={500}
-          priority
-        />
+        <div className="hidden md:block lg:w-128 md:w-96 h-96 md:my-10 lg:my-0">
+          <Image
+            src={login_illustration}
+            alt="Musiciens illustrations"
+            layout="responsive"
+            // width={1000}
+            // height={500}
+            priority
+          />
+        </div>
       </div>
-      <div className="flex w-full items-center justify-around my-36">
+      <div className="flex flex-wrap w-full items-center justify-around mt-36">
         <StatsInfo
           label="musiciens inscrits"
           number={data?.data.nbMusician || null}

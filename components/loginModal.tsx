@@ -4,6 +4,7 @@ import { Profil, setCookie, Token, useAuth } from '../context/AuthContext';
 import { useAxios } from '../context/AxiosContext';
 import TextInput from './textInput';
 import Button from './button';
+import LoaderSpinner from './loaderSpinner';
 
 export default function LoginModal({
   onForgetPassword,
@@ -61,7 +62,7 @@ export default function LoginModal({
   return (
     <form
       onSubmit={Login}
-      className="flex flex-col items-center justify-around py-3 w-96 rounded-2xl h-96 bg-white"
+      className="flex flex-col items-center justify-around py-3 w-full max-w-sm rounded-2xl h-96 bg-white"
     >
       <h2 className="text-red-800 font-black text-xl">Connecte toi !</h2>
       {error && <p className="text-red-600">Email ou mot de passe incorrect</p>}
@@ -98,7 +99,11 @@ export default function LoginModal({
         </p>
       </div>
 
-      <Button isLarge type="submit" label="Connexion" bold />
+      {loading ? (
+        <LoaderSpinner size="sm" />
+      ) : (
+        <Button isLarge type="submit" label="Connexion" bold />
+      )}
     </form>
   );
 }

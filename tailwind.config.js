@@ -30,6 +30,9 @@ module.exports = {
       grayscale: {
         50: '50%',
       },
+      width: {
+        128: '32rem',
+      },
     },
   },
   postcssOptions: {},
