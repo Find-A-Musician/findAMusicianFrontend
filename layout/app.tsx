@@ -85,7 +85,7 @@ export default function AppLayout({
               </div>
             </div>
             <div
-              className="md:flex hidden items-center mx-2 cursor-pointer relative"
+              className="md:flex hidden items-center min-w-[180px] mx-2 cursor-pointer relative"
               onClick={() => {
                 setSettingModal(!settingModal);
               }}
