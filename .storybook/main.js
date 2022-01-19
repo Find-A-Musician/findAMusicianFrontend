@@ -7,6 +7,7 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-actions',
     'storybook-addon-next-router',
+    '@storybook/addon-controls',
   ],
   typescript: { reactDocgen: false },
   webpackFinal: async (config) => {
@@ -17,4 +18,5 @@ module.exports = {
 
     return config;
   },
+  staticDirs: ['../public'],
 };
