@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { Genres, Instruments } from '../index';
+import { Genres, Instruments } from '../types/api';
 
 type MusicianBoxProps = {
   name: string;

@@ -1,6 +1,6 @@
 import Instruments from './instrument';
 import { Meta } from '@storybook/react';
-import { INSTRUMENTS_NAME_LIST } from '../index';
+import { INSTRUMENTS_NAME_LIST } from '../types/api';
 
 export default {
   title: 'Musician/Instruments',

@@ -2,7 +2,7 @@ import React, { useState, createContext, useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { apiUrl } from '../config/Url';
-import { Profil } from '../index';
+import { Profil } from '../types/api';
 
 export type AuthStateType = {
   accessToken: string;

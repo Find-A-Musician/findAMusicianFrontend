@@ -2,7 +2,7 @@ import MusicianBox from './musicianBox';
 import MusicianBoxSqueleton from './musicianBoxSqueleton';
 import { Meta } from '@storybook/react';
 import { Component, ComponentProps } from 'react';
-import { GENRE_NAME_LIST, INSTRUMENTS_NAME_LIST } from '../index';
+import { GENRE_NAME_LIST, INSTRUMENTS_NAME_LIST } from '../types/api';
 
 const genresList = GENRE_NAME_LIST.map((item, index) => {
   return { id: `genre-${index}`, name: item };

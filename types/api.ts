@@ -1,6 +1,6 @@
 export const INSTRUMENTS_NAME_LIST = ['drums', 'guitar', 'piano'] as const;
 
-type INSTRUMENT_NAME = typeof INSTRUMENTS_NAME_LIST[number];
+export type INSTRUMENT_NAME = typeof INSTRUMENTS_NAME_LIST[number];
 
 export type Instruments = {
   id: string;

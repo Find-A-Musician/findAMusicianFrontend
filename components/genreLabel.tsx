@@ -1,4 +1,4 @@
-import { GENRE_NAME } from '../index';
+import { GENRE_NAME } from '../types/api';
 
 export default function GenreLabel({ genre }: { genre: GENRE_NAME }) {
   return (

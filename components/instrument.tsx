@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { INSTRUMENT_NAME } from '../index';
+import { INSTRUMENT_NAME } from '../types/api';
 
 export default function Instrument({
   instrument,

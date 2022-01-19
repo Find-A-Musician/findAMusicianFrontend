@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import { useAxios } from '../context/AxiosContext';
 import MusicianBoxSkeleton from '../components/musicianBoxSqueleton';
 import MusicianBox from '../components/musicianBox';
-import { Profil } from '../index';
+import { Profil } from '../types/api';
 
 export default function Musician(): JSX.Element {
   const { authAxios } = useAxios();
