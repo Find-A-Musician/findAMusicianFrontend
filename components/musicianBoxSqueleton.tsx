@@ -1,6 +1,6 @@
 export default function MusicianBoxSkeleton() {
   return (
-    <div className="h-40 w-96 shadow-complete rounded-lg flex">
+    <div className="h-40 w-96 shadow-complete rounded-lg flex  m-5">
       <div className="w-3/6 flex">
         <div className="m-auto bg-gray-300 animate-pulse rounded-full w-24 h-24"></div>
       </div>

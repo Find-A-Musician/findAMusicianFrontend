@@ -1,15 +1,15 @@
 import GenreLabel from './genreLabel';
 import { Meta } from '@storybook/react';
-import { GENRE_LABEL } from './genreLabel';
+import { GENRE_NAME_LIST } from '../index';
 
 export default {
   title: 'Musician/genreLabel',
   component: GenreLabel,
   argTypes: {
     genre: {
-      options: GENRE_LABEL,
+      options: GENRE_NAME_LIST,
       control: { type: 'select' },
-      defaultValue: 'Rock',
+      defaultValue: GENRE_NAME_LIST[0],
     },
   },
 } as Meta;

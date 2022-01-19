@@ -1,15 +1,16 @@
-import Instruments, { INSTRUMENTS } from './instrument';
+import Instruments from './instrument';
 import { Meta } from '@storybook/react';
+import { INSTRUMENTS_NAME_LIST } from '../index';
 
 export default {
   title: 'Musician/Instruments',
   component: Instruments,
   argTypes: {
     instrument: {
-      defaultValue: INSTRUMENTS[0],
+      defaultValue: INSTRUMENTS_NAME_LIST[0],
       control: {
         type: 'select',
-        options: INSTRUMENTS,
+        options: INSTRUMENTS_NAME_LIST,
       },
     },
   },

@@ -1,13 +1,10 @@
 import Image from 'next/image';
-
-export const INSTRUMENTS = ['drums', 'guitar', 'piano'] as const;
-
-type InstrumentsName = typeof INSTRUMENTS[number];
+import { INSTRUMENT_NAME } from '../index';
 
 export default function Instrument({
   instrument,
 }: {
-  instrument: InstrumentsName;
+  instrument: INSTRUMENT_NAME;
 }) {
   return (
     <div className="w-6 mr-4">

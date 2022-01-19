@@ -1,15 +1,14 @@
 import MusicianBox from './musicianBox';
 import MusicianBoxSqueleton from './musicianBoxSqueleton';
 import { Meta } from '@storybook/react';
-import { GENRE_LABEL } from './genreLabel';
 import { Component, ComponentProps } from 'react';
-import { INSTRUMENTS } from './instrument';
+import { GENRE_NAME_LIST, INSTRUMENTS_NAME_LIST } from '../index';
 
-const genresList = GENRE_LABEL.map((item, index) => {
+const genresList = GENRE_NAME_LIST.map((item, index) => {
   return { id: `genre-${index}`, name: item };
 });
 
-const instrumentsList = INSTRUMENTS.map((item, index) => {
+const instrumentsList = INSTRUMENTS_NAME_LIST.map((item, index) => {
   return { id: `instrument-${index}`, name: item };
 });
 

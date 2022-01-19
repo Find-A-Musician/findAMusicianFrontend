@@ -1,5 +1,5 @@
-import GenreLabel, { GENRE_LABEL } from './genreLabel';
-import Instrument, { INSTRUMENTS } from './instrument';
+import GenreLabel from './genreLabel';
+import Instrument from './instrument';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faFacebookSquare,
@@ -8,17 +8,12 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { Genres, Instruments } from '../index';
 
 type MusicianBoxProps = {
   name: string;
-  genres: {
-    id: string;
-    name: typeof GENRE_LABEL[number];
-  }[];
-  instruments: {
-    id: string;
-    name: typeof INSTRUMENTS[number];
-  }[];
+  genres: Genres;
+  instruments: Instruments;
   email: string;
   facebook_url: string | null;
   twitter_url: string | null;
@@ -35,7 +30,7 @@ export default function MusicianBox({
   twitter_url,
 }: MusicianBoxProps): JSX.Element {
   return (
-    <div className="h-40 w-96 shadow-complete rounded-lg flex relative">
+    <div className="h-40 w-96 shadow-complete rounded-lg flex relative m-5">
       <div className="w-3/6 flex">
         <div className="m-auto bg-black rounded-full w-24 h-24"></div>
       </div>

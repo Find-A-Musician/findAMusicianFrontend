@@ -2,41 +2,13 @@ import React, { useState, createContext, useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { apiUrl } from '../config/Url';
-type Instruments = {
-  id: string;
-  name: string;
-}[];
-
-type Genres = {
-  id: string;
-  name: string;
-}[];
-
-export type Token = {
-  accessToken: string;
-  refreshToken: string;
-};
-
-export type Profil = {
-  id: string;
-  email: string;
-  givenName: string;
-  familyName: string;
-  phone?: string | null;
-  facebook_url?: string | null;
-  twitter_url?: string | null;
-  instagram_url?: string | null;
-  promotion: 'L1' | 'L2' | 'L3' | 'M1' | 'M2';
-  location: 'Douai' | 'Lille';
-  instruments: Instruments;
-  genres: Genres;
-} | null;
+import { Profil } from '../index';
 
 export type AuthStateType = {
   accessToken: string;
   refreshToken: string;
   authenticated: boolean;
-  profil: Profil;
+  profil: Profil | null;
 };
 
 type AuthContextType = {
@@ -44,7 +16,7 @@ type AuthContextType = {
   setAuthState: React.Dispatch<React.SetStateAction<AuthStateType>>;
   getAccessToken: () => string;
   getRefreshToken: () => string;
-  getProfil: () => Profil;
+  getProfil: () => Profil | null;
   isAuthenticated: () => boolean;
   loadingProfil: boolean;
 };

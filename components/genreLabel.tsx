@@ -1,15 +1,6 @@
-export const GENRE_LABEL = [
-  'Metal',
-  'Rock',
-  'Jazz',
-  'Electro',
-  'Pop',
-  'Reggae',
-] as const;
+import { GENRE_NAME } from '../index';
 
-type Genre = typeof GENRE_LABEL[number];
-
-export default function GenreLabel({ genre }: { genre: Genre }) {
+export default function GenreLabel({ genre }: { genre: GENRE_NAME }) {
   return (
     <div
       className={`${getGenreColor(
@@ -21,7 +12,7 @@ export default function GenreLabel({ genre }: { genre: Genre }) {
   );
 }
 
-function getGenreColor(genre: Genre) {
+function getGenreColor(genre: GENRE_NAME) {
   switch (genre) {
     case 'Metal':
       return 'bg-red-700';
