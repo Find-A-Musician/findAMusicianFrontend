@@ -97,7 +97,7 @@ export default function AppLayout({
                 {profil?.givenName} {profil?.familyName}
               </p>
               {settingModal && (
-                <div className="absolute top-10 shadow-complete rounded-sm right-0">
+                <div className="absolute top-10 shadow-complete rounded-sm right-0 bg-white z-10">
                   <ul className="text-gray-700">
                     <li className="flex items-center py-3 px-2 transition-all hover:bg-red-100 hover:text-black">
                       <span className="mx-2">
