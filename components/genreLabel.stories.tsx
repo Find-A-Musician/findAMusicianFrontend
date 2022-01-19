@@ -3,7 +3,7 @@ import { Meta } from '@storybook/react';
 import { GENRE_LABEL } from './genreLabel';
 
 export default {
-  title: 'Miscellaneous/genreLabel',
+  title: 'Musician/genreLabel',
   component: GenreLabel,
   argTypes: {
     genre: {

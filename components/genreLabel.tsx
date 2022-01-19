@@ -14,7 +14,7 @@ export default function GenreLabel({ genre }: { genre: Genre }) {
     <div
       className={`${getGenreColor(
         genre,
-      )} inline-flex px-4 h-8  justify-center items-center text-white rounded-3xl`}
+      )} inline-flex px-4 h-7  justify-center items-center text-white rounded-3xl mr-2`}
     >
       {genre}
     </div>
