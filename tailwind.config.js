@@ -16,7 +16,7 @@ module.exports = {
         },
       },
       boxShadow: {
-        complete: '0 0 25px rgba(0,0,0,0.25)',
+        complete: '2px 3px 20px 6px rgba(86,86,86,0.3)',
       },
       keyframes: {
         'enter-right': {

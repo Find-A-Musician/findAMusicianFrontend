@@ -15,7 +15,7 @@ export default {
 
 export const BasicPopup = ({ text }: { text: string }) => {
   return (
-    <PopUp>
+    <PopUp close={() => {}}>
       <div className="bg-white min-w-0 h-10 flex items-center justify-center p-5 ">
         <h1> {text} </h1>
       </div>
