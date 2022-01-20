@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
-import { Profil, setCookie, Token, useAuth } from '../context/AuthContext';
+import { setCookie, useAuth } from '../context/AuthContext';
 import { useAxios } from '../context/AxiosContext';
 import TextInput from './textInput';
 import Button from './button';
 import LoaderSpinner from './loaderSpinner';
+import { Profil, Token } from '../types/api';
 
 export default function LoginModal({
   onForgetPassword,

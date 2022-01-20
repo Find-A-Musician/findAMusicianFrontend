@@ -16,7 +16,7 @@ export const GENRE_NAME_LIST = [
   'Reggae',
 ] as const;
 
-type GENRE_NAME = typeof GENRE_NAME_LIST[number];
+export type GENRE_NAME = typeof GENRE_NAME_LIST[number];
 
 export type Genres = {
   id: string;

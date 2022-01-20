@@ -2,7 +2,7 @@ export const SPINNER_SIZE = ['xs', 'sm', 'lg', 'xl', '2xl'] as const;
 
 type Size = typeof SPINNER_SIZE[number];
 
-export default function loaderSpinner({ size }: { size: Size }): JSX.Element {
+export default function LoaderSpinner({ size }: { size: Size }): JSX.Element {
   return (
     <div
       className={`${getSize(
