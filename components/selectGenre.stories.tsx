@@ -4,7 +4,7 @@ import { Genres, GENRE_NAME_LIST } from '../types/api';
 import { useState } from 'react';
 
 export default {
-  title: 'Miscellaneous/Select',
+  title: 'Form/SelectGenre',
   component: SelectGenre,
 } as Meta;
 

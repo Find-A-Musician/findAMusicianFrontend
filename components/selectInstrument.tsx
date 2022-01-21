@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import GenreLabel from './genreLabel';
+import Instrument from './instrument';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { Genres } from '../types/api';
+import { Instruments } from '../types/api';
 import LoaderSpinner from './loaderSpinner';
 import useOnClickOutside from '../hooks/useOnClickOutside';
 
-export default function SelectGenre({
-  selectedGenre,
-  setSelectedGenre,
-  genres,
+export default function SelectInstrument({
+  selectedInstrument,
+  setSelectedInstrument,
+  instruments,
 }: {
-  selectedGenre: Genres;
-  setSelectedGenre: (arg: Genres) => void;
-  genres: Genres | undefined;
+  selectedInstrument: Instruments;
+  setSelectedInstrument: (arg: Instruments) => void;
+  instruments: Instruments | undefined;
 }): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,8 +29,8 @@ export default function SelectGenre({
         }}
         className="border-2 border-gray-300 focus:border-red-800 w-full h-full rounded-2xl relative flex items-center justify-start px-4 overflow-hidden"
       >
-        {selectedGenre.map(({ id, name }) => (
-          <GenreLabel key={id} genre={name} />
+        {selectedInstrument.map(({ id, name }) => (
+          <Instrument key={id} instrument={name} />
         ))}
         <FontAwesomeIcon
           className="absolute text-xl right-4 text-gray-500 "
@@ -39,30 +39,32 @@ export default function SelectGenre({
       </div>
       {isOpen && (
         <div className="shadow-complete w-full top-12 left-0 rounded-2xl flex flex-col justify-start items-center absolute overflow-hidden">
-          {genres ? (
-            genres.map(({ id, name }) => {
+          {instruments ? (
+            instruments.map(({ id, name }) => {
               const isSelected =
-                selectedGenre.map(({ id }) => id).indexOf(id) !== -1;
+                selectedInstrument.map(({ id }) => id).indexOf(id) !== -1;
 
               return (
                 <span
                   key={id}
                   onClick={() => {
                     if (isSelected) {
-                      setSelectedGenre(
-                        selectedGenre.filter(
+                      setSelectedInstrument(
+                        selectedInstrument.filter(
                           ({ id: filterID }) => filterID !== id,
                         ),
                       );
                     } else {
-                      setSelectedGenre(selectedGenre.concat({ id, name }));
+                      setSelectedInstrument(
+                        selectedInstrument.concat({ id, name }),
+                      );
                     }
                   }}
                   className={`py-2 flex justify-center items-center w-full  ${
                     isSelected ? 'bg-red-200 ' : 'hover:bg-red-100'
                   }`}
                 >
-                  <GenreLabel genre={name} />
+                  <Instrument instrument={name} /> <span>{name} </span>
                 </span>
               );
             })
