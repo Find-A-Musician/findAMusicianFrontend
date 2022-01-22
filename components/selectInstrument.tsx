@@ -27,6 +27,7 @@ export default function SelectInstrument({
         onClick={() => {
           setIsOpen(!isOpen);
         }}
+        tabIndex={1}
         className="border-2 border-gray-300 focus:border-red-800 w-full h-full rounded-2xl relative flex items-center justify-start px-4 overflow-hidden"
       >
         {selectedInstrument.map(({ id, name }) => (
