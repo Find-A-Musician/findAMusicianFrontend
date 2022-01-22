@@ -1,12 +1,7 @@
 import GenreLabel from './genreLabel';
 import Instrument from './instrument';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faFacebookSquare,
-  faInstagram,
-  faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import { ICONS_DEFINITION } from '../utils/icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { Genres, Instruments } from '../types/api';
 
@@ -49,23 +44,26 @@ export default function MusicianBox({
         <div className="flex items-center justify-start w-full text-lg">
           {facebook_url && (
             <FontAwesomeIcon
-              className="mr-6 cursor-pointer text-blue-700"
-              icon={faFacebookSquare}
+              className={`mr-6 cursor-pointer ${ICONS_DEFINITION['facebook'].color}`}
+              icon={ICONS_DEFINITION['facebook'].icon}
             />
           )}
           {instagram_url && (
             <FontAwesomeIcon
-              className="mr-6 cursor-pointer text-pink-700"
-              icon={faInstagram}
+              className={`mr-6 cursor-pointer ${ICONS_DEFINITION['instagram'].color}`}
+              icon={ICONS_DEFINITION['instagram'].icon}
             />
           )}
           {twitter_url && (
             <FontAwesomeIcon
-              className="mr-6 cursor-pointer text-cyan-500"
-              icon={faTwitter}
+              className={`mr-6 cursor-pointer ${ICONS_DEFINITION['twitter'].color}`}
+              icon={ICONS_DEFINITION['twitter'].icon}
             />
           )}
-          <FontAwesomeIcon className="mr-6 cursor-pointer" icon={faEnvelope} />
+          <FontAwesomeIcon
+            className={`mr-6 cursor-pointer ${ICONS_DEFINITION['letter'].color}`}
+            icon={ICONS_DEFINITION['letter'].icon}
+          />
         </div>
         <div className="absolute text-xl cursor-pointer bottom-1 right-5 text-red-700 ">
           <FontAwesomeIcon icon={faPlusCircle} />

@@ -5,36 +5,42 @@ import { ComponentProps } from 'react';
 export default {
   title: 'Form/TextInput',
   component: TextInput,
+  argTypes: {
+    label: {
+      type: 'string',
+      defaultValue: 'Write text here',
+    },
+  },
 } as Meta;
 
-export const Text = () => {
+export const Text = ({ label }: { label: string }) => {
   return (
     <TextInput
       type="text"
       placeholder="write text here"
-      label="text"
+      label={label}
       id="text"
     />
   );
 };
 
-export const Number = () => {
+export const Number = ({ label }: { label: string }) => {
   return (
     <TextInput
       type="number"
       placeholder="Put number"
-      label="number"
+      label={label}
       id="number"
     />
   );
 };
 
-export const Search = () => {
+export const Search = ({ label }: { label: string }) => {
   return (
     <TextInput
       type="search"
       placeholder="Find a musician"
-      label="search"
+      label={label}
       id="search"
     />
   );
