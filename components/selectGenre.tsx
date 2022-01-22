@@ -39,7 +39,7 @@ export default function SelectGenre({
         />
       </div>
       {isOpen && (
-        <div className="shadow-complete w-full top-12 left-0 rounded-2xl flex flex-col justify-start items-center absolute overflow-hidden">
+        <div className="shadow-complete w-full top-12 left-0 rounded-2xl flex flex-col justify-start items-center absolute overflow-hidden bg-white z-10">
           {genres ? (
             genres.map(({ id, name }) => {
               const isSelected =
