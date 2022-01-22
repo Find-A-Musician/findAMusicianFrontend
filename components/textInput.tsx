@@ -37,12 +37,12 @@ export default function TextInput({
         {label}
       </label>
       <div
-        className={`px-2 py-1 border-2 shadow-sm ${
+        className={` border-2 shadow-sm ${
           isFull ? 'w-full' : 'w-80'
-        } h-12 focus-within:border-red-800 focus-within:border-2 rounded-2xl flex itmes-center flex-start`}
+        } h-12 focus-within:border-red-800 focus-within:border-2 rounded-2xl flex itmes-center flex-start overflow-hidden relative`}
       >
         {icon && (
-          <span className="h-full flex mx-2">
+          <span className="h-full flex absolute left-0 px-2">
             <FontAwesomeIcon
               icon={ICONS_DEFINITION[icon].icon}
               className={`${ICONS_DEFINITION[icon].color} text-lg m-auto`}
@@ -50,7 +50,9 @@ export default function TextInput({
           </span>
         )}
         <input
-          className=" h-full w-full outline-none border-none flex-1"
+          className={`h-full w-full outline-none border-none flex-1 px-2 py-1 ${
+            icon ? 'pl-8' : ''
+          }`}
           type={type}
           id={id}
           {...props}
