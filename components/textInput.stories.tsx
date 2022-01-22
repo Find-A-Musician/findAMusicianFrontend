@@ -1,7 +1,6 @@
 import TextInput, { INPUT_TYPES } from './textInput';
 import { Meta } from '@storybook/react';
-import { ComponentProps } from 'react';
-
+import { ALL_ICONS, ICONS_DEFINITION } from '../utils/icons';
 export default {
   title: 'Form/TextInput',
   component: TextInput,
@@ -10,18 +9,38 @@ export default {
       type: 'string',
       defaultValue: 'Write text here',
     },
+    icon: {
+      control: {
+        type: 'select',
+        options: ['none', ...Object.keys(ICONS_DEFINITION)],
+        defaultValue: 'facebook',
+      },
+    },
   },
 } as Meta;
 
-export const Text = ({ label }: { label: string }) => {
-  return (
-    <TextInput
-      type="text"
-      placeholder="write text here"
-      label={label}
-      id="text"
-    />
-  );
+export const Text = ({
+  label,
+  icon,
+}: {
+  label: string;
+  icon: ALL_ICONS | 'none';
+}) => {
+  if (icon === 'none') {
+    return (
+      <TextInput type="text" placeholder="write text" label={label} id="text" />
+    );
+  } else {
+    return (
+      <TextInput
+        type="text"
+        placeholder="write text"
+        label={label}
+        id="text"
+        icon={icon}
+      />
+    );
+  }
 };
 
 export const Number = ({ label }: { label: string }) => {
