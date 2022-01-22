@@ -17,6 +17,7 @@ type TextInputProps = {
   id: string;
   label: string;
   icon?: ALL_ICONS;
+  isFull?: boolean;
 };
 
 export default function TextInput({
@@ -24,15 +25,22 @@ export default function TextInput({
   id,
   label,
   icon,
+  isFull,
   ...props
 }: TextInputProps &
   Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'id'>) {
   return (
-    <div className="flex flex-col items-start relative">
+    <div
+      className={`flex flex-col items-start relative ${isFull ? 'w-full' : ''}`}
+    >
       <label htmlFor={id} className="font-bold">
         {label}
       </label>
-      <div className="px-2 py-1 border-2 shadow-sm w-80 h-12 focus-within:border-red-800 focus-within:border-2 rounded-2xl flex itmes-center flex-start">
+      <div
+        className={`px-2 py-1 border-2 shadow-sm ${
+          isFull ? 'w-full' : 'w-80'
+        } h-12 focus-within:border-red-800 focus-within:border-2 rounded-2xl flex itmes-center flex-start`}
+      >
         {icon && (
           <span className="h-full flex mx-2">
             <FontAwesomeIcon

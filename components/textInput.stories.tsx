@@ -1,6 +1,7 @@
-import TextInput, { INPUT_TYPES } from './textInput';
+import TextInput from './textInput';
 import { Meta } from '@storybook/react';
 import { ALL_ICONS, ICONS_DEFINITION } from '../utils/icons';
+import { INPUT_TYPES } from './textInput';
 export default {
   title: 'Form/TextInput',
   component: TextInput,
@@ -9,58 +10,52 @@ export default {
       type: 'string',
       defaultValue: 'Write text here',
     },
+    type: {
+      defaultValue: 'text',
+      control: {
+        type: 'select',
+        options: INPUT_TYPES,
+      },
+    },
     icon: {
+      defaultValue: 'none',
       control: {
         type: 'select',
         options: ['none', ...Object.keys(ICONS_DEFINITION)],
-        defaultValue: 'facebook',
       },
+    },
+    isFull: {
+      type: 'boolean',
+      defaultValue: false,
+    },
+    placeHolder: {
+      type: 'string',
+      defaultValue: 'write here',
     },
   },
 } as Meta;
 
-export const Text = ({
+export const Primary = ({
   label,
   icon,
+  type,
+  isFull,
+  placeHolder,
 }: {
   label: string;
   icon: ALL_ICONS | 'none';
+  type: typeof INPUT_TYPES[number];
+  isFull: boolean;
+  placeHolder: string;
 }) => {
-  if (icon === 'none') {
-    return (
-      <TextInput type="text" placeholder="write text" label={label} id="text" />
-    );
-  } else {
-    return (
-      <TextInput
-        type="text"
-        placeholder="write text"
-        label={label}
-        id="text"
-        icon={icon}
-      />
-    );
-  }
-};
-
-export const Number = ({ label }: { label: string }) => {
   return (
     <TextInput
-      type="number"
-      placeholder="Put number"
+      type={type}
+      placeholder={placeHolder}
       label={label}
-      id="number"
-    />
-  );
-};
-
-export const Search = ({ label }: { label: string }) => {
-  return (
-    <TextInput
-      type="search"
-      placeholder="Find a musician"
-      label={label}
-      id="search"
+      id="text"
+      icon={icon === 'none' ? undefined : icon}
+      isFull={isFull}
     />
   );
 };
