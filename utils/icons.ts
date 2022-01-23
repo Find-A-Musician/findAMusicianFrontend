@@ -4,8 +4,7 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-
-import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export const ICONS_DEFINITION = {
   facebook: {
@@ -22,6 +21,10 @@ export const ICONS_DEFINITION = {
   },
   letter: {
     icon: faEnvelope,
+    color: 'text-black',
+  },
+  phone: {
+    icon: faPhone,
     color: 'text-black',
   },
 } as const;

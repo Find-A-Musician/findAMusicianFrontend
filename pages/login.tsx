@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Button from '../components/button';
 import StatsInfo from '../components/statsInfo';
 import LoginModal from '../components/loginModal';
+import RegisterModal from '../components/registerModal';
 import PopUp from '../components/popUp';
 import useSwr from 'swr';
 import { useAxios } from '../context/AxiosContext';
@@ -20,6 +21,7 @@ export default function Login(): JSX.Element {
   const { publicAxios } = useAxios();
 
   const [logginModal, setLogginModal] = useState(false);
+  const [registerModal, setRegisterModal] = useState(false);
 
   const { data, error } = useSwr<StatsInfoType>('/info', publicAxios.get);
   return (
@@ -38,7 +40,13 @@ export default function Login(): JSX.Element {
             l’école.
           </p>
           <div className="flex flex-wrap w-full items-center md:justify-between justify-center">
-            <Button label="S'inscrire" layout="filled" bold isLarge />
+            <Button
+              label="S'inscrire"
+              layout="filled"
+              bold
+              isLarge
+              onClick={() => setRegisterModal(true)}
+            />
             <Button
               label="Se connecter"
               layout="bordered"
@@ -72,8 +80,16 @@ export default function Login(): JSX.Element {
       </div>
       {logginModal && (
         <PopUp close={() => setLogginModal(false)}>
-          {' '}
           <LoginModal onForgetPassword={() => {}} />{' '}
+        </PopUp>
+      )}
+      {registerModal && (
+        <PopUp
+          close={() => {
+            setRegisterModal(false);
+          }}
+        >
+          <RegisterModal />
         </PopUp>
       )}
     </div>

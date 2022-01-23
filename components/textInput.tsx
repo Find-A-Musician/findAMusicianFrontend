@@ -45,7 +45,7 @@ export default function TextInput({
           <span className="h-full flex absolute left-0 px-2">
             <FontAwesomeIcon
               icon={ICONS_DEFINITION[icon].icon}
-              className={`${ICONS_DEFINITION[icon].color} text-lg m-auto`}
+              className={`text-lg m-auto ${ICONS_DEFINITION[icon].color}`}
             />
           </span>
         )}

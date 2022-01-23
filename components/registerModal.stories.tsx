@@ -1,16 +1,16 @@
+import RegisterModal from './registerModal';
 import { Meta } from '@storybook/react';
-import LoginModal from './loginModal';
 import PopUp from './popUp';
 
 export default {
-  title: 'Modal/Login',
-  component: LoginModal,
+  title: 'Modal/Register',
+  component: RegisterModal,
 } as Meta;
 
 export const Primary = () => {
   return (
     <PopUp close={() => {}}>
-      <LoginModal onForgetPassword={() => {}} />
+      <RegisterModal />
     </PopUp>
   );
 };
