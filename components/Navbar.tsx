@@ -5,7 +5,7 @@ import ProfileButton from './ProfileButton';
 export default function Navbar() {
   return (
     <div className="flex flex-none flex-col items-center h-screen bg-gray-100 w-80">
-      <span className="flex items-center gap-2 my-20 text-red-500 text-xl font-bold">
+      <span className="flex items-center gap-2 my-[4.5rem] text-red-500 text-xl font-bold">
         <ITelescope /> Find a musician
       </span>
       <nav className="flex flex-col gap-8">
