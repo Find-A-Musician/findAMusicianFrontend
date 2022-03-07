@@ -32,7 +32,9 @@ export default function AppLayout({
   return (
     <div className="flex h-screen bg-gray-100">
       <Navbar />
-      <div className="flex-grow bg-white rounded-t-lg mt-7 mr-7"></div>
+      <div className="flex-grow bg-white rounded-t-lg mt-7 mr-7">
+        {children}
+      </div>
     </div>
   );
 }
