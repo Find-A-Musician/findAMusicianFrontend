@@ -1,4 +1,4 @@
-import GenreLabel from './genreLabel';
+import GenreLabel from './GenreLabel';
 import { Meta } from '@storybook/react';
 import { GENRE_NAME_LIST } from '../types/api';
 

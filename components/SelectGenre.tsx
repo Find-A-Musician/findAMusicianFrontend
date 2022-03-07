@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import GenreLabel from './genreLabel';
+import GenreLabel from './GenreLabel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { Genres } from '../types/api';
-import LoaderSpinner from './loaderSpinner';
+import LoaderSpinner from './LoaderSpinner';
 import useOnClickOutside from '../hooks/useOnClickOutside';
 
 export default function SelectGenre({

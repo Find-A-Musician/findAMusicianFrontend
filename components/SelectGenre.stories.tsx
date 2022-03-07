@@ -1,4 +1,4 @@
-import SelectGenre from './selectGenre';
+import SelectGenre from './SelectGenre';
 import { Meta } from '@storybook/react';
 import { Genres, GENRE_NAME_LIST } from '../types/api';
 import { useState } from 'react';

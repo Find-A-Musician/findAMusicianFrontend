@@ -1,10 +1,10 @@
 import { FormEvent, useState } from 'react';
-import TextInput from './textInput';
-import Button from './button';
-import SelectGenre from './selectGenre';
-import SelectInstrument from './selectInstrument';
-import Select from './select';
-import LoaderSpinner from './loaderSpinner';
+import TextInput from './TextInput';
+import Button from './Button';
+import SelectGenre from './SelectGenre';
+import SelectInstrument from './SelectInstrument';
+import Select from './Select';
+import LoaderSpinner from './LoaderSpinner';
 import { Genres, Instruments } from '../types/api';
 import { useAxios } from '../context/AxiosContext';
 import { setCookie, useAuth } from '../context/AuthContext';
