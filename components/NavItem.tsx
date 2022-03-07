@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 type Props = {
   text: string;
   href: string;
-  children: JSX.Element;
+  icon: JSX.Element;
 };
 
-export default function NavItem({ text, href, children }: Props) {
+export default function NavItem({ text, href, icon }: Props) {
   const router = useRouter();
 
   let selected = router.pathname === href;
@@ -19,7 +19,7 @@ export default function NavItem({ text, href, children }: Props) {
           selected ? 'red' : 'gray'
         }-500 font-${selected ? 'bold' : 'medium'}`}
       >
-        {children}
+        {icon}
         {text}
       </a>
     </Link>

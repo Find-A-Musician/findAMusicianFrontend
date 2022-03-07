@@ -9,15 +9,9 @@ export default function Navbar() {
         <ITelescope /> Find a musician
       </span>
       <nav className="flex flex-col gap-8">
-        <NavItem text="Musiciens" href="/musician">
-          <IMusicNote />
-        </NavItem>
-        <NavItem text="Groupes" href="/groups">
-          <IPeople />
-        </NavItem>
-        <NavItem text="Evènements" href="/events">
-          <ICalendar />
-        </NavItem>
+        <NavItem text="Musiciens" href="/musician" icon={<IMusicNote />} />
+        <NavItem text="Groupes" href="/groups" icon={<IPeople />} />
+        <NavItem text="Evènements" href="/events" icon={<ICalendar />} />
       </nav>
       <ProfileButton className="mt-auto" />
     </div>
