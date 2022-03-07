@@ -1,5 +1,5 @@
 import { spawn } from 'child_process';
-import LoaderSpinner from './loaderSpinner';
+import LoaderSpinner from './LoaderSpinner';
 
 export default function StatsInfo({
   label,

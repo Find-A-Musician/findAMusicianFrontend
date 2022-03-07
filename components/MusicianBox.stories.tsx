@@ -1,5 +1,5 @@
-import MusicianBox from './musicianBox';
-import MusicianBoxSqueleton from './musicianBoxSqueleton';
+import MusicianBox from './MusicianBox';
+import MusicianBoxSqueleton from './MusicianBoxSqueleton';
 import { Meta } from '@storybook/react';
 import { Component, ComponentProps } from 'react';
 import { GENRE_NAME_LIST, INSTRUMENTS_NAME_LIST } from '../types/api';

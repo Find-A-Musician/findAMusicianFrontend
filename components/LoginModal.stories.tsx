@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/react';
-import LoginModal from './loginModal';
-import PopUp from './popUp';
+import LoginModal from './LoginModal';
+import PopUp from './PopUp';
 
 export default {
   title: 'Modal/Login',

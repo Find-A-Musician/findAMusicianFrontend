@@ -1,6 +1,6 @@
-import RegisterModal from './registerModal';
+import RegisterModal from './RegisterModal';
 import { Meta } from '@storybook/react';
-import PopUp from './popUp';
+import PopUp from './PopUp';
 
 export default {
   title: 'Modal/Register',

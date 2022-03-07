@@ -2,9 +2,9 @@ import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
 import { setCookie, useAuth } from '../context/AuthContext';
 import { useAxios } from '../context/AxiosContext';
-import TextInput from './textInput';
-import Button from './button';
-import LoaderSpinner from './loaderSpinner';
+import TextInput from './TextInput';
+import Button from './Button';
+import LoaderSpinner from './LoaderSpinner';
 import { Profil, Token } from '../types/api';
 
 export default function LoginModal({

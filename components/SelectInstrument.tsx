@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Instrument from './instrument';
+import Instrument from './Instrument';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { Instruments } from '../types/api';
-import LoaderSpinner from './loaderSpinner';
+import LoaderSpinner from './LoaderSpinner';
 import useOnClickOutside from '../hooks/useOnClickOutside';
 
 export default function SelectInstrument({

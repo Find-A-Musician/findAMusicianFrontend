@@ -1,5 +1,5 @@
-import GenreLabel from './genreLabel';
-import Instrument from './instrument';
+import GenreLabel from './GenreLabel';
+import Instrument from './Instrument';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ICONS_DEFINITION } from '../utils/icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';

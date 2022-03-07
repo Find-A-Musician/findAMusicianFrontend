@@ -1,4 +1,4 @@
-import PopUp from './popUp';
+import PopUp from './PopUp';
 import { Meta } from '@storybook/react';
 import { ComponentProps } from 'react';
 
