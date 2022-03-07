@@ -1,4 +1,4 @@
-import Select from './select';
+import Select from './Select';
 import { Meta } from '@storybook/react';
 import { useState } from 'react';
 

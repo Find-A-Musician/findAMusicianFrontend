@@ -8,7 +8,7 @@ import useOnClickOutside from '../hooks/useOnClickOutside';
 import { useAxios } from '../context/AxiosContext';
 import Cookies from 'js-cookie';
 import type { AxiosInstance } from 'axios';
-import HambergerMenu from '../components/hambergerMenu';
+import HambergerMenu from '../components/HambergerMenu';
 
 export default function AppLayout({
   children,

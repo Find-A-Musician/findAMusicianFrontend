@@ -1,4 +1,4 @@
-import Instruments from './instrument';
+import Instruments from './Instrument';
 import { Meta } from '@storybook/react';
 import { INSTRUMENTS_NAME_LIST } from '../types/api';
 

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import login_illustration from '../assets/login_illustration.svg';
 import Image from 'next/image';
-import Button from '../components/button';
-import StatsInfo from '../components/statsInfo';
-import LoginModal from '../components/loginModal';
-import RegisterModal from '../components/registerModal';
-import PopUp from '../components/popUp';
+import Button from '../components/Button';
+import StatsInfo from '../components/StatsInfo';
+import LoginModal from '../components/LoginModal';
+import RegisterModal from '../components/RegisterModal';
+import PopUp from '../components/PopUp';
 import useSwr from 'swr';
 import { useAxios } from '../context/AxiosContext';
 

@@ -1,4 +1,4 @@
-import SelectInsttrument from './selectInstrument';
+import SelectInsttrument from './SelectInstrument';
 import { Meta } from '@storybook/react';
 import { INSTRUMENTS_NAME_LIST, Instruments } from '../types/api';
 import { useState } from 'react';

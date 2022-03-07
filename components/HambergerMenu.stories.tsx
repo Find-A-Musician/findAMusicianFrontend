@@ -1,4 +1,4 @@
-import HambergerMenu from './hambergerMenu';
+import HambergerMenu from './HambergerMenu';
 import { Meta } from '@storybook/react';
 
 export default {
