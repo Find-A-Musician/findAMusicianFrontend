@@ -1,10 +1,15 @@
 type Props = {
   text: string;
+  color?: string;
 };
 
-export default function Tag({ text }: Props) {
+export default function Tag({ text, color = 'red' }: Props) {
   return (
-    <span className="bg-red-100 border border-red-500 text-sm text-red-500 rounded-full py-1 px-2.5">
+    <span
+      className={`py-1 px-2.5 
+                 bg-${color}-100 border border-${color}-500 rounded-full
+                 text-sm text-${color}-500`}
+    >
       {text}
     </span>
   );

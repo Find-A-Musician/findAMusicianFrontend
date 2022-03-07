@@ -9,6 +9,10 @@ export default {
       type: 'string',
       defaultValue: 'Pop',
     },
+    color: {
+      type: 'string',
+      defaultValue: 'red',
+    },
   },
 } as Meta;
 
