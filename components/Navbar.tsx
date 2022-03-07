@@ -1,5 +1,6 @@
 import { ITelescope, IPeople, IMusicNote, ICalendar } from './icons';
 import NavItem from './NavItem';
+import ProfileButton from './ProfileButton';
 
 export default function Navbar() {
   return (
@@ -18,6 +19,7 @@ export default function Navbar() {
           <ICalendar />
         </NavItem>
       </nav>
+      <ProfileButton className="mt-auto" />
     </div>
   );
 }
