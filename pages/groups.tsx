@@ -1,6 +1,7 @@
 import Header from '../components/Header';
 import { IGroup } from '../components/icons';
 import NewButton from '../components/NewButton';
+import GroupCard from '../components/GroupCard';
 import Banner from '../components/Banner';
 import Dropdown, { Options } from '../components/Dropdown';
 import { useState } from 'react';
@@ -86,6 +87,13 @@ export default function Groups(): JSX.Element {
           setSelected={setSelectedSite}
         />
       </div>
+      <GroupCard
+        name="Singe"
+        nbMembers={4}
+        description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
+        genres={['pop', 'rock', 'rock']}
+        href="/musician"
+      />
     </div>
   );
 }
