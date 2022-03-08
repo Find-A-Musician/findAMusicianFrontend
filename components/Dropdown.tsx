@@ -29,6 +29,10 @@ export default function Dropdown({
     return selected.includes(value);
   }
 
+  function nothingSelected() {
+    return !selected.length;
+  }
+
   function handleSelect(value: string): void {
     if (isSelected(value)) setSelected(selected.filter((v) => v !== value));
     else setSelected([...selected, value]);
@@ -38,10 +42,18 @@ export default function Dropdown({
     <div className="relative inline-block">
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-10 border py-1.5 px-3 text-gray-700 rounded hover:bg-gray-50"
+        className={`flex items-center border rounded  gap-10 py-1.5 px-3 ${
+          nothingSelected()
+            ? 'text-gray-700 hover:bg-gray-50'
+            : 'bg-red-500 text-white'
+        }`}
       >
         {label}
-        <div className="flex flex-col text-sm text-gray-500 items-center">
+        <div
+          className={`flex flex-col text-sm items-center ${
+            nothingSelected() ? 'text-gray-500' : 'text-white'
+          }`}
+        >
           <IChevronBottom />
         </div>
       </button>
