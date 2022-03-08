@@ -2,7 +2,8 @@ import Header from '../components/Header';
 import { IPeople } from '../components/icons';
 import NewButton from '../components/NewButton';
 import Banner from '../components/Banner';
-import ProfileSection from '../components/ProfileSection';
+import ProfileBanner from '../components/Profile/ProfileBanner';
+import ProfileSection from '../components/Profile/ProfileSection';
 
 export default function Events(): JSX.Element {
   return (
@@ -19,6 +20,7 @@ export default function Events(): JSX.Element {
           subtitle="Plus besoin de galérer pour trouver l'équipe parfaite"
           imagePath="/images/music_concert.png"
         />
+        <ProfileBanner />
         <ProfileSection>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus

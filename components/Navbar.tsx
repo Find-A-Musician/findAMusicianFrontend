@@ -1,6 +1,6 @@
 import { ITelescope, IGroup, IMusicNote, ICalendar } from './icons';
 import NavItem from './NavItem';
-import ProfileButton from './ProfileButton';
+import ProfileButton from './Profile/ProfileButton';
 
 export default function Navbar() {
   return (
