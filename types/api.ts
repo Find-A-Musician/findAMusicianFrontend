@@ -7,6 +7,11 @@ export type Instruments = {
   name: INSTRUMENT_NAME;
 }[];
 
+export type Instrument = {
+  id: string;
+  name: string;
+};
+
 export const GENRE_NAME_LIST = [
   'Metal',
   'Rock',
@@ -22,6 +27,11 @@ export type Genres = {
   id: string;
   name: GENRE_NAME;
 }[];
+
+export type Genre = {
+  id: string;
+  name: string;
+};
 
 export type Token = {
   accessToken: string;

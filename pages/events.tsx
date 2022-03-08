@@ -21,7 +21,7 @@ export default function Events(): JSX.Element {
           imagePath="/images/music_concert.png"
         />
         <ProfileBanner />
-        <ProfileSection>
+        <ProfileSection title="A propos">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
             accumsan tristique rutrum. Morbi sit amet diam ac lacus congue
