@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { useState } from 'react';
 
 export default {
-  title: 'Input/Dropdown',
+  title: 'Form/Dropdown',
   component: Dropdown,
 } as ComponentMeta<typeof Dropdown>;
 
