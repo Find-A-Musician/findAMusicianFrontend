@@ -2,8 +2,8 @@ import Tag from '../components/Tag';
 import Link from 'next/link';
 
 type Props = {
-  title: string;
-  subtitle?: string;
+  name: string;
+  nbMembers: number;
   description: string;
   genres: Array<string>;
   /**path to group page */
@@ -11,8 +11,8 @@ type Props = {
 };
 
 export default function GroupCard({
-  title,
-  subtitle,
+  name,
+  nbMembers,
   description,
   genres,
   href,
@@ -22,8 +22,10 @@ export default function GroupCard({
       <div className="flex items-center gap-3 border-b pb-4">
         <div className="w-10 h-10 rounded-full bg-black"></div>
         <div className="flex flex-col">
-          <span>{title}</span>
-          <span className="text-sm text-gray-500">{subtitle}</span>
+          <span>{name}</span>
+          <span className="text-sm text-gray-500">
+            {nbMembers} membre{nbMembers > 1 ? 's' : ''}
+          </span>
         </div>
       </div>
       <span className="text-gray-500 block py-4">{description}</span>
