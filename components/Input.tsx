@@ -16,7 +16,7 @@ export default function Input({ label, value, setValue }: Props) {
 
   return (
     <div
-      className={`py-1.5 px-3 flex items-center border rounded ${
+      className={`py-1.5 px-3 flex justify-between items-center border rounded ${
         isFocus ? 'border-red-300' : ''
       }`}
     >
