@@ -4,6 +4,7 @@ import NewButton from '../components/NewButton';
 import Banner from '../components/Banner';
 import Dropdown, { Options } from '../components/Dropdown';
 import { useState } from 'react';
+import Input from '../components/Input';
 
 export default function Groups(): JSX.Element {
   const optionsGenre = [
@@ -51,6 +52,8 @@ export default function Groups(): JSX.Element {
   const [selectedSite, setSelectedSite] = useState<string[]>([]);
   const [selectedInstrument, setSelectedInstrument] = useState<string[]>([]);
 
+  const [searchValue, setSearchValue] = useState('');
+
   return (
     <div className="flex flex-col gap-10">
       <Header
@@ -65,25 +68,33 @@ export default function Groups(): JSX.Element {
         subtitle="Plus besoin de galérer pour trouver l'équipe parfaite"
         imagePath="/images/music_concert.png"
       />
-      <div className="flex gap-4">
-        <Dropdown
-          label="Instruments"
-          options={optionsInstrument}
-          selected={selectedInstrument}
-          setSelected={setSelectedInstrument}
-        />
-        <Dropdown
-          label="Genres"
-          options={optionsGenre}
-          selected={selectedGenre}
-          setSelected={setSelectedGenre}
-        />
+      <div className="flex justify-between">
+        <div className="flex gap-4">
+          <Dropdown
+            label="Instruments"
+            options={optionsInstrument}
+            selected={selectedInstrument}
+            setSelected={setSelectedInstrument}
+          />
+          <Dropdown
+            label="Genres"
+            options={optionsGenre}
+            selected={selectedGenre}
+            setSelected={setSelectedGenre}
+          />
 
-        <Dropdown
-          label="Sites"
-          options={optionsSite}
-          selected={selectedSite}
-          setSelected={setSelectedSite}
+          <Dropdown
+            label="Sites"
+            options={optionsSite}
+            selected={selectedSite}
+            setSelected={setSelectedSite}
+          />
+        </div>
+
+        <Input
+          label="rechercher"
+          value={searchValue}
+          setValue={setSearchValue}
         />
       </div>
     </div>
