@@ -1,4 +1,4 @@
-import { ITelescope, IPeople, IMusicNote, ICalendar } from './icons';
+import { ITelescope, IGroup, IMusicNote, ICalendar } from './icons';
 import NavItem from './NavItem';
 import ProfileButton from './ProfileButton';
 
@@ -10,7 +10,7 @@ export default function Navbar() {
       </span>
       <nav className="flex flex-col gap-8">
         <NavItem text="Musiciens" href="/musician" icon={<IMusicNote />} />
-        <NavItem text="Groupes" href="/groups" icon={<IPeople />} />
+        <NavItem text="Groupes" href="/groups" icon={<IGroup />} />
         <NavItem text="Evènements" href="/events" icon={<ICalendar />} />
       </nav>
       <ProfileButton className="mt-auto" />
