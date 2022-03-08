@@ -1,6 +1,7 @@
 import ProfileSection from './ProfileSection';
 import { useAuth } from '../../context/AuthContext';
 import { Instrument, Genre } from '../../types/api';
+import { capitalize } from '../../utils/string';
 
 function Info({ title, value }: { title: string; value: string }): JSX.Element {
   return (
@@ -16,7 +17,7 @@ export default function ProfileInformation() {
   const profil = getProfil();
 
   function format(arr: Instrument[] | Genre[]): string {
-    return arr.map((el) => el.name).join(', ');
+    return arr.map((el) => capitalize(el.name)).join(', ');
   }
 
   return (
