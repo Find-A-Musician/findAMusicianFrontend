@@ -41,7 +41,13 @@ export default function Profile() {
               facilisis. Nunc eget est auctor, auctor sapien sed, porta augue.
             </p>
           </ProfileSection>
-          <ProfileInformation />
+          <ProfileInformation
+            promotion={data.promotion}
+            email={data.email}
+            localisation={data.location}
+            genres={data.genres}
+            instruments={data.instruments}
+          />
         </>
       )}
     </ContentLayout>

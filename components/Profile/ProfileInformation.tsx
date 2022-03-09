@@ -3,6 +3,14 @@ import { useAuth } from '../../context/AuthContext';
 import { Instrument, Genre } from '../../types/api';
 import { capitalize } from '../../utils/string';
 
+type Props = {
+  promotion: string;
+  localisation: string;
+  email: string;
+  genres: Genre[];
+  instruments: Instrument[];
+};
+
 function Info({ title, value }: { title: string; value: string }): JSX.Element {
   return (
     <div>
@@ -12,10 +20,13 @@ function Info({ title, value }: { title: string; value: string }): JSX.Element {
   );
 }
 
-export default function ProfileInformation() {
-  const { getProfil } = useAuth();
-  const profil = getProfil();
-
+export default function ProfileInformation({
+  promotion,
+  localisation,
+  email,
+  genres,
+  instruments,
+}: Props) {
   function format(arr: Instrument[] | Genre[]): string {
     return arr.map((el) => capitalize(el.name)).join(', ');
   }
@@ -24,14 +35,14 @@ export default function ProfileInformation() {
     <ProfileSection title="Information">
       <div className="flex justify-between">
         <div className="flex flex-col gap-4">
-          <Info title="Promotion" value={profil!.promotion} />
-          <Info title="Promotion" value={format(profil!.instruments)} />
+          <Info title="Promotion" value={promotion} />
+          <Info title="Instruments" value={format(instruments)} />
         </div>
         <div className="flex flex-col gap-4">
-          <Info title="Promotion" value={profil!.location} />
-          <Info title="Promotion" value={format(profil!.genres)} />
+          <Info title="Localisation" value={localisation} />
+          <Info title="Genres" value={format(genres)} />
         </div>
-        <Info title="Promotion" value={profil!.email} />
+        <Info title="Email" value={email} />
       </div>
     </ProfileSection>
   );

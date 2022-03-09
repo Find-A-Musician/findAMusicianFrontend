@@ -33,7 +33,13 @@ export default function MyProfile() {
             facilisis. Nunc eget est auctor, auctor sapien sed, porta augue.
           </p>
         </ProfileSection>
-        <ProfileInformation />
+        <ProfileInformation
+          promotion={profil!.promotion}
+          email={profil!.email}
+          localisation={profil!.location}
+          genres={profil!.genres}
+          instruments={profil!.instruments}
+        />
       </>
     </ContentLayout>
   );
