@@ -4,10 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ICONS_DEFINITION } from '../utils/icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { Genres, Instruments } from '../types/api';
+import { useRouter } from 'next/router';
 
 type MusicianBoxProps = {
   name: string;
   genres: Genres;
+  id: string;
   instruments: Instruments;
   email: string;
   facebook_url: string | null;
@@ -18,12 +20,20 @@ type MusicianBoxProps = {
 export default function MusicianBox({
   name,
   genres,
+  id,
   instruments,
   email,
   facebook_url,
   instagram_url,
   twitter_url,
 }: MusicianBoxProps): JSX.Element {
+  const router = useRouter();
+
+  /**Redirect to musician profile page */
+  function handleRedirection(): void {
+    router.push(`/profile/${id}`);
+  }
+
   return (
     <div className="h-40 w-96 shadow-complete rounded-lg flex relative m-5">
       <div className="w-3/6 flex">
@@ -65,9 +75,12 @@ export default function MusicianBox({
             icon={ICONS_DEFINITION['letter'].icon}
           />
         </div>
-        <div className="absolute text-xl cursor-pointer bottom-1 right-5 text-red-700 ">
+        <button
+          onClick={handleRedirection}
+          className="absolute text-xl cursor-pointer bottom-1 right-5 text-red-700 "
+        >
           <FontAwesomeIcon icon={faPlusCircle} />
-        </div>
+        </button>
       </div>
     </div>
   );
