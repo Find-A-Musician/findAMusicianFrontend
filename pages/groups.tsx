@@ -5,6 +5,7 @@ import GroupCard from '../components/GroupCard';
 import Banner from '../components/Banner';
 import Dropdown, { Options } from '../components/Dropdown';
 import { useState } from 'react';
+import ProfileInformation from '../components/Profile/ProfileInformation';
 import Input from '../components/Input';
 
 export default function Groups(): JSX.Element {
@@ -105,6 +106,7 @@ export default function Groups(): JSX.Element {
         genres={['pop', 'rock', 'rock']}
         href="/musician"
       />
+      <ProfileInformation />
     </div>
   );
 }
