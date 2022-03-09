@@ -36,7 +36,7 @@ export default function GroupCard({
           ))}
         </div>
         <Link href={href} passHref>
-          <a className="text-sm text-blue-500">Voir plus</a>
+          <a className="text-sm text-blue-500 hover:underline">Voir plus</a>
         </Link>
       </div>
     </div>

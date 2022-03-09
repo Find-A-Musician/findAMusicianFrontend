@@ -12,7 +12,7 @@ export default function Header({
   rightComponents,
 }: Props) {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center py-8 bg-white">
       <div className="flex items-center gap-4">
         <div className="flex justify-center items-center text-red-500 w-12 h-12 rounded-full bg-gray-100">
           {icon}
