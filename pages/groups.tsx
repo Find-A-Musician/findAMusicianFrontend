@@ -7,6 +7,7 @@ import Dropdown, { Options } from '../components/Dropdown';
 import { useState } from 'react';
 import ProfileInformation from '../components/Profile/ProfileInformation';
 import Input from '../components/Input';
+import ContentLayout from '../layout/content';
 
 export default function Groups(): JSX.Element {
   const optionsGenre = [
@@ -57,56 +58,93 @@ export default function Groups(): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
 
   return (
-    <div className="flex flex-col gap-10">
-      <Header
-        title="Groupes"
-        subtitle="420 groupes"
-        icon={<IGroup />}
-        rightComponents={<NewButton label="Créer un groupe" />}
-      />
-      <Banner
-        title="Trouve le"
-        boldTitle="groupe parfait!"
-        subtitle="Plus besoin de galérer pour trouver l'équipe parfaite"
-        imagePath="/images/music_concert.png"
-      />
-      <div className="flex justify-between">
-        <div className="flex gap-4">
-          <Dropdown
-            label="Instruments"
-            options={optionsInstrument}
-            selected={selectedInstrument}
-            setSelected={setSelectedInstrument}
-          />
-          <Dropdown
-            label="Genres"
-            options={optionsGenre}
-            selected={selectedGenre}
-            setSelected={setSelectedGenre}
-          />
+    <ContentLayout
+      Header={
+        <Header
+          title="Groupes"
+          subtitle="420 groupes"
+          icon={<IGroup />}
+          rightComponents={<NewButton label="Créer un groupe" />}
+        />
+      }
+    >
+      <>
+        <Banner
+          title="Trouve le"
+          boldTitle="groupe parfait!"
+          subtitle="Plus besoin de galérer pour trouver l'équipe parfaite"
+          imagePath="/images/music_concert.png"
+        />
+        <div className="sticky top-28 pb-2 -mb-2 bg-white flex justify-between">
+          <div className="flex gap-4">
+            <Dropdown
+              label="Instruments"
+              options={optionsInstrument}
+              selected={selectedInstrument}
+              setSelected={setSelectedInstrument}
+            />
+            <Dropdown
+              label="Genres"
+              options={optionsGenre}
+              selected={selectedGenre}
+              setSelected={setSelectedGenre}
+            />
 
-          <Dropdown
-            label="Sites"
-            options={optionsSite}
-            selected={selectedSite}
-            setSelected={setSelectedSite}
+            <Dropdown
+              label="Sites"
+              options={optionsSite}
+              selected={selectedSite}
+              setSelected={setSelectedSite}
+            />
+          </div>
+
+          <Input
+            label="rechercher"
+            value={searchValue}
+            setValue={setSearchValue}
           />
         </div>
-
-        <Input
-          label="rechercher"
-          value={searchValue}
-          setValue={setSearchValue}
-        />
-      </div>
-      <GroupCard
-        name="Singe"
-        nbMembers={4}
-        description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
-        genres={['pop', 'rock', 'rock']}
-        href="/musician"
-      />
-      <ProfileInformation />
-    </div>
+        <div className="grid grid-cols-2 gap-4">
+          <GroupCard
+            name="Singe"
+            nbMembers={4}
+            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
+            genres={['pop', 'rock', 'rock']}
+            href="/musician"
+          />
+          <GroupCard
+            name="Singe"
+            nbMembers={4}
+            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
+            genres={['pop', 'rock', 'rock']}
+            href="/musician"
+          />
+          <GroupCard
+            name="Singe"
+            nbMembers={4}
+            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
+            genres={['pop', 'rock', 'rock']}
+            href="/musician"
+          />
+          <GroupCard
+            name="Singe"
+            nbMembers={4}
+            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
+            genres={['pop', 'rock', 'rock']}
+            href="/musician"
+          />
+          <GroupCard
+            name="Singe"
+            nbMembers={4}
+            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
+            genres={['pop', 'rock', 'rock']}
+            href="/musician"
+          />
+        </div>
+        <div className="pb-10">
+          <ProfileInformation />
+        </div>
+      </>
+    </ContentLayout>
   );
 }
