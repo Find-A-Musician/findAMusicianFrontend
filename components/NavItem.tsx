@@ -15,9 +15,11 @@ export default function NavItem({ text, href, icon }: Props) {
   return (
     <Link href={href} passHref>
       <a
-        className={`flex gap-3 items-center text-${
-          selected ? 'red' : 'gray'
-        }-500 font-${selected ? 'bold' : 'medium'}`}
+        className={`flex gap-3 items-center ${
+          selected
+            ? 'text-red-500 font-bold hover:text-red-600'
+            : 'text-gray-500 font-medium hover:text-gray-600'
+        }`}
       >
         {icon}
         {text}
