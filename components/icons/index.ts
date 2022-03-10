@@ -7,3 +7,4 @@ export { IChevronBottom } from './IChevronBottom';
 export { IGroup } from './IGroup';
 export { ICheck } from './ICheck';
 export { ISearch } from './ISearch';
+export { IPlayCircle } from './IPlayCircle';
