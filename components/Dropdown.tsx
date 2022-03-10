@@ -42,7 +42,7 @@ export default function Dropdown({
     <div className="relative inline-block">
       <button
         onClick={() => setIsOpen(true)}
-        className={`flex items-center border rounded  gap-10 py-1.5 px-3 ${
+        className={`flex items-center border rounded gap-10 py-1.5 px-3 ${
           nothingSelected()
             ? 'text-gray-700 hover:bg-gray-50'
             : 'bg-red-500 text-white'
@@ -60,7 +60,7 @@ export default function Dropdown({
       {isOpen && (
         <div
           ref={ref}
-          className="z-40 absolute top-11 flex flex-col border rounded shadow-lg"
+          className="z-40 absolute top-11 flex flex-col border bg-white rounded shadow-lg"
         >
           {options.map((option, index) => (
             <button
