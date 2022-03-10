@@ -1,7 +1,4 @@
 import { useRouter } from 'next/router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-regular-svg-icons';
-import { faDoorOpen, faCog, faBars } from '@fortawesome/free-solid-svg-icons';
 import { AuthStateType, useAuth } from '../context/AuthContext';
 import React, { useState } from 'react';
 import useOnClickOutside from '../hooks/useOnClickOutside';
@@ -9,35 +6,30 @@ import { useAxios } from '../context/AxiosContext';
 import Cookies from 'js-cookie';
 import type { AxiosInstance } from 'axios';
 import Navbar from '../components/Navbar';
-import HambergerMenu from '../components/HambergerMenu';
+import { MenuContext } from '../context/MenuContext';
 
 export default function AppLayout({
   children,
 }: {
   children: React.ReactNode;
 }): JSX.Element {
-  const { pathname, push } = useRouter();
-  const { getProfil, setAuthState, isAuthenticated } = useAuth();
-  const { authAxios } = useAxios();
-
-  const [settingModal, setSettingModal] = useState(false);
-  const [hambergerMenu, setHambergerMenu] = useState(false);
-
-  const settingModalRef = useOnClickOutside(() => {
-    setSettingModal(false);
-  });
-
-  const profil = getProfil();
+  const { isAuthenticated } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
       {isAuthenticated() ? (
         <div className="flex h-screen bg-gray-100">
-          <div className="hidden sm:block">
-            <Navbar />
-          </div>
-          <div className="flex-grow max-h-screen overflow-hidden overflow-y-scroll bg-white rounded-t-lg px-4 sm:px-10 sm:mt-7 sm:mr-7">
-            {children}
+          <Navbar
+            className={`absolute z-50 inset-0 animate-enter-right sm:w-80 sm:flex sm:static ${
+              isMenuOpen ? '' : 'hidden'
+            }`}
+            setIsMenuOpen={setIsMenuOpen}
+          />
+          <div className="flex-grow w-screen max-h-screen overflow-hidden overflow-y-scroll bg-white rounded-t-lg px-4 sm:px-10 sm:mt-7 sm:mr-7">
+            <MenuContext.Provider value={{ isMenuOpen, setIsMenuOpen }}>
+              {children}
+            </MenuContext.Provider>
           </div>
         </div>
       ) : (
@@ -45,15 +37,6 @@ export default function AppLayout({
       )}
     </>
   );
-}
-
-function isLinkSelected(pathName: string, link: string): string {
-  const path = pathName.split('/')[1];
-  if (path === link) {
-    return `text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-800 to-purple-1000`;
-  } else {
-    return '';
-  }
 }
 
 export async function Logout(
