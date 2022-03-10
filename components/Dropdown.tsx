@@ -60,7 +60,7 @@ export default function Dropdown({
       {isOpen && (
         <div
           ref={ref}
-          className="absolute top-11 flex flex-col border rounded shadow-lg"
+          className="z-40 absolute top-11 flex flex-col border rounded shadow-lg"
         >
           {options.map((option, index) => (
             <button
