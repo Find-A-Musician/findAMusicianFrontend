@@ -33,16 +33,12 @@ export default function ProfileInformation({
 
   return (
     <ProfileSection title="Information">
-      <div className="flex justify-between">
-        <div className="flex flex-col gap-4">
-          <Info title="Promotion" value={promotion} />
-          <Info title="Instruments" value={format(instruments)} />
-        </div>
-        <div className="flex flex-col gap-4">
-          <Info title="Localisation" value={localisation} />
-          <Info title="Genres" value={format(genres)} />
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <Info title="Promotion" value={promotion} />
+        <Info title="Localisation" value={localisation} />
         <Info title="Email" value={email} />
+        <Info title="Instruments" value={format(instruments)} />
+        <Info title="Genres" value={format(genres)} />
       </div>
     </ProfileSection>
   );
