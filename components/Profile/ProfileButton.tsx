@@ -3,16 +3,18 @@ import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
 
 type Props = {
+  onClick?: () => void;
   className?: string;
 };
 
-export default function ProfileButton({ className }: Props) {
+export default function ProfileButton({ onClick, className }: Props) {
   const { getProfil } = useAuth();
   const profil = getProfil();
 
   return (
     <Link href="/profile" passHref>
       <a
+        onClick={onClick}
         className={`flex justify-around items-center px-7 h-28 w-full ${className}`}
       >
         <div className="w-14 h-14 rounded-full bg-blue-500"></div>

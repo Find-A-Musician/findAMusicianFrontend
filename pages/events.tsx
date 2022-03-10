@@ -2,11 +2,14 @@ import Header from '../components/Header';
 import { IPeople } from '../components/icons';
 import NewButton from '../components/NewButton';
 import Banner from '../components/Banner';
-import ProfileBanner from '../components/Profile/ProfileBanner';
 import ProfileSection from '../components/Profile/ProfileSection';
 import ContentLayout from '../layout/content';
+import { MenuContext } from '../context/MenuContext';
+import { useContext } from 'react';
 
 export default function Events(): JSX.Element {
+  const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
+
   return (
     <ContentLayout
       Header={
@@ -14,6 +17,7 @@ export default function Events(): JSX.Element {
           title="Profil"
           icon={<IPeople />}
           rightComponents={<NewButton label="Modifier mon profil" />}
+          hamburgerOnClick={() => setIsMenuOpen(!isMenuOpen)}
         />
       }
     >

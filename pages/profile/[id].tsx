@@ -8,8 +8,11 @@ import { IPeople } from '../../components/icons';
 import useSwr from 'swr';
 import { useAxios } from '../../context/AxiosContext';
 import { useRouter } from 'next/router';
+import { MenuContext } from '../../context/MenuContext';
+import { useContext } from 'react';
 
 export default function Profile() {
+  const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
   const router = useRouter();
   const { id } = router.query;
   const { authAxios } = useAxios();
@@ -25,6 +28,7 @@ export default function Profile() {
           title="Profil"
           icon={<IPeople />}
           rightComponents={<NewButton label="Modifier mon profil" />}
+          hamburgerOnClick={() => setIsMenuOpen(!isMenuOpen)}
         />
       }
     >

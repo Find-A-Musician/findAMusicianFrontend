@@ -8,8 +8,12 @@ import { useState } from 'react';
 import ProfileInformation from '../components/Profile/ProfileInformation';
 import Input from '../components/Input';
 import ContentLayout from '../layout/content';
+import { MenuContext } from '../context/MenuContext';
+import { useContext } from 'react';
 
 export default function Groups(): JSX.Element {
+  const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
+
   const optionsGenre = [
     {
       label: 'Rock',
@@ -65,6 +69,7 @@ export default function Groups(): JSX.Element {
           subtitle="420 groupes"
           icon={<IGroup />}
           rightComponents={<NewButton label="Créer un groupe" />}
+          hamburgerOnClick={() => setIsMenuOpen(!isMenuOpen)}
         />
       }
     >

@@ -1,8 +1,12 @@
+import { IMenu } from './icons';
+import { Dispatch, SetStateAction } from 'react';
+
 type Props = {
   title: string;
   subtitle?: string;
   icon: JSX.Element;
   rightComponents?: JSX.Element;
+  hamburgerOnClick: () => void;
 };
 
 export default function Header({
@@ -10,6 +14,7 @@ export default function Header({
   subtitle,
   icon,
   rightComponents,
+  hamburgerOnClick,
 }: Props) {
   return (
     <div className="flex justify-between items-center py-8 bg-white">
@@ -22,7 +27,15 @@ export default function Header({
           <span className="text-sm text-gray-500">{subtitle}</span>
         </div>
       </div>
-      {rightComponents}
+      <div className="flex items-center gap-3">
+        {rightComponents}{' '}
+        <button
+          onClick={hamburgerOnClick}
+          className="text-gray-500 inline-block sm:hidden"
+        >
+          <IMenu />
+        </button>
+      </div>
     </div>
   );
 }

@@ -6,10 +6,13 @@ import Header from '../../components/Header';
 import NewButton from '../../components/NewButton';
 import { IPeople } from '../../components/icons';
 import { useAuth } from '../../context/AuthContext';
+import { MenuContext } from '../../context/MenuContext';
+import { useContext } from 'react';
 
 export default function MyProfile() {
   const { getProfil } = useAuth();
   const profil = getProfil();
+  const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
 
   return (
     <ContentLayout
@@ -18,6 +21,7 @@ export default function MyProfile() {
           title="Profil"
           icon={<IPeople />}
           rightComponents={<NewButton label="Modifier mon profil" />}
+          hamburgerOnClick={() => setIsMenuOpen(!isMenuOpen)}
         />
       }
     >

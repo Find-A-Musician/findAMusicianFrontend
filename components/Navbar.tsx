@@ -5,19 +5,36 @@ import { Logout } from '../layout/app';
 import { useAxios } from '../context/AxiosContext';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
+import { Dispatch, SetStateAction } from 'react';
+import Link from 'next/link';
 
-export default function Navbar() {
+type Props = {
+  setIsMenuOpen: Dispatch<SetStateAction<boolean>>;
+  className?: string;
+};
+
+export default function Navbar({ setIsMenuOpen, className }: Props) {
   const { push } = useRouter();
   const { authAxios } = useAxios();
   const { setAuthState } = useAuth();
 
   return (
-    <div className="flex flex-none flex-col items-center h-screen bg-gray-100 w-80">
+    <div
+      className={`flex flex-none flex-col items-center h-screen bg-gray-100 ${className}`}
+    >
       <div>
-        <span className="flex items-center gap-2 my-[4.5rem] text-red-500 text-xl font-bold">
-          <ITelescope /> Find a musician
-        </span>
-        <nav className="flex flex-col gap-8">
+        <Link href="/musician" passHref>
+          <a
+            onClick={() => setIsMenuOpen(false)}
+            className="flex items-center gap-2 my-[4.5rem] text-red-500 text-xl font-bold"
+          >
+            <ITelescope /> Find a musician
+          </a>
+        </Link>
+        <nav
+          onClick={() => setIsMenuOpen(false)}
+          className="flex flex-col gap-8"
+        >
           <NavItem text="Musiciens" href="/musician" icon={<IMusicNote />} />
           <NavItem text="Groupes" href="/groups" icon={<IGroup />} />
           <NavItem text="Evènements" href="/events" icon={<ICalendar />} />
@@ -34,7 +51,7 @@ export default function Navbar() {
           </div>
         </nav>
       </div>
-      <ProfileButton className="mt-auto" />
+      <ProfileButton className="mt-auto" onClick={() => setIsMenuOpen(false)} />
     </div>
   );
 }
