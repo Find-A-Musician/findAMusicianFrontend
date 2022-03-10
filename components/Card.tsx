@@ -1,34 +1,49 @@
-import Tag from '../components/Tag';
+import Tag from './Tag';
 import Link from 'next/link';
+import { capitalize } from '../utils/string';
 
 type Props = {
-  name: string;
-  nbMembers: number;
+  title: string;
   description: string;
   genres: Array<string>;
   /**path to group page */
   href: string;
+  subtitle?: string;
+  smallTag?: JSX.Element;
+  recherche?: Array<string>;
 };
 
-export default function GroupCard({
-  name,
-  nbMembers,
+export default function Card({
+  title,
+  subtitle,
   description,
   genres,
   href,
+  smallTag,
+  recherche,
 }: Props) {
+  function format(arr: Array<string>): string {
+    return arr.map((el) => capitalize(el)).join(', ');
+  }
   return (
     <div className="border rounded-xl px-6 py-5">
       <div className="flex items-center gap-3 border-b pb-4">
         <div className="w-10 h-10 rounded-full bg-black"></div>
         <div className="flex flex-col">
-          <span>{name}</span>
-          <span className="text-sm text-gray-500">
-            {nbMembers} membre{nbMembers > 1 ? 's' : ''}
-          </span>
+          <div className="flex items-center gap-2">
+            <span>{title}</span>
+            <div>{smallTag}</div>
+          </div>
+          <span className="text-sm text-gray-500">{subtitle}</span>
         </div>
       </div>
       <span className="text-gray-500 block py-4">{description}</span>
+      {recherche && (
+        <span className="text-gray-500 block pb-4">
+          <span className="font-medium">Recherche : </span>
+          {format(recherche)}
+        </span>
+      )}
       <div className="flex items-center justify-between">
         <div className="flex gap-2 ">
           {genres.map((genre, index) => (

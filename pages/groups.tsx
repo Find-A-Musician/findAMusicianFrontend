@@ -1,11 +1,11 @@
 import Header from '../components/Header';
 import { IGroup } from '../components/icons';
 import NewButton from '../components/NewButton';
-import GroupCard from '../components/GroupCard';
+import Card from '../components/Card';
+import TagSmall from '../components/TagSmall';
 import Banner from '../components/Banner';
 import Dropdown, { Options } from '../components/Dropdown';
 import { useState } from 'react';
-import ProfileInformation from '../components/Profile/ProfileInformation';
 import Input from '../components/Input';
 import ContentLayout from '../layout/content';
 import { MenuContext } from '../context/MenuContext';
@@ -110,37 +110,51 @@ export default function Groups(): JSX.Element {
           />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-          <GroupCard
-            name="Singe"
-            nbMembers={4}
+          <Card
+            title="Singe"
+            subtitle="4 membres"
+            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
+            genres={['pop', 'rock', 'rock']}
+            href="/musician"
+            smallTag={
+              <TagSmall
+                label="RJ"
+                description="Ce groupe recherche des musiciens"
+              />
+            }
+            recherche={['Guitare', 'Yukulele']}
+          />
+          <Card
+            title="Singe"
+            subtitle="4 membres"
             description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
             genres={['pop', 'rock', 'rock']}
             href="/musician"
           />
-          <GroupCard
-            name="Singe"
-            nbMembers={4}
+          <Card
+            title="Singe"
+            subtitle="4 membres"
+            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
+            genres={['pop', 'rock', 'rock']}
+            href="/musician"
+            smallTag={
+              <TagSmall
+                label="RJ"
+                description="Ce groupe recherche des musiciens"
+              />
+            }
+            recherche={['Piano', 'Kazoo']}
+          />
+          <Card
+            title="Singe"
+            subtitle="4 membres"
             description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
             genres={['pop', 'rock', 'rock']}
             href="/musician"
           />
-          <GroupCard
-            name="Singe"
-            nbMembers={4}
-            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
-            genres={['pop', 'rock', 'rock']}
-            href="/musician"
-          />
-          <GroupCard
-            name="Singe"
-            nbMembers={4}
-            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
-            genres={['pop', 'rock', 'rock']}
-            href="/musician"
-          />
-          <GroupCard
-            name="Singe"
-            nbMembers={4}
+          <Card
+            title="Singe"
+            subtitle="4 membres"
             description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
             genres={['pop', 'rock', 'rock']}
             href="/musician"
