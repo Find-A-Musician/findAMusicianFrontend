@@ -75,7 +75,7 @@ export default function Groups(): JSX.Element {
           subtitle="Plus besoin de galérer pour trouver l'équipe parfaite"
           imagePath="/images/music_concert.png"
         />
-        <div className="sticky top-28 pb-2 -mb-2 bg-white flex justify-between">
+        <div className="sticky top-28 pb-2 -mb-2 bg-white flex gap-4 justify-between overflow-x-auto">
           <div className="flex gap-4">
             <Dropdown
               label="Instruments"
@@ -104,7 +104,7 @@ export default function Groups(): JSX.Element {
             setValue={setSearchValue}
           />
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
           <GroupCard
             name="Singe"
             nbMembers={4}

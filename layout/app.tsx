@@ -33,8 +33,10 @@ export default function AppLayout({
     <>
       {isAuthenticated() ? (
         <div className="flex h-screen bg-gray-100">
-          <Navbar />
-          <div className="flex-grow max-h-screen overflow-hidden overflow-y-scroll bg-white rounded-t-lg px-10 mt-7 mr-7">
+          <div className="hidden sm:block">
+            <Navbar />
+          </div>
+          <div className="flex-grow max-h-screen overflow-hidden overflow-y-scroll bg-white rounded-t-lg px-4 sm:px-10 sm:mt-7 sm:mr-7">
             {children}
           </div>
         </div>
