@@ -75,8 +75,8 @@ export default function Groups(): JSX.Element {
           subtitle="Plus besoin de galérer pour trouver l'équipe parfaite"
           imagePath="/images/music_concert.png"
         />
-        <div className="sticky top-28 pb-2 -mb-2 bg-white flex gap-4 justify-between overflow-x-auto">
-          <div className="flex gap-4">
+        <div className="sticky top-28 pb-2 -mb-2 bg-white flex flex-wrap gap-4 justify-between">
+          <div className="flex flex-wrap gap-4">
             <Dropdown
               label="Instruments"
               options={optionsInstrument}
