@@ -25,6 +25,7 @@ export default function Musician(): JSX.Element {
         {musiciansList.map((musician) => (
           <MusicianBox
             key={musician.id}
+            id={musician.id}
             name={musician.givenName + ' ' + musician?.familyName}
             email={musician.email}
             genres={musician.genres}

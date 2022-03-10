@@ -141,9 +141,6 @@ export default function Groups(): JSX.Element {
             href="/musician"
           />
         </div>
-        <div className="pb-10">
-          <ProfileInformation />
-        </div>
       </>
     </ContentLayout>
   );

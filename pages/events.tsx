@@ -24,7 +24,6 @@ export default function Events(): JSX.Element {
           subtitle="Plus besoin de galérer pour trouver l'équipe parfaite"
           imagePath="/images/music_concert.png"
         />
-        <ProfileBanner />
         <ProfileSection title="A propos">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
