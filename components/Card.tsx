@@ -9,8 +9,8 @@ type Props = {
   /**path to group page */
   href: string;
   subtitle?: string;
-  lfLogo?: JSX.Element;
-  lfInstruments?: Array<string>;
+  smallTag?: JSX.Element;
+  recherche?: Array<string>;
 };
 
 export default function Card({
@@ -19,8 +19,8 @@ export default function Card({
   description,
   genres,
   href,
-  lfLogo,
-  lfInstruments,
+  smallTag,
+  recherche,
 }: Props) {
   function format(arr: Array<string>): string {
     return arr.map((el) => capitalize(el)).join(', ');
@@ -32,16 +32,16 @@ export default function Card({
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
             <span>{title}</span>
-            <div>{lfLogo}</div>
+            <div>{smallTag}</div>
           </div>
           <span className="text-sm text-gray-500">{subtitle}</span>
         </div>
       </div>
       <span className="text-gray-500 block py-4">{description}</span>
-      {lfInstruments && (
+      {recherche && (
         <span className="text-gray-500 block pb-4">
           <span className="font-medium">Recherche : </span>
-          {format(lfInstruments)}
+          {format(recherche)}
         </span>
       )}
       <div className="flex items-center justify-between">

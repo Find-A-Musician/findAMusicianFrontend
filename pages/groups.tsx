@@ -2,6 +2,7 @@ import Header from '../components/Header';
 import { IGroup } from '../components/icons';
 import NewButton from '../components/NewButton';
 import Card from '../components/Card';
+import TagSmall from '../components/TagSmall';
 import Banner from '../components/Banner';
 import Dropdown, { Options } from '../components/Dropdown';
 import { useState } from 'react';
@@ -110,12 +111,13 @@ export default function Groups(): JSX.Element {
             description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
             genres={['pop', 'rock', 'rock']}
             href="/musician"
-            lfLogo={
-              <div className="text-white text-xs bg-green-500 flex justify-center items-center w-5 h-4 rounded">
-                RJ
-              </div>
+            smallTag={
+              <TagSmall
+                label="RJ"
+                description="Ce groupe recherche des musiciens"
+              />
             }
-            lfInstruments={['Guitare', 'Yukulele']}
+            recherche={['Guitare', 'Yukulele']}
           />
           <Card
             title="Singe"
@@ -130,12 +132,13 @@ export default function Groups(): JSX.Element {
             description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
             genres={['pop', 'rock', 'rock']}
             href="/musician"
-            lfLogo={
-              <div className="text-white text-xs bg-green-500 flex justify-center items-center w-5 h-4 rounded">
-                RJ
-              </div>
+            smallTag={
+              <TagSmall
+                label="RJ"
+                description="Ce groupe recherche des musiciens"
+              />
             }
-            lfInstruments={['Piano', 'Kazoo']}
+            recherche={['Piano', 'Kazoo']}
           />
           <Card
             title="Singe"
