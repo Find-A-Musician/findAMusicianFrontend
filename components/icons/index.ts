@@ -8,3 +8,4 @@ export { IGroup } from './IGroup';
 export { ICheck } from './ICheck';
 export { ISearch } from './ISearch';
 export { IPlayCircle } from './IPlayCircle';
+export { ILogout } from './ILogout';
