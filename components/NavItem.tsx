@@ -5,9 +5,10 @@ type Props = {
   text: string;
   href: string;
   icon: JSX.Element;
+  onClick?: () => void;
 };
 
-export default function NavItem({ text, href, icon }: Props) {
+export default function NavItem({ text, href, icon, onClick }: Props) {
   const router = useRouter();
 
   let selected = router.pathname === href;
@@ -20,6 +21,7 @@ export default function NavItem({ text, href, icon }: Props) {
             ? 'text-red-500 font-bold hover:text-red-600'
             : 'text-gray-500 font-medium hover:text-gray-600'
         }`}
+        onClick={onClick}
       >
         {icon}
         {text}
