@@ -82,7 +82,7 @@ export default function Groups(): JSX.Element {
           subtitle="Plus besoin de galérer pour trouver l'équipe parfaite"
           imagePath="/images/music_concert.png"
         />
-        <div className="sticky top-28 pb-2 -mb-2 bg-white flex flex-wrap gap-4 justify-between">
+        <div className="sticky top-28 pb-2 -mb-2 bg-white flex flex-wrap gap-4 justify-between z-10">
           <div className="flex flex-wrap gap-4">
             <Dropdown
               label="Instruments"
@@ -144,6 +144,13 @@ export default function Groups(): JSX.Element {
             description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
             genres={['pop', 'rock', 'rock']}
             href="/musicians"
+            smallTag={
+              <TagSmall
+                label="RJ"
+                description="Ce groupe recherche des musiciens"
+              />
+            }
+            recherche={['Guitare', 'Yukulele']}
           />
           <Card
             title="Singe"
