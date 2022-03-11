@@ -2,16 +2,21 @@ import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
 import { setCookie, useAuth } from '../context/AuthContext';
 import { useAxios } from '../context/AxiosContext';
-import TextInput from './TextInput';
-import Button from './Button';
+import Input from './Input';
+import NewButton from './NewButton';
 import LoaderSpinner from './LoaderSpinner';
 import { Profil, Token } from '../types/api';
+import { ILock, IAtSign } from './icons';
+
+type Props = {
+  onForgetPassword: () => void;
+  openRegisterModal: () => void;
+};
 
 export default function LoginModal({
   onForgetPassword,
-}: {
-  onForgetPassword: () => void;
-}): JSX.Element {
+  openRegisterModal,
+}: Props): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -21,7 +26,7 @@ export default function LoginModal({
   const axios = useAxios();
   const router = useRouter();
 
-  async function Login(e: FormEvent<HTMLFormElement>) {
+  async function handleLogin(e: FormEvent<HTMLFormElement>) {
     setError('');
     e.preventDefault();
     setLoading(true);
@@ -61,44 +66,54 @@ export default function LoginModal({
   }
 
   return (
-    <form
-      onSubmit={Login}
-      className="flex flex-col items-center justify-around py-3 sm:w-96 w-80 rounded-2xl h-96 bg-white"
-    >
-      <h2 className="text-red-800 font-black text-xl">Connecte toi !</h2>
-      {error && <p className="text-red-600">Email ou mot de passe incorrect</p>}
-      <TextInput
-        type="email"
-        id="emailInputLogin"
-        label="Email"
-        placeholder="Entrez votre email"
-        autoComplete="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <div className="flex flex-col items-start">
-        <TextInput
-          type="password"
-          id="passwordInputLogin"
-          label="Mot de passe"
-          placeholder="Entrez votre mot de passe"
-          autoComplete="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <p
-          onClick={onForgetPassword}
-          className="text-gray-500 text-sm cursor-pointer self-center m-1"
-        >
-          Mot de passe oublié ?
-        </p>
-      </div>
+    <div className="flex flex-col justify-around p-10 sm:w-96 w-80 rounded-md gap-6 bg-white">
+      <form onSubmit={handleLogin} className="flex flex-col gap-6">
+        <h2 className="text-lg font-bold text-gray-800">Se connecter</h2>
+        <div className="flex flex-col gap-4">
+          <Input
+            id="emailInputLogin"
+            label="Email"
+            displayLabel
+            placeholder="Email"
+            type="email"
+            autoComplete="email"
+            className="w-full"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            id="passwordInputLogin"
+            type="password"
+            label="Mot de passe"
+            displayLabel
+            placeholder="Mot de passe"
+            autoComplete="password"
+            className="w-full"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        {error && (
+          <span className="-mt-4 text-red-500 text-sm">
+            Email ou mot de passe incorrect
+          </span>
+        )}
 
-      {loading ? (
-        <LoaderSpinner size="sm" />
-      ) : (
-        <Button isLarge type="submit" label="Connexion" bold />
-      )}
-    </form>
+        {loading ? (
+          <LoaderSpinner size="sm" />
+        ) : (
+          <NewButton type="submit" label="Connexion" className="mt-4 rounded" />
+        )}
+      </form>
+      <span className="text-sm text-gray-400">
+        Pas encore de compte ?{' '}
+        <button
+          className="text-blue-500 hover:underline ml-1"
+          onClick={openRegisterModal}
+        >
+          inscris-toi!
+        </button>
+      </span>
+    </div>
   );
 }

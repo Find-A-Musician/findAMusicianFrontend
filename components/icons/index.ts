@@ -11,3 +11,5 @@ export { IPlayCircle } from './IPlayCircle';
 export { ILogout } from './ILogout';
 export { IAdd } from './IAdd';
 export { IMenu } from './IMenu';
+export { IAtSign } from './IAtSign';
+export { ILock } from './ILock';

@@ -93,7 +93,13 @@ export default function Login(): JSX.Element {
       </div>
       {logginModal && (
         <PopUp close={() => setLogginModal(false)}>
-          <LoginModal onForgetPassword={() => {}} />{' '}
+          <LoginModal
+            onForgetPassword={() => {}}
+            openRegisterModal={() => {
+              setRegisterModal(true);
+              setLogginModal(false);
+            }}
+          />
         </PopUp>
       )}
       {registerModal && (

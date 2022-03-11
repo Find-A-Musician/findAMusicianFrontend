@@ -30,16 +30,14 @@ export default function TextInput({
 }: TextInputProps &
   Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'id'>) {
   return (
-    <div
-      className={`flex flex-col items-start relative ${isFull ? 'w-full' : ''}`}
-    >
-      <label htmlFor={id} className="font-bold">
+    <div className={`flex flex-col gap-2 relative ${isFull ? 'w-full' : ''}`}>
+      <label htmlFor={id} className="font-medium text-gray-800">
         {label}
       </label>
       <div
         className={` border-2 shadow-sm ${
           isFull ? 'w-full' : 'w-80'
-        } h-12 focus-within:border-red-800 focus-within:border-2 rounded-2xl flex itmes-center flex-start overflow-hidden relative`}
+        } h-12 focus-within:border-red-800 focus-within:border-2 rounded-lg flex itmes-center overflow-hidden relative`}
       >
         {icon && (
           <span className="h-full flex absolute left-0 px-2">
@@ -50,7 +48,7 @@ export default function TextInput({
           </span>
         )}
         <input
-          className={`h-full w-full outline-none border-none flex-1 px-2 py-1 ${
+          className={`outline-none border-none flex-1 px-2 py-1 ${
             icon ? 'pl-8' : ''
           }`}
           type={type}

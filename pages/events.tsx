@@ -16,7 +16,9 @@ export default function Events(): JSX.Element {
         <Header
           title="Profil"
           icon={<IPeople />}
-          rightComponents={<NewButton label="Modifier mon profil" />}
+          rightComponents={
+            <NewButton label="Modifier mon profil" className="rounded-full" />
+          }
           hamburgerOnClick={() => setIsMenuOpen(!isMenuOpen)}
         />
       }

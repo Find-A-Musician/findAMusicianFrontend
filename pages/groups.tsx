@@ -10,6 +10,7 @@ import Input from '../components/Input';
 import ContentLayout from '../layout/content';
 import { MenuContext } from '../context/MenuContext';
 import { useContext } from 'react';
+import { ISearch } from '../components/icons';
 
 export default function Groups(): JSX.Element {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
@@ -68,7 +69,9 @@ export default function Groups(): JSX.Element {
           title="Groupes"
           subtitle="420 groupes"
           icon={<IGroup />}
-          rightComponents={<NewButton label="Créer un groupe" />}
+          rightComponents={
+            <NewButton label="Créer un groupe" className="rounded-full" />
+          }
           hamburgerOnClick={() => setIsMenuOpen(!isMenuOpen)}
         />
       }
@@ -104,9 +107,12 @@ export default function Groups(): JSX.Element {
           </div>
 
           <Input
-            label="rechercher"
+            id="rechercher"
+            placeholder="rechercher"
+            label="searchbar"
             value={searchValue}
-            setValue={setSearchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            icon={<ISearch />}
           />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
