@@ -1,7 +1,10 @@
 import ContentLayout from '../../layout/content';
-import ProfileSection from '../../components/Profile/ProfileSection';
-import ProfileInformation from '../../components/Profile/ProfileInformation';
-import ProfileBanner from '../../components/Profile/ProfileBanner';
+import {
+  ProfileBanner,
+  ProfileSection,
+  ProfileInformation,
+  ProfileGroup,
+} from '../../components/Profile';
 import Header from '../../components/Header';
 import NewButton from '../../components/NewButton';
 import { IPeople } from '../../components/icons';
@@ -54,6 +57,7 @@ export default function Profile() {
             genres={data.genres}
             instruments={data.instruments}
           />
+          <ProfileGroup />
         </>
       )}
     </ContentLayout>

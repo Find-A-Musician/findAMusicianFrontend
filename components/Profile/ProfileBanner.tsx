@@ -9,7 +9,7 @@ type Props = {
   groups?: string[];
 };
 
-export default function ProfileBanner({
+export function ProfileBanner({
   firstname,
   lastname,
   isMyProfile = false,
@@ -50,3 +50,5 @@ export default function ProfileBanner({
     </div>
   );
 }
+
+export default ProfileBanner;

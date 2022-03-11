@@ -4,10 +4,10 @@ import { capitalize } from '../utils/string';
 
 type Props = {
   title: string;
-  description: string;
   genres: Array<string>;
   /**path to group page */
   href: string;
+  description?: string;
   subtitle?: string;
   smallTag?: JSX.Element;
   recherche?: Array<string>;
@@ -15,10 +15,10 @@ type Props = {
 
 export default function Card({
   title,
-  subtitle,
-  description,
   genres,
   href,
+  description,
+  subtitle,
   smallTag,
   recherche,
 }: Props) {
@@ -27,17 +27,23 @@ export default function Card({
   }
   return (
     <div className="flex flex-col border rounded-xl px-6 py-5">
-      <div className="flex items-center gap-3 border-b pb-4">
+      <div
+        className={`flex items-center gap-3 pb-4 ${
+          description ? 'border-b' : ''
+        }`}
+      >
         <div className="w-10 h-10 rounded-full bg-black"></div>
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
-            <span>{title}</span>
+            <span className="text-black">{title}</span>
             <div>{smallTag}</div>
           </div>
           <span className="text-sm text-gray-500">{subtitle}</span>
         </div>
       </div>
-      <p className="flex-grow text-gray-500 block py-4">{description}</p>
+      {description && (
+        <p className="flex-grow text-gray-500 block py-4">{description}</p>
+      )}
       {recherche && (
         <span className="text-gray-500 block pb-4">
           <span className="font-medium">Recherche : </span>
