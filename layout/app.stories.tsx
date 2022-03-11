@@ -6,7 +6,7 @@ export default {
   component: AppLayout,
   parameters: {
     nextRouter: {
-      pathname: '/musician',
+      pathname: '/musicians',
     },
   },
 } as Meta;

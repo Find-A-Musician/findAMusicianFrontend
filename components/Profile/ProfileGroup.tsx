@@ -9,19 +9,19 @@ export function ProfileGroup() {
           title="Singe"
           subtitle="4 membres"
           genres={['pop', 'rock', 'rock']}
-          href="/musician"
+          href="/musicians"
         />
         <Card
           title="Singe"
           subtitle="4 membres"
           genres={['pop', 'rock', 'rock']}
-          href="/musician"
+          href="/musicians"
         />
         <Card
           title="Singe"
           subtitle="4 membres"
           genres={['pop', 'rock', 'rock']}
-          href="/musician"
+          href="/musicians"
         />
       </div>
     </ProfileSection>

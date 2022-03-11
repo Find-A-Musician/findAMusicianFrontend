@@ -1,5 +1,5 @@
 import Header from '../components/Header';
-import { IGroup } from '../components/icons';
+import { IGroup, ISearch } from '../components/icons';
 import NewButton from '../components/NewButton';
 import Card from '../components/Card';
 import TagSmall from '../components/TagSmall';
@@ -10,7 +10,6 @@ import Input from '../components/Input';
 import ContentLayout from '../layout/content';
 import { MenuContext } from '../context/MenuContext';
 import { useContext } from 'react';
-import { ISearch } from '../components/icons';
 
 export default function Groups(): JSX.Element {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
@@ -130,7 +129,7 @@ export default function Groups(): JSX.Element {
               'sheesh',
               'sheesh',
             ]}
-            href="/musician"
+            href="/musicians"
             smallTag={
               <TagSmall
                 label="RJ"
@@ -144,14 +143,14 @@ export default function Groups(): JSX.Element {
             subtitle="4 membres"
             description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
             genres={['pop', 'rock', 'rock']}
-            href="/musician"
+            href="/musicians"
           />
           <Card
             title="Singe"
             subtitle="4 membres"
             description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
             genres={['pop', 'rock', 'rock']}
-            href="/musician"
+            href="/musicians"
             smallTag={
               <TagSmall
                 label="RJ"
@@ -165,14 +164,14 @@ export default function Groups(): JSX.Element {
             subtitle="4 membres"
             description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
             genres={['pop', 'rock', 'rock']}
-            href="/musician"
+            href="/musicians"
           />
           <Card
             title="Singe"
             subtitle="4 membres"
             description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
             genres={['pop', 'rock', 'rock']}
-            href="/musician"
+            href="/musicians"
           />
         </div>
       </>

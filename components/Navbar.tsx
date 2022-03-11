@@ -23,7 +23,7 @@ export default function Navbar({ setIsMenuOpen, className }: Props) {
       className={`flex flex-none flex-col items-center h-screen bg-gray-100 ${className}`}
     >
       <div>
-        <Link href="/musician" passHref>
+        <Link href="/musicians" passHref>
           <a
             onClick={() => setIsMenuOpen(false)}
             className="flex items-center gap-2 my-[4.5rem] text-red-500 text-xl font-bold"
@@ -35,7 +35,7 @@ export default function Navbar({ setIsMenuOpen, className }: Props) {
           onClick={() => setIsMenuOpen(false)}
           className="flex flex-col gap-8"
         >
-          <NavItem text="Musiciens" href="/musician" icon={<IMusicNote />} />
+          <NavItem text="Musiciens" href="/musicians" icon={<IMusicNote />} />
           <NavItem text="Groupes" href="/groups" icon={<IGroup />} />
           <NavItem text="Evènements" href="/events" icon={<ICalendar />} />
           <div className="mt-8">
