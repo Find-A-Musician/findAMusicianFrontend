@@ -26,7 +26,7 @@ export default function Card({
     return arr.map((el) => capitalize(el)).join(', ');
   }
   return (
-    <div className="border rounded-xl px-6 py-5">
+    <div className="flex flex-col border rounded-xl px-6 py-5">
       <div className="flex items-center gap-3 border-b pb-4">
         <div className="w-10 h-10 rounded-full bg-black"></div>
         <div className="flex flex-col">
@@ -37,7 +37,7 @@ export default function Card({
           <span className="text-sm text-gray-500">{subtitle}</span>
         </div>
       </div>
-      <span className="text-gray-500 block py-4">{description}</span>
+      <p className="flex-grow text-gray-500 block py-4">{description}</p>
       {recherche && (
         <span className="text-gray-500 block pb-4">
           <span className="font-medium">Recherche : </span>
