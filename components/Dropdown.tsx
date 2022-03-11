@@ -12,12 +12,16 @@ type Props = {
   options: Options[];
   selected: string[];
   setSelected: (value: string[] | ((prevVar: string[]) => string[])) => void;
+  disableBackgroundColor?: boolean;
+  className?: string;
 };
 export default function Dropdown({
   label,
   options,
   selected,
   setSelected,
+  disableBackgroundColor,
+  className,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -41,17 +45,20 @@ export default function Dropdown({
   return (
     <div className="relative inline-block">
       <button
+        type="button"
         onClick={() => setIsOpen(true)}
-        className={`flex items-center border rounded gap-10 py-1.5 px-3 ${
-          nothingSelected()
+        className={`flex justify-between items-center border rounded gap-10 py-1.5 px-3 ${
+          nothingSelected() || disableBackgroundColor
             ? 'text-gray-700 hover:bg-gray-50'
             : 'bg-red-500 text-white'
-        }`}
+        } ${className}`}
       >
         {label}
         <div
           className={`flex flex-col text-sm items-center ${
-            nothingSelected() ? 'text-gray-500' : 'text-white'
+            nothingSelected() || disableBackgroundColor
+              ? 'text-gray-500'
+              : 'text-white'
           }`}
         >
           <IChevronBottom />
@@ -64,6 +71,7 @@ export default function Dropdown({
         >
           {options.map((option, index) => (
             <button
+              type="button"
               onClick={() => handleSelect(option.value)}
               className={`flex justify-between items-center gap-24 py-2 px-3 ${
                 isSelected(option.value)
