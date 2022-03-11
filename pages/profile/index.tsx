@@ -31,6 +31,7 @@ export default function MyProfile() {
         <ProfileBanner
           firstname={profil!.givenName}
           lastname={profil!.familyName}
+          isMyProfile
         />
         <ProfileSection title="A propos">
           <p>
