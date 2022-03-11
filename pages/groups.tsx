@@ -130,7 +130,7 @@ export default function Groups(): JSX.Element {
               'sheesh',
             ]}
             href="/musicians"
-            smallTag={
+            tagSmall={
               <TagSmall
                 label="RJ"
                 description="Ce groupe recherche des musiciens"
@@ -144,7 +144,7 @@ export default function Groups(): JSX.Element {
             description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
             genres={['pop', 'rock', 'rock']}
             href="/musicians"
-            smallTag={
+            tagSmall={
               <TagSmall
                 label="RJ"
                 description="Ce groupe recherche des musiciens"
@@ -158,7 +158,7 @@ export default function Groups(): JSX.Element {
             description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
             genres={['pop', 'rock', 'rock']}
             href="/musicians"
-            smallTag={
+            tagSmall={
               <TagSmall
                 label="RJ"
                 description="Ce groupe recherche des musiciens"

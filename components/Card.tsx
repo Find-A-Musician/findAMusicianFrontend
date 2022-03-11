@@ -9,7 +9,7 @@ type Props = {
   href: string;
   description?: string;
   subtitle?: string;
-  smallTag?: JSX.Element;
+  tagSmall?: JSX.Element;
   recherche?: Array<string>;
 };
 
@@ -19,7 +19,7 @@ export default function Card({
   href,
   description,
   subtitle,
-  smallTag,
+  tagSmall,
   recherche,
 }: Props) {
   function format(arr: Array<string>): string {
@@ -36,7 +36,7 @@ export default function Card({
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
             <span className="text-black">{title}</span>
-            <div>{smallTag}</div>
+            <div>{tagSmall}</div>
           </div>
           <span className="text-sm text-gray-500">{subtitle}</span>
         </div>
