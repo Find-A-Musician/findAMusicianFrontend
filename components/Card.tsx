@@ -50,15 +50,17 @@ export default function Card({
           {format(recherche)}
         </span>
       )}
-      <div className="flex items-center justify-between">
-        <div className="flex gap-2 ">
+      <div className="w-full flex items-center justify-between">
+        <div className="w-full flex-wrap flex-grow flex gap-1.5 ">
           {genres.map((genre, index) => (
             <Tag key={index} text={genre} />
           ))}
         </div>
-        <Link href={href} passHref>
-          <a className="text-sm text-blue-500 hover:underline">Voir plus</a>
-        </Link>
+        <div className="flex-none pl-2">
+          <Link href={href} passHref>
+            <a className="text-sm text-blue-500 hover:underline">Voir plus</a>
+          </Link>
+        </div>
       </div>
     </div>
   );
