@@ -5,6 +5,7 @@ import { IPeople } from '../../components/icons';
 import { useAuth } from '../../context/AuthContext';
 import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
+import GroupInvite from '../../components/GroupInvite';
 import {
   ProfileGroup,
   ProfileSection,
@@ -35,6 +36,12 @@ export default function MyProfile() {
           firstname={profil!.givenName}
           lastname={profil!.familyName}
           isMyProfile
+        />
+        <GroupInvite
+          groupName="Columbine"
+          instrument="chanteur"
+          locations={['Douai', 'Lille']}
+          description="Salut Alexandre, on cherche quelqu’un pour remplacer Foda ! Ca fait des mois qu’il ne donne plus aucun signe de vie... Si ça te tente vient rejoindre l’aventure Columbine avec nous."
         />
         <ProfileSection title="A propos">
           <p>
