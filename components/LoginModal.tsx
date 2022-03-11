@@ -56,7 +56,7 @@ export default function LoginModal({
       if (router.query.redirectTo) {
         router.push(router.query.redirectTo as string);
       } else {
-        router.push('/musician');
+        router.push('/musicians');
       }
     } catch (err) {
       setError(JSON.stringify(err));

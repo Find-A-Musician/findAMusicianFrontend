@@ -30,7 +30,7 @@ export default function HambergerMenu({
         <li
           className={`mx-2 cursor-pointer `}
           onClick={() => {
-            push('/musician');
+            push('/musicians');
             close();
           }}
         >
