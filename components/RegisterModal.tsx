@@ -1,12 +1,7 @@
 import { FormEvent, useState } from 'react';
 import Dropdown, { Options } from './Dropdown';
-import TextInput from './TextInput';
+import { Instrument, Genre } from '../types/api';
 import Input from './Input';
-import Button from './Button';
-import SelectGenre from './SelectGenre';
-import SelectInstrument from './SelectInstrument';
-import Select from './Select';
-import LoaderSpinner from './LoaderSpinner';
 import NewButton from './NewButton';
 import { Genres, Instruments } from '../types/api';
 import { useAxios } from '../context/AxiosContext';
@@ -44,8 +39,8 @@ export default function RegisterModal() {
   const [location, setLocation] = useState<typeof locations[number]>('');
 
   // Second page state
-  const [genres, setGenres] = useState<string[]>([]);
-  const [instruments, setInstruments] = useState<string[]>([]);
+  const [genres, setGenres] = useState<Genre[]>([]);
+  const [instruments, setInstruments] = useState<Instrument[]>([]);
   const [facebookUrl, setFacebookUrl] = useState('');
   const [twitterUrl, setTwitterUrl] = useState('');
   const [instagramUrl, setInstagramUrl] = useState('');
@@ -55,12 +50,13 @@ export default function RegisterModal() {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data: genresList } = useSWR<Genres>('/genres', (url) =>
+  const { data: genresList } = useSWR<Genre[]>('/genres', (url) =>
     publicAxios.get(url).then(({ data }) => data),
   );
 
-  const { data: instrumentsList } = useSWR<Instruments>('/instruments', (url) =>
-    publicAxios.get(url).then(({ data }) => data),
+  const { data: instrumentsList } = useSWR<Instrument[]>(
+    '/instruments',
+    (url) => publicAxios.get(url).then(({ data }) => data),
   );
 
   function submitFirstPage(e: FormEvent) {
@@ -380,8 +376,8 @@ export default function RegisterModal() {
             label="Instrument"
             options={
               instrumentsList?.map((instrument) => {
-                return { label: instrument.name, value: instrument.name };
-              }) as Options[]
+                return { label: instrument.name, value: instrument };
+              }) as Options<Instrument>[]
             }
             selected={instruments}
             setSelected={setInstruments}
@@ -393,8 +389,8 @@ export default function RegisterModal() {
             label="Genres"
             options={
               genresList?.map((genre) => {
-                return { label: genre.name, value: genre.name };
-              }) as Options[]
+                return { label: genre.name, value: genre };
+              }) as Options<Genre>[]
             }
             selected={genres}
             setSelected={setGenres}
