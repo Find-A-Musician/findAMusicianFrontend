@@ -8,11 +8,15 @@ import LoaderSpinner from './LoaderSpinner';
 import { Profil, Token } from '../types/api';
 import { ILock, IAtSign } from './icons';
 
+type Props = {
+  onForgetPassword: () => void;
+  openRegisterModal: () => void;
+};
+
 export default function LoginModal({
   onForgetPassword,
-}: {
-  onForgetPassword: () => void;
-}): JSX.Element {
+  openRegisterModal,
+}: Props): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -62,46 +66,54 @@ export default function LoginModal({
   }
 
   return (
-    <form
-      onSubmit={handleLogin}
-      className="flex flex-col justify-around p-10 sm:w-96 w-80 rounded-md gap-6 bg-white"
-    >
-      <h2 className="text-lg font-bold text-gray-800">Se connecter</h2>
-      <div className="flex flex-col gap-4">
-        <Input
-          id="emailInputLogin"
-          label="Email"
-          displayLabel
-          placeholder="Email"
-          type="email"
-          autoComplete="email"
-          className="w-full"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          id="passwordInputLogin"
-          type="password"
-          label="Mot de passe"
-          displayLabel
-          placeholder="Mot de passe"
-          autoComplete="password"
-          className="w-full"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      {error && (
-        <span className="-mt-4 text-red-500 text-sm">
-          Email ou mot de passe incorrect
-        </span>
-      )}
+    <div className="flex flex-col justify-around p-10 sm:w-96 w-80 rounded-md gap-6 bg-white">
+      <form onSubmit={handleLogin} className="flex flex-col gap-6">
+        <h2 className="text-lg font-bold text-gray-800">Se connecter</h2>
+        <div className="flex flex-col gap-4">
+          <Input
+            id="emailInputLogin"
+            label="Email"
+            displayLabel
+            placeholder="Email"
+            type="email"
+            autoComplete="email"
+            className="w-full"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            id="passwordInputLogin"
+            type="password"
+            label="Mot de passe"
+            displayLabel
+            placeholder="Mot de passe"
+            autoComplete="password"
+            className="w-full"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        {error && (
+          <span className="-mt-4 text-red-500 text-sm">
+            Email ou mot de passe incorrect
+          </span>
+        )}
 
-      {loading ? (
-        <LoaderSpinner size="sm" />
-      ) : (
-        <NewButton type="submit" label="Connexion" className="mt-4 rounded" />
-      )}
-    </form>
+        {loading ? (
+          <LoaderSpinner size="sm" />
+        ) : (
+          <NewButton type="submit" label="Connexion" className="mt-4 rounded" />
+        )}
+      </form>
+      <span className="text-sm text-gray-400">
+        Pas encore de compte ?{' '}
+        <button
+          className="text-blue-500 hover:underline ml-1"
+          onClick={openRegisterModal}
+        >
+          inscris-toi!
+        </button>
+      </span>
+    </div>
   );
 }
