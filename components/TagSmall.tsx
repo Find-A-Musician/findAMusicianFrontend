@@ -8,7 +8,7 @@ type Props = {
 export default function TagSmall({ label, description }: Props) {
   const [isHover, setIsHover] = useState(false);
   return (
-    <div className="relative z-0">
+    <div className="relative">
       <span
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
