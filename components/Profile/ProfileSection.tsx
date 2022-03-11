@@ -2,7 +2,7 @@ type Props = {
   title: string;
   children: JSX.Element;
 };
-export default function ProfileSection({ title, children }: Props) {
+export function ProfileSection({ title, children }: Props) {
   return (
     <div className="border rounded px-5 py-6">
       <h2 className="text-xl font-bold mb-4">{title}</h2>
@@ -10,3 +10,5 @@ export default function ProfileSection({ title, children }: Props) {
     </div>
   );
 }
+
+export default ProfileSection;

@@ -7,7 +7,7 @@ type Props = {
   className?: string;
 };
 
-export default function ProfileButton({ onClick, className }: Props) {
+export function ProfileButton({ onClick, className }: Props) {
   const { getProfil } = useAuth();
   const profil = getProfil();
 
@@ -34,3 +34,5 @@ export default function ProfileButton({ onClick, className }: Props) {
     </Link>
   );
 }
+
+export default ProfileButton;

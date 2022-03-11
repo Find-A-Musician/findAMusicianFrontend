@@ -20,7 +20,7 @@ function Info({ title, value }: { title: string; value: string }): JSX.Element {
   );
 }
 
-export default function ProfileInformation({
+export function ProfileInformation({
   promotion,
   localisation,
   email,
@@ -43,3 +43,5 @@ export default function ProfileInformation({
     </ProfileSection>
   );
 }
+
+export default ProfileInformation;

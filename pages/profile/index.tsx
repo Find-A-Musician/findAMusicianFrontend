@@ -1,13 +1,16 @@
 import ContentLayout from '../../layout/content';
-import ProfileSection from '../../components/Profile/ProfileSection';
-import ProfileInformation from '../../components/Profile/ProfileInformation';
-import ProfileBanner from '../../components/Profile/ProfileBanner';
 import Header from '../../components/Header';
 import NewButton from '../../components/NewButton';
 import { IPeople } from '../../components/icons';
 import { useAuth } from '../../context/AuthContext';
 import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
+import {
+  ProfileGroup,
+  ProfileSection,
+  ProfileInformation,
+  ProfileBanner,
+} from '../../components/Profile';
 
 export default function MyProfile() {
   const { getProfil } = useAuth();
@@ -47,6 +50,7 @@ export default function MyProfile() {
           genres={profil!.genres}
           instruments={profil!.instruments}
         />
+        <ProfileGroup />
       </>
     </ContentLayout>
   );
