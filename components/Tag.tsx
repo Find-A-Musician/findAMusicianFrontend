@@ -5,7 +5,7 @@ type Props = {
 export default function Tag({ text }: Props) {
   return (
     <span
-      className="py-1 px-2.5 
+      className="py-0.5 px-1.5 
                  bg-red-100 border border-red-500 rounded-full
                  text-sm text-red-500"
     >

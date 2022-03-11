@@ -120,7 +120,16 @@ export default function Groups(): JSX.Element {
             title="Singe"
             subtitle="4 membres"
             description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
-            genres={['pop', 'rock', 'rock']}
+            genres={[
+              'pop',
+              'rock',
+              'rock',
+              'sheesh',
+              'sheesh',
+              'sheesh',
+              'sheesh',
+              'sheesh',
+            ]}
             href="/musician"
             smallTag={
               <TagSmall
