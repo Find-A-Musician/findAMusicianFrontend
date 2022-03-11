@@ -6,6 +6,7 @@ import Input from './Input';
 import NewButton from './NewButton';
 import LoaderSpinner from './LoaderSpinner';
 import { Profil, Token } from '../types/api';
+import { ILock, IAtSign } from './icons';
 
 export default function LoginModal({
   onForgetPassword,

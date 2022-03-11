@@ -51,9 +51,13 @@ export default function Input({
           onBlur={() => setIsFocus(false)}
           {...props}
         />
-        <span className={`${isFocus ? 'text-red-400' : 'text-gray-600'}`}>
-          {icon}
-        </span>
+        {icon && (
+          <span
+            className={`mx-2 ${isFocus ? 'text-red-400' : 'text-gray-600'}`}
+          >
+            {icon}
+          </span>
+        )}
       </div>
     </div>
   );
