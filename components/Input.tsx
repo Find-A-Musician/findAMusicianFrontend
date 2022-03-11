@@ -44,7 +44,7 @@ export default function Input({
         <input
           id={id}
           type={type}
-          className="py-1.5 px-3 w-full ring-0 outline-0 focus:border-red-200 text-gray-500"
+          className="py-1.5 px-3 w-full rounded ring-0 outline-0 focus:border-red-200 text-gray-500"
           placeholder={placeholder}
           value={value}
           onFocus={() => setIsFocus(true)}
