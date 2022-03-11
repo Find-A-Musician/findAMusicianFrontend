@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
 import { setCookie, useAuth } from '../context/AuthContext';
 import { useAxios } from '../context/AxiosContext';
-import TextInput from './TextInput';
-import Button from './Button';
+import Input from './Input';
+import NewButton from './NewButton';
 import LoaderSpinner from './LoaderSpinner';
 import { Profil, Token } from '../types/api';
 
@@ -21,7 +21,7 @@ export default function LoginModal({
   const axios = useAxios();
   const router = useRouter();
 
-  async function Login(e: FormEvent<HTMLFormElement>) {
+  async function handleLogin(e: FormEvent<HTMLFormElement>) {
     setError('');
     e.preventDefault();
     setLoading(true);
@@ -62,42 +62,44 @@ export default function LoginModal({
 
   return (
     <form
-      onSubmit={Login}
-      className="flex flex-col items-center justify-around py-3 sm:w-96 w-80 rounded-2xl h-96 bg-white"
+      onSubmit={handleLogin}
+      className="flex flex-col justify-around p-10 sm:w-96 w-80 rounded-md gap-6 bg-white"
     >
-      <h2 className="text-red-800 font-black text-xl">Connecte toi !</h2>
-      {error && <p className="text-red-600">Email ou mot de passe incorrect</p>}
-      <TextInput
-        type="email"
-        id="emailInputLogin"
-        label="Email"
-        placeholder="Entrez votre email"
-        autoComplete="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <div className="flex flex-col items-start">
-        <TextInput
-          type="password"
+      <h2 className="text-lg font-bold text-gray-800">Se connecter</h2>
+      <div className="flex flex-col gap-4">
+        <Input
+          id="emailInputLogin"
+          label="Email"
+          displayLabel
+          placeholder="Email"
+          type="email"
+          autoComplete="email"
+          className="w-full"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
           id="passwordInputLogin"
+          type="password"
           label="Mot de passe"
-          placeholder="Entrez votre mot de passe"
+          displayLabel
+          placeholder="Mot de passe"
           autoComplete="password"
+          className="w-full"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <p
-          onClick={onForgetPassword}
-          className="text-gray-500 text-sm cursor-pointer self-center m-1"
-        >
-          Mot de passe oublié ?
-        </p>
       </div>
+      {error && (
+        <span className="-mt-4 text-red-500 text-sm">
+          Email ou mot de passe incorrect
+        </span>
+      )}
 
       {loading ? (
         <LoaderSpinner size="sm" />
       ) : (
-        <Button isLarge type="submit" label="Connexion" bold />
+        <NewButton type="submit" label="Connexion" className="mt-4 rounded" />
       )}
     </form>
   );

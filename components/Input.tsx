@@ -1,37 +1,60 @@
-import { useState } from 'react';
-import { ISearch } from './icons';
+import { InputHTMLAttributes, useState } from 'react';
 
 type Props = {
-  label: string;
+  id: string;
+  placeholder: string;
   value: string;
-  setValue: (value: string | ((prevVar: string) => string)) => void;
+  label: string;
+  icon?: JSX.Element;
+  displayLabel?: boolean;
+  type?: string;
+  className?: string;
 };
 
-export default function Input({ label, value, setValue }: Props) {
+export default function Input({
+  id,
+  placeholder,
+  value,
+  label,
+  icon,
+  displayLabel = false,
+  type = 'text',
+  className,
+  ...props
+}: Props & Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'id'>) {
   const [isFocus, setIsFocus] = useState(false);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setValue(e.target.value);
-  }
-
   return (
-    <div
-      className={`py-1.5 px-3 flex justify-between items-center border rounded ${
-        isFocus ? 'border-red-300' : ''
-      }`}
-    >
-      <input
-        type="text"
-        className="ring-0 outline-0 focus:border-red-200 text-gray-500 focus:text-red-500 focus:placeholder:text-red-300"
-        placeholder={label}
-        value={value}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
-        onChange={handleChange}
-      />
-      <span className={`${isFocus ? 'text-red-400' : 'text-gray-600'}`}>
-        <ISearch />
-      </span>
+    <div className={`inline-block flex flex-col gap-1 ${className}`}>
+      {displayLabel && (
+        <label
+          className={`${displayLabel ? 'visible' : 'invisible'} ${
+            isFocus ? 'text-red-500' : 'text-gray-700'
+          }`}
+          htmlFor={id}
+        >
+          {label}
+        </label>
+      )}
+      <div
+        className={`flex justify-between items-center border rounded ${
+          isFocus ? 'border-red-300' : ''
+        }`}
+      >
+        <input
+          id={id}
+          type={type}
+          className="py-1.5 px-3 w-full ring-0 outline-0 focus:border-red-200 text-gray-500"
+          placeholder={placeholder}
+          value={value}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          {...props}
+        />
+        <span className={`${isFocus ? 'text-red-400' : 'text-gray-600'}`}>
+          {icon}
+        </span>
+      </div>
     </div>
   );
 }
