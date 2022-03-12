@@ -1,4 +1,5 @@
 import Header from '../components/Header';
+import { capitalize } from '../utils/string';
 import { IGroup, ISearch } from '../components/icons';
 import NewButton from '../components/NewButton';
 import Card from '../components/Card';
@@ -11,32 +12,24 @@ import ContentLayout from '../layout/content';
 import { MenuContext } from '../context/MenuContext';
 import { useContext } from 'react';
 import { useAxios } from '../context/AxiosContext';
-import { Groups } from '../types';
+import { Genre, Groups } from '../types';
 import useSWR from 'swr';
 
 export default function GroupsPage(): JSX.Element {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
-  const { authAxios } = useAxios();
+  const { publicAxios, authAxios } = useAxios();
 
-  const { data: groupList, error } = useSWR<Groups[]>('/groups', (url) =>
+  const { data: groupList } = useSWR<Groups[]>('/groups', (url) =>
     authAxios.get(url).then((res) => res.data),
   );
 
-  const optionsGenre = [
-    {
-      label: 'Rock',
-      value: 'rock',
-    },
-    {
-      label: 'Metal',
-      value: 'metal',
-    },
-    {
-      label: 'Rap',
-      value: 'rap',
-    },
-  ];
+  const { data: genreList } = useSWR<Genre[]>('/genres', (url) =>
+    publicAxios.get(url).then((res) => res.data),
+  );
 
+  const { data: instrumentList } = useSWR<Genre[]>('/instruments', (url) =>
+    publicAxios.get(url).then((res) => res.data),
+  );
   const optionsSite: Options<string>[] = [
     {
       label: 'Douai',
@@ -45,21 +38,6 @@ export default function GroupsPage(): JSX.Element {
     {
       label: 'Lille',
       value: 'lille',
-    },
-  ];
-
-  const optionsInstrument: Options<string>[] = [
-    {
-      label: 'Piano',
-      value: 'piano',
-    },
-    {
-      label: 'Saxophone',
-      value: 'saxophone',
-    },
-    {
-      label: 'Guitar',
-      value: 'guitar',
     },
   ];
 
@@ -92,19 +70,29 @@ export default function GroupsPage(): JSX.Element {
         />
         <div className="sticky top-28 pb-2 -mb-2 bg-white flex flex-wrap gap-4 justify-between z-10">
           <div className="flex flex-wrap gap-4">
-            <Dropdown
-              label="Instruments"
-              options={optionsInstrument}
-              selected={selectedInstrument}
-              setSelected={setSelectedInstrument}
-            />
-            <Dropdown
-              label="Genres"
-              options={optionsGenre}
-              selected={selectedGenre}
-              setSelected={setSelectedGenre}
-            />
-
+            {instrumentList && (
+              <Dropdown
+                label="Instruments"
+                options={instrumentList.map((instrument) => {
+                  return {
+                    label: capitalize(instrument.name),
+                    value: instrument.name,
+                  };
+                })}
+                selected={selectedInstrument}
+                setSelected={setSelectedInstrument}
+              />
+            )}
+            {genreList && (
+              <Dropdown
+                label="Genres"
+                options={genreList.map((genre) => {
+                  return { label: capitalize(genre.name), value: genre.name };
+                })}
+                selected={selectedGenre}
+                setSelected={setSelectedGenre}
+              />
+            )}
             <Dropdown
               label="Sites"
               options={optionsSite}
