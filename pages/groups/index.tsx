@@ -1,18 +1,18 @@
-import Header from '../components/Header';
-import { capitalize } from '../utils/string';
-import { IGroup, ISearch } from '../components/icons';
-import NewButton from '../components/NewButton';
-import Card from '../components/Card';
-import TagSmall from '../components/TagSmall';
-import Banner from '../components/Banner';
-import Dropdown, { Options } from '../components/Dropdown';
+import Header from '../../components/Header';
+import { capitalize } from '../../utils/string';
+import { IGroup, ISearch } from '../../components/icons';
+import NewButton from '../../components/NewButton';
+import Card from '../../components/Card';
+import TagSmall from '..//../components/TagSmall';
+import Banner from '../../components/Banner';
+import Dropdown, { Options } from '../../components/Dropdown';
 import { useState } from 'react';
-import Input from '../components/Input';
-import ContentLayout from '../layout/content';
-import { MenuContext } from '../context/MenuContext';
+import Input from '../../components/Input';
+import ContentLayout from '../../layout/content';
+import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
-import { useAxios } from '../context/AxiosContext';
-import { Genre, Groups } from '../types';
+import { useAxios } from '../../context/AxiosContext';
+import { Genre, Groups } from '../../types';
 import useSWR from 'swr';
 
 export default function GroupsPage(): JSX.Element {
@@ -119,7 +119,7 @@ export default function GroupsPage(): JSX.Element {
                 subtitle={`${group.members.length} membres`}
                 description={group.description}
                 genres={group.genres.map((genre) => genre.name)}
-                href="/musicians"
+                href={`/groups/${group.id}`}
                 tagSmall={
                   <TagSmall
                     label="RJ"
