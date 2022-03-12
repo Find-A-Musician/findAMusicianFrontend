@@ -104,19 +104,17 @@ export default function RegisterModal() {
     setloading(true);
     publicAxios
       .post('/register', {
-        musician: {
-          email,
-          givenName,
-          familyName,
-          phone,
-          facebook_url: facebookUrl || null,
-          twitter_url: twitterUrl || null,
-          instagram_url: instagramUrl || null,
-          promotion,
-          location,
-          genres,
-          instruments,
-        },
+        email,
+        givenName,
+        familyName,
+        phone,
+        facebook_url: facebookUrl || null,
+        twitter_url: twitterUrl || null,
+        instagram_url: instagramUrl || null,
+        promotion,
+        location,
+        genres,
+        instruments,
         password: passwordFirst,
       })
       .then(
