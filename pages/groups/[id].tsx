@@ -42,7 +42,7 @@ export default function GroupDetails() {
               <p>{groupData.description}</p>
             </ProfileSection>
             <ProfileSection title="Membres">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {groupData.members.map((member) => (
                   <Card
                     key={member.musician.id}

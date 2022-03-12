@@ -82,7 +82,7 @@ export default function MyProfile() {
                     key={group.id}
                     title={group.name}
                     genres={group.genres.map((genre) => genre.name)}
-                    href="/musicians"
+                    href={`/groups/${group.id}`}
                   />
                 ))}
               </>
