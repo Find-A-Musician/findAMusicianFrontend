@@ -13,12 +13,28 @@ import { useAxios } from '../../context/AxiosContext';
 import { useRouter } from 'next/router';
 import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
+import useSWR from 'swr';
+import { Musician, Groups } from '../../types';
+import Card from '../../components/Card';
 
 export default function Profile() {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
   const router = useRouter();
   const { id } = router.query;
   const { authAxios } = useAxios();
+
+  const { data: groupList } = useSWR<Groups[]>('/groups', (url) =>
+    authAxios
+      .get(url)
+      .then((res) => res.data)
+      .then((res) => {
+        if (id)
+          return res.filter((group: Groups) =>
+            JSON.stringify(group.members).includes(id as string),
+          );
+        return res;
+      }),
+  );
 
   const { data } = useSwr(`/musicians/${id}`, (url) =>
     authAxios.get(url).then(({ data }) => data),
@@ -57,7 +73,20 @@ export default function Profile() {
             genres={data.genres}
             instruments={data.instruments}
           />
-          <ProfileGroup />
+          {!!groupList?.length && (
+            <ProfileGroup>
+              <>
+                {groupList.map((group) => (
+                  <Card
+                    key={group.id}
+                    title={group.name}
+                    genres={group.genres.map((genre) => genre.name)}
+                    href="/musicians"
+                  />
+                ))}
+              </>
+            </ProfileGroup>
+          )}
         </>
       )}
     </ContentLayout>
