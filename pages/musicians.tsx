@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import { useAxios } from '../context/AxiosContext';
-import { Profil } from '../types/api';
+import { Musician } from '../types';
 import { IGroup, ISearch } from '../components/icons';
 import ContentLayout from '../layout/content';
 import Header from '../components/Header';
@@ -10,14 +10,14 @@ import Banner from '../components/Banner';
 import Dropdown, { Options } from '../components/Dropdown';
 import Input from '../components/Input';
 import Card from '../components/Card';
-import TagSmall from '../components/TagSmall';
 
 export function Musicians(): JSX.Element {
   const { authAxios } = useAxios();
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
 
-  const { data: musiciansList, error } = useSWR<Profil[]>('/musicians', (url) =>
-    authAxios.get(url).then((res) => res.data),
+  const { data: musiciansList, error } = useSWR<Musician[]>(
+    '/musicians',
+    (url) => authAxios.get(url).then((res) => res.data),
   );
 
   const optionsGenre = [
@@ -35,7 +35,7 @@ export function Musicians(): JSX.Element {
     },
   ];
 
-  const optionsSite: Options[] = [
+  const optionsSite: Options<string>[] = [
     {
       label: 'Douai',
       value: 'douai',
@@ -46,7 +46,7 @@ export function Musicians(): JSX.Element {
     },
   ];
 
-  const optionsInstrument: Options[] = [
+  const optionsInstrument: Options<string>[] = [
     {
       label: 'Piano',
       value: 'piano',

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import GenreLabel from './GenreLabel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { Genres } from '../types/api';
+import { Genre } from '../types';
 import LoaderSpinner from './LoaderSpinner';
 import useOnClickOutside from '../hooks/useOnClickOutside';
 
@@ -11,9 +11,9 @@ export default function SelectGenre({
   setSelectedGenre,
   genres,
 }: {
-  selectedGenre: Genres;
-  setSelectedGenre: (arg: Genres) => void;
-  genres: Genres | undefined;
+  selectedGenre: Genre[];
+  setSelectedGenre: (arg: Genre[]) => void;
+  genres: Genre[] | undefined;
 }): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -30,8 +30,8 @@ export default function SelectGenre({
         tabIndex={1}
         className="border-2 border-gray-300 focus:border-red-800 w-full h-full rounded-2xl relative flex items-center justify-start px-4 overflow-hidden"
       >
-        {selectedGenre.map(({ id, name }) => (
-          <GenreLabel key={id} genre={name} />
+        {selectedGenre.map((genre) => (
+          <GenreLabel key={genre.id} genre={genre} />
         ))}
         <FontAwesomeIcon
           className="absolute text-xl right-4 text-gray-500 "
@@ -63,7 +63,7 @@ export default function SelectGenre({
                     isSelected ? 'bg-red-200 ' : 'hover:bg-red-100'
                   }`}
                 >
-                  <GenreLabel genre={name} />
+                  <GenreLabel genre={{ id, name }} />
                 </span>
               );
             })

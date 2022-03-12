@@ -1,16 +1,16 @@
 import GenreLabel from './GenreLabel';
-import Instrument from './Instrument';
+import InstrumentLabel from './InstrumentLabel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ICONS_DEFINITION } from '../utils/icons';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { Genres, Instruments } from '../types/api';
+import { Genre, Instrument } from '../types';
 import { useRouter } from 'next/router';
 
 type MusicianBoxProps = {
   name: string;
-  genres: Genres;
+  genres: Genre[];
   id: string;
-  instruments: Instruments;
+  instruments: Instrument[];
   email: string;
   facebook_url: string | null;
   twitter_url: string | null;
@@ -42,13 +42,13 @@ export default function MusicianBox({
       <div className="w-full flex flex-col justify-around items-start">
         <h3 className="font-bold text-lg"> {name} </h3>
         <div className="flex flex-wrap items-center justify-start">
-          {genres.map(({ id, name }) => (
-            <GenreLabel key={id} genre={name} />
+          {genres.map((genre) => (
+            <GenreLabel key={genre.id} genre={genre} />
           ))}
         </div>
         <div className="flex flex-wrap items-center justify-start">
-          {instruments.map(({ id, name }) => (
-            <Instrument key={id} instrument={name} />
+          {instruments.map((instrument) => (
+            <InstrumentLabel key={instrument.id} instrument={instrument} />
           ))}
         </div>
         <div className="flex items-center justify-start w-full text-lg">

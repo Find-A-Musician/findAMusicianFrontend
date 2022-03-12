@@ -2,13 +2,13 @@ import React, { useState, createContext, useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { apiUrl } from '../config/Url';
-import { Profil } from '../types/api';
+import { Musician } from '../types';
 
 export type AuthStateType = {
   accessToken: string;
   refreshToken: string;
   authenticated: boolean;
-  profil: Profil | null;
+  profil: Musician | null;
 };
 
 type AuthContextType = {
@@ -16,7 +16,7 @@ type AuthContextType = {
   setAuthState: React.Dispatch<React.SetStateAction<AuthStateType>>;
   getAccessToken: () => string;
   getRefreshToken: () => string;
-  getProfil: () => Profil | null;
+  getProfil: () => Musician | null;
   isAuthenticated: () => boolean;
   loadingProfil: boolean;
 };
@@ -31,7 +31,7 @@ const AuthContext = createContext<AuthContextType>({
     return '';
   },
   getProfil: () => {
-    return {} as Profil;
+    return {} as Musician;
   },
   isAuthenticated: () => {
     return false;
