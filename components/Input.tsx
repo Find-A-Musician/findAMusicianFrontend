@@ -2,9 +2,9 @@ import { InputHTMLAttributes, useState } from 'react';
 
 type Props = {
   id: string;
-  placeholder: string;
   value: string;
   label: string;
+  placeholder?: string;
   icon?: JSX.Element;
   displayLabel?: boolean;
   type?: string;
@@ -13,9 +13,9 @@ type Props = {
 
 export default function Input({
   id,
-  placeholder,
   value,
   label,
+  placeholder,
   icon,
   displayLabel = false,
   type = 'text',
