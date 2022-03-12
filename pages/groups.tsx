@@ -29,7 +29,7 @@ export default function Groups(): JSX.Element {
     },
   ];
 
-  const optionsSite: Options[] = [
+  const optionsSite: Options<string>[] = [
     {
       label: 'Douai',
       value: 'douai',
@@ -40,7 +40,7 @@ export default function Groups(): JSX.Element {
     },
   ];
 
-  const optionsInstrument: Options[] = [
+  const optionsInstrument: Options<string>[] = [
     {
       label: 'Piano',
       value: 'piano',

@@ -1,31 +1,35 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { ICheck, IChevronBottom } from './icons';
 import useOnClickOutside from '../hooks/useOnClickOutside';
 
-export type Options = {
+export type Options<T> = {
   label: string;
-  value: string;
+  value: T;
 };
 
-type Props = {
+type Props<T> = {
   label: string;
-  options: Options[];
-  selected: string[];
-  setSelected: (value: string[] | ((prevVar: string[]) => string[])) => void;
+  options: Options<T>[];
+  selected: T[];
+  setSelected: Dispatch<SetStateAction<T[]>>;
+  disableBackgroundColor?: boolean;
+  className?: string;
 };
-export default function Dropdown({
+export default function Dropdown<T>({
   label,
   options,
   selected,
   setSelected,
-}: Props) {
+  disableBackgroundColor,
+  className,
+}: Props<T>) {
   const [isOpen, setIsOpen] = useState(false);
 
   const ref = useOnClickOutside(() => {
     setIsOpen(false);
   });
 
-  function isSelected(value: string): boolean {
+  function isSelected(value: T): boolean {
     return selected.includes(value);
   }
 
@@ -33,7 +37,7 @@ export default function Dropdown({
     return !selected.length;
   }
 
-  function handleSelect(value: string): void {
+  function handleSelect(value: T): void {
     if (isSelected(value)) setSelected(selected.filter((v) => v !== value));
     else setSelected([...selected, value]);
   }
@@ -41,17 +45,20 @@ export default function Dropdown({
   return (
     <div className="relative inline-block">
       <button
+        type="button"
         onClick={() => setIsOpen(true)}
-        className={`flex items-center border rounded gap-10 py-1.5 px-3 ${
-          nothingSelected()
+        className={`flex justify-between items-center border rounded gap-10 py-1.5 px-3 ${
+          nothingSelected() || disableBackgroundColor
             ? 'text-gray-700 hover:bg-gray-50'
             : 'bg-red-500 text-white'
-        }`}
+        } ${className}`}
       >
         {label}
         <div
           className={`flex flex-col text-sm items-center ${
-            nothingSelected() ? 'text-gray-500' : 'text-white'
+            nothingSelected() || disableBackgroundColor
+              ? 'text-gray-500'
+              : 'text-white'
           }`}
         >
           <IChevronBottom />
@@ -64,6 +71,7 @@ export default function Dropdown({
         >
           {options.map((option, index) => (
             <button
+              type="button"
               onClick={() => handleSelect(option.value)}
               className={`flex justify-between items-center gap-24 py-2 px-3 ${
                 isSelected(option.value)
