@@ -10,9 +10,17 @@ import Input from '../components/Input';
 import ContentLayout from '../layout/content';
 import { MenuContext } from '../context/MenuContext';
 import { useContext } from 'react';
+import { useAxios } from '../context/AxiosContext';
+import { Groups } from '../types';
+import useSWR from 'swr';
 
-export default function Groups(): JSX.Element {
+export default function GroupsPage(): JSX.Element {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
+  const { authAxios } = useAxios();
+
+  const { data: groupList, error } = useSWR<Groups[]>('/groups', (url) =>
+    authAxios.get(url).then((res) => res.data),
+  );
 
   const optionsGenre = [
     {
@@ -115,71 +123,23 @@ export default function Groups(): JSX.Element {
           />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <Card
-            title="Singe"
-            subtitle="4 membres"
-            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
-            genres={[
-              'pop',
-              'rock',
-              'rock',
-              'sheesh',
-              'sheesh',
-              'sheesh',
-              'sheesh',
-              'sheesh',
-            ]}
-            href="/musicians"
-            tagSmall={
-              <TagSmall
-                label="RJ"
-                description="Ce groupe recherche des musiciens"
+          {groupList &&
+            groupList.map((group) => (
+              <Card
+                key={group.id}
+                title={group.name}
+                subtitle={`${group.members.length} membres`}
+                description={group.description}
+                genres={group.genres.map((genre) => genre.name)}
+                href="/musicians"
+                tagSmall={
+                  <TagSmall
+                    label="RJ"
+                    description="Ce groupe recherche des musiciens"
+                  />
+                }
               />
-            }
-            recherche={['Guitare', 'Yukulele']}
-          />
-          <Card
-            title="Singe"
-            subtitle="4 membres"
-            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
-            genres={['pop', 'rock', 'rock']}
-            href="/musicians"
-            tagSmall={
-              <TagSmall
-                label="RJ"
-                description="Ce groupe recherche des musiciens"
-              />
-            }
-            recherche={['Guitare', 'Yukulele']}
-          />
-          <Card
-            title="Singe"
-            subtitle="4 membres"
-            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
-            genres={['pop', 'rock', 'rock']}
-            href="/musicians"
-            tagSmall={
-              <TagSmall
-                label="RJ"
-                description="Ce groupe recherche des musiciens"
-              />
-            }
-            recherche={['Piano', 'Kazoo']}
-          />
-          <Card
-            title="Singe"
-            subtitle="4 membres"
-            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
-            genres={['pop', 'rock', 'rock']}
-            href="/musicians"
-          />
-          <Card
-            title="Singe"
-            subtitle="4 membres"
-            description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
-            genres={['pop', 'rock', 'rock']}
-            href="/musicians"
-          />
+            ))}
         </div>
       </>
     </ContentLayout>
