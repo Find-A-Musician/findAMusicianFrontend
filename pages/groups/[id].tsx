@@ -52,7 +52,7 @@ export default function GroupDetails() {
                     genres={member.instruments.map(
                       (instrument) => instrument.name,
                     )}
-                    href={`/musicians/${member.musician.id}`}
+                    href={`/profile/${member.musician.id}`}
                   />
                 ))}
               </div>
