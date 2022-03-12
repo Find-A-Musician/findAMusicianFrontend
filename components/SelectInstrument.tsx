@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Instrument from './Instrument';
+import InstrumentLabel from './InstrumentLabel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { Instruments } from '../types/api';
+import { Instrument } from '../types';
 import LoaderSpinner from './LoaderSpinner';
 import useOnClickOutside from '../hooks/useOnClickOutside';
 
@@ -11,9 +11,9 @@ export default function SelectInstrument({
   setSelectedInstrument,
   instruments,
 }: {
-  selectedInstrument: Instruments;
-  setSelectedInstrument: (arg: Instruments) => void;
-  instruments: Instruments | undefined;
+  selectedInstrument: Instrument[];
+  setSelectedInstrument: (arg: Instrument[]) => void;
+  instruments: Instrument[] | undefined;
 }): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -30,8 +30,8 @@ export default function SelectInstrument({
         tabIndex={1}
         className="border-2 border-gray-300 focus:border-red-800 w-full h-full rounded-2xl relative flex items-center justify-start px-4 overflow-hidden"
       >
-        {selectedInstrument.map(({ id, name }) => (
-          <Instrument key={id} instrument={name} />
+        {selectedInstrument.map((instrument) => (
+          <InstrumentLabel key={instrument.id} instrument={instrument} />
         ))}
         <FontAwesomeIcon
           className="absolute text-xl right-4 text-gray-500 "
@@ -65,7 +65,8 @@ export default function SelectInstrument({
                     isSelected ? 'bg-red-200 ' : 'hover:bg-red-100'
                   }`}
                 >
-                  <Instrument instrument={name} /> <span>{name} </span>
+                  <InstrumentLabel instrument={{ id, name }} />{' '}
+                  <span>{name} </span>
                 </span>
               );
             })

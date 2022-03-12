@@ -1,6 +1,6 @@
 import ProfileSection from './ProfileSection';
 import { useAuth } from '../../context/AuthContext';
-import { Instrument, Genre } from '../../types/api';
+import { Instrument, Genre } from '../../types';
 import { capitalize } from '../../utils/string';
 
 type Props = {
