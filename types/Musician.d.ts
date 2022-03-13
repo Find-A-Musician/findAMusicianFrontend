@@ -7,6 +7,7 @@ export declare type Location = 'Douai' | 'Lille';
 export declare class Musician {
   id: string;
   email: string;
+  description: string;
   givenName: string;
   familyName: string;
   phone: string;

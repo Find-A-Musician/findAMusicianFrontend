@@ -57,7 +57,7 @@ export function Musicians(): JSX.Element {
                 key={musician.id}
                 title={`${musician.givenName} ${musician.familyName}`}
                 subtitle={`${musician.location} · ${musician.promotion}`}
-                description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
+                description={musician.description}
                 genres={musician.genres.map((genre) => genre.name)}
                 href={`/profile/${musician.id}`}
               />

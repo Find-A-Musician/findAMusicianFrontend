@@ -58,14 +58,13 @@ export default function Profile() {
           <ProfileBanner
             firstname={data.givenName}
             lastname={data.familyName}
+            groups={groupList}
           />
-          <ProfileSection title="A propos">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              accumsan tristique rutrum. Morbi sit amet diam ac lacus congue
-              facilisis. Nunc eget est auctor, auctor sapien sed, porta augue.
-            </p>
-          </ProfileSection>
+          {data.description && (
+            <ProfileSection title="A propos">
+              <p>{data.description}</p>
+            </ProfileSection>
+          )}
           <ProfileInformation
             promotion={data.promotion}
             email={data.email}
