@@ -7,8 +7,8 @@ import Header from '../components/Header';
 import { MenuContext } from '../context/MenuContext';
 import { useContext, useState } from 'react';
 import Banner from '../components/Banner';
-import Dropdown, { Options } from '../components/Dropdown';
-import Input from '../components/Input';
+import { Input, Dropdown } from '../components/DataEntry';
+import { Options } from '../components/DataEntry/Dropdown';
 import Card from '../components/Card';
 
 export function Musicians(): JSX.Element {
