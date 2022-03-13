@@ -42,7 +42,9 @@ export default function Card({
         </div>
       </div>
       {description && (
-        <p className="flex-grow text-gray-500 block py-4">{description}</p>
+        <p className="flex-grow max-h-[6rem] mb-2 text-ellipsis overflow-hidden text-gray-500 block py-4">
+          {description}
+        </p>
       )}
       {recherche && (
         <span className="text-gray-500 block pb-4">
