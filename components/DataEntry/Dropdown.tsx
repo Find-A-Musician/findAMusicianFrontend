@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { ICheck, IChevronBottom } from './icons';
-import useOnClickOutside from '../hooks/useOnClickOutside';
+import { ICheck, IChevronBottom } from '../icons';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
 
 export type Options<T> = {
   label: string;
@@ -15,7 +15,7 @@ type Props<T> = {
   disableBackgroundColor?: boolean;
   className?: string;
 };
-export default function Dropdown<T>({
+export function Dropdown<T>({
   label,
   options,
   selected,
@@ -93,3 +93,5 @@ export default function Dropdown<T>({
     </div>
   );
 }
+
+export default Dropdown;

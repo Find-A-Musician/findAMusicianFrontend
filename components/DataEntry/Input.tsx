@@ -11,7 +11,7 @@ type Props = {
   className?: string;
 };
 
-export default function Input({
+export function Input({
   id,
   value,
   label,
@@ -62,3 +62,5 @@ export default function Input({
     </div>
   );
 }
+
+export default Input;
