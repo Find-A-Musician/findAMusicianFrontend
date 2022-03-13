@@ -1,6 +1,7 @@
 import Dropdown from './Dropdown';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { useState } from 'react';
+import { Options } from './Dropdown';
 
 export default {
   title: 'Form/Dropdown',
@@ -9,14 +10,7 @@ export default {
 
 const Template: ComponentStory<typeof Dropdown> = (args) => {
   const [selected, setSelected] = useState<string[]>([]);
-  return <Dropdown {...args} selected={selected} setSelected={setSelected} />;
-};
-
-export const Default = Template.bind({});
-
-Default.args = {
-  label: 'Genres',
-  options: [
+  const options = [
     {
       label: 'Rock',
       value: 'rock',
@@ -29,5 +23,19 @@ Default.args = {
       label: 'Rap',
       value: 'rap',
     },
-  ],
+  ] as Options<string>[];
+  return (
+    <Dropdown
+      {...args}
+      options={options}
+      selected={selected}
+      setSelected={setSelected}
+    />
+  );
+};
+
+export const Default = Template.bind({});
+
+Default.args = {
+  label: 'Genres',
 };
