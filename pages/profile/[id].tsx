@@ -58,6 +58,7 @@ export default function Profile() {
           <ProfileBanner
             firstname={data.givenName}
             lastname={data.familyName}
+            groups={groupList}
           />
           {data.description && (
             <ProfileSection title="A propos">

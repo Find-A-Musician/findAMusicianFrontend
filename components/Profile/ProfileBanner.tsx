@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Groups } from '../../types';
+import { capitalize } from '../../utils/string';
 import Toggle from '../Toggle';
 
 type Props = {
@@ -6,7 +8,7 @@ type Props = {
   lastname: string;
   /**Use to know if we need to display toggle */
   isMyProfile?: boolean;
-  groups?: string[];
+  groups?: Groups[];
 };
 
 export function ProfileBanner({
@@ -34,8 +36,11 @@ export function ProfileBanner({
             <h2 className="text-2xl font-bold">
               {firstname} {lastname}
             </h2>
-            {/* replace Les singes and columbine with /author/authorid/groups */}
-            <span className="text-lg text-gray-500">Les singes, Columbine</span>
+            <span className="text-lg text-gray-500">
+              {groups?.length
+                ? groups?.map((group) => capitalize(group.name)).join(', ')
+                : 'Pas de groupe'}
+            </span>
           </div>
           {isMyProfile && (
             <Toggle

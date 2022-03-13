@@ -58,6 +58,7 @@ export default function MyProfile() {
           <ProfileBanner
             firstname={profil.givenName}
             lastname={profil.familyName}
+            groups={groupList}
             isMyProfile
           />
           <ProfileSection title="A propos">
