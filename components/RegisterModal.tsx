@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
-import Dropdown, { Options } from './Dropdown';
 import { Instrument, Genre } from '../types';
-import Input from './Input';
+import { Dropdown, Input } from './DataEntry';
+import { Options } from './DataEntry/Dropdown';
 import NewButton from './NewButton';
 import { useAxios } from '../context/AxiosContext';
 import { setCookie, useAuth } from '../context/AuthContext';
