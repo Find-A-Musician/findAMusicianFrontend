@@ -8,7 +8,7 @@ import { useAxios } from '../../context/AxiosContext';
 import useSWR from 'swr';
 
 type Props = {
-  usedFilters: ('instruments' | 'genres' | 'name' | 'location')[];
+  usedFilters: ('instruments' | 'genres' | 'name' | 'location' | 'promotion')[];
   setFilters: Dispatch<SetStateAction<FiltersType>>;
 };
 
@@ -18,6 +18,7 @@ export type FiltersType = {
     location?: string[];
     genres?: string[];
     instruments?: string[];
+    promotion?: string[];
   };
 };
 
@@ -31,6 +32,29 @@ export function Filters({ usedFilters, setFilters }: Props): JSX.Element {
   const { data: instruments } = useSWR<Instrument[]>('/instruments', (url) =>
     publicAxios.get(url).then((res) => res.data),
   );
+
+  const optionsPromotion: Options<string>[] = [
+    {
+      label: 'L1',
+      value: 'L1',
+    },
+    {
+      label: 'L2',
+      value: 'L2',
+    },
+    {
+      label: 'L3',
+      value: 'L3',
+    },
+    {
+      label: 'M1',
+      value: 'M1',
+    },
+    {
+      label: 'M2',
+      value: 'M2',
+    },
+  ];
 
   const optionsSite: Options<string>[] = [
     {
@@ -46,6 +70,7 @@ export function Filters({ usedFilters, setFilters }: Props): JSX.Element {
   const [selectedInstrument, setSelectedInstrument] = useState<string[]>([]);
   const [selectedGenre, setSelectedGenre] = useState<string[]>([]);
   const [selectedSite, setSelectedSite] = useState<string[]>([]);
+  const [selectedPromotion, setSelectedPromotion] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
 
   useEffect(() => {
@@ -54,6 +79,7 @@ export function Filters({ usedFilters, setFilters }: Props): JSX.Element {
     if (selectedSite.length) res.params.location = selectedSite;
     if (selectedInstrument.length) res.params.instruments = selectedInstrument;
     if (selectedGenre.length) res.params.genres = selectedGenre;
+    if (selectedPromotion.length) res.params.promotion = selectedPromotion;
     setFilters(res);
   }, [
     setFilters,
@@ -61,6 +87,7 @@ export function Filters({ usedFilters, setFilters }: Props): JSX.Element {
     selectedSite,
     selectedGenre,
     selectedInstrument,
+    selectedPromotion,
   ]);
 
   return (
@@ -95,6 +122,14 @@ export function Filters({ usedFilters, setFilters }: Props): JSX.Element {
             options={optionsSite}
             selected={selectedSite}
             setSelected={setSelectedSite}
+          />
+        )}
+        {usedFilters.includes('promotion') && (
+          <Dropdown
+            label="Promotion"
+            options={optionsPromotion}
+            selected={selectedPromotion}
+            setSelected={setSelectedPromotion}
           />
         )}
       </div>
