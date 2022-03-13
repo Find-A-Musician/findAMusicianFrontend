@@ -11,7 +11,7 @@ type Props = {
 export default function NavItem({ text, href, icon, onClick }: Props) {
   const router = useRouter();
 
-  let selected = router.pathname === href;
+  let selected = router.pathname.includes(href);
 
   return (
     <Link href={href} passHref>
