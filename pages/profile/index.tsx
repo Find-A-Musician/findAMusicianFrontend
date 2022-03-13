@@ -61,11 +61,15 @@ export default function MyProfile() {
             isMyProfile
           />
           <ProfileSection title="A propos">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              accumsan tristique rutrum. Morbi sit amet diam ac lacus congue
-              facilisis. Nunc eget est auctor, auctor sapien sed, porta augue.
-            </p>
+            {profil.description ? (
+              <p>{profil.description}</p>
+            ) : (
+              <p>
+                Vous n'avez de description. Clickez{' '}
+                <button className="text-blue-500 hover:underline">ici</button>{' '}
+                pour en rajouter une !
+              </p>
+            )}
           </ProfileSection>
           <ProfileInformation
             promotion={profil.promotion}
