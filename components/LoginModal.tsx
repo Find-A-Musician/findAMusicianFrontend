@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
 import { setCookie, useAuth } from '../context/AuthContext';
 import { useAxios } from '../context/AxiosContext';
-import Input from './Input';
+import { Input } from './DataEntry';
 import NewButton from './NewButton';
 import LoaderSpinner from './LoaderSpinner';
 import { Musician } from '../types';
