@@ -35,7 +35,7 @@ export default function GroupDetails() {
           <>
             <Banner
               boldTitle={groupData.name}
-              subtitle={`${groupData.members.length} membres`}
+              subtitle={`${groupData.members.length} membres · ${groupData.location}`}
               imagePath="/images/music_concert.png"
             />
             <ProfileSection title="A propos">
