@@ -17,6 +17,7 @@ export declare class Musician {
   promotion: Promotion;
   location: Location;
   password: string;
+  isLookingForGroups: boolean;
   instruments: Instrument[];
   genres: Genre[];
   musicianGroups: MusicianGroup[];

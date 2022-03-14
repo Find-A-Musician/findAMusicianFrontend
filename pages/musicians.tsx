@@ -10,6 +10,7 @@ import { useContext, useState } from 'react';
 import Banner from '../components/Banner';
 import Card from '../components/Card';
 import { FiltersType } from '../components/DataEntry/Filters';
+import TagSmall from '../components/TagSmall';
 
 export function Musicians(): JSX.Element {
   const { authAxios } = useAxios();
@@ -60,6 +61,16 @@ export function Musicians(): JSX.Element {
                 description={musician.description}
                 genres={musician.genres.map((genre) => genre.name)}
                 href={`/profile/${musician.id}`}
+                tagSmall={
+                  musician.isLookingForGroups ? (
+                    <TagSmall
+                      label="RG"
+                      description="Ce joueur recherche un groupe"
+                    />
+                  ) : (
+                    <></>
+                  )
+                }
               />
             ))}
           </div>

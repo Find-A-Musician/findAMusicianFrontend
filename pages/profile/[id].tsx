@@ -36,7 +36,7 @@ export default function Profile() {
       }),
   );
 
-  const { data } = useSwr(`/musicians/${id}`, (url) =>
+  const { data: profil } = useSwr(`/musicians/${id}`, (url) =>
     authAxios.get(url).then(({ data }) => data),
   );
 
@@ -53,24 +53,20 @@ export default function Profile() {
         />
       }
     >
-      {data && (
+      {profil && (
         <>
-          <ProfileBanner
-            firstname={data.givenName}
-            lastname={data.familyName}
-            groups={groupList}
-          />
-          {data.description && (
+          <ProfileBanner profil={profil} groups={groupList} />
+          {profil.description && (
             <ProfileSection title="A propos">
-              <p>{data.description}</p>
+              <p>{profil.description}</p>
             </ProfileSection>
           )}
           <ProfileInformation
-            promotion={data.promotion}
-            email={data.email}
-            localisation={data.location}
-            genres={data.genres}
-            instruments={data.instruments}
+            promotion={profil.promotion}
+            email={profil.email}
+            localisation={profil.location}
+            genres={profil.genres}
+            instruments={profil.instruments}
           />
           {!!groupList?.length && (
             <ProfileGroup>
