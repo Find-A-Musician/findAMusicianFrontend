@@ -1,23 +1,31 @@
 import { useState } from 'react';
-import { Groups } from '../../types';
+import { Groups, Musician } from '../../types';
 import { capitalize } from '../../utils/string';
 import Toggle from '../Toggle';
+import { useAxios } from '../../context/AxiosContext';
+import { mutate } from 'swr';
 
 type Props = {
-  firstname: string;
-  lastname: string;
+  profil: Musician;
   /**Use to know if we need to display toggle */
   isMyProfile?: boolean;
   groups?: Groups[];
 };
 
-export function ProfileBanner({
-  firstname,
-  lastname,
-  isMyProfile = false,
-  groups,
-}: Props) {
-  const [isLookingForGroup, setIsLookingForGroup] = useState(false);
+export function ProfileBanner({ profil, isMyProfile = false, groups }: Props) {
+  const [isLookingForGroups, setIsLookingForGroups] = useState(
+    profil.isLookingForGroups,
+  );
+
+  const { authAxios } = useAxios();
+
+  async function toggleLookingForGroup(isLookingForGroups: boolean) {
+    await authAxios.patch('/profil', {
+      isLookingForGroups: isLookingForGroups,
+    });
+    mutate('/profil');
+  }
+
   return (
     <div>
       <div
@@ -34,7 +42,7 @@ export function ProfileBanner({
         <div className="flex flex-wrap gap-4 items-center w-full lg:-mt-10">
           <div className="flex-grow">
             <h2 className="text-2xl font-bold">
-              {firstname} {lastname}
+              {profil.givenName} {profil.familyName}
             </h2>
             <span className="text-lg text-gray-500">
               {groups?.length
@@ -46,8 +54,11 @@ export function ProfileBanner({
             <Toggle
               checkLabel="Je recherche un groupe"
               uncheckLabel="Je ne recherche pas un groupe"
-              isCheck={isLookingForGroup}
-              setIsCheck={setIsLookingForGroup}
+              isCheck={isLookingForGroups}
+              onClick={() => {
+                setIsLookingForGroups(!isLookingForGroups);
+                toggleLookingForGroup(!isLookingForGroups);
+              }}
             />
           )}
         </div>

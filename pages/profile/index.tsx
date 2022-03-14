@@ -2,7 +2,6 @@ import ContentLayout from '../../layout/content';
 import Header from '../../components/Header';
 import NewButton from '../../components/NewButton';
 import { IPeople } from '../../components/icons';
-import { useAuth } from '../../context/AuthContext';
 import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
 import {
@@ -17,11 +16,9 @@ import { Musician, Groups } from '../../types';
 import Card from '../../components/Card';
 
 export default function MyProfile() {
-  const { getProfil } = useAuth();
   const { authAxios } = useAxios();
-  const profil = getProfil();
 
-  const { data: loggedInUser } = useSWR<Musician>('/profil', (url) =>
+  const { data: profil } = useSWR<Musician>('/profil', (url) =>
     authAxios.get(url).then((res) => res.data),
   );
 
@@ -33,7 +30,7 @@ export default function MyProfile() {
         .then((res) => res.data)
         .then((res) =>
           res.filter((group: Groups) =>
-            JSON.stringify(group.members).includes(loggedInUser!.id),
+            JSON.stringify(group.members).includes(profil!.id),
           ),
         ),
   );
@@ -55,12 +52,7 @@ export default function MyProfile() {
     >
       {profil ? (
         <>
-          <ProfileBanner
-            firstname={profil.givenName}
-            lastname={profil.familyName}
-            groups={groupList}
-            isMyProfile
-          />
+          <ProfileBanner profil={profil} groups={groupList} isMyProfile />
           <ProfileSection title="A propos">
             {profil.description ? (
               <p>{profil.description}</p>
