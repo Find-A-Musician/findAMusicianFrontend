@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <AppLayout>
               <>
                 <Component {...pageProps} />
-                <ToastContainer />
+                <ToastContainer limit={1} />
               </>
             </AppLayout>
           </RouteGuard>
