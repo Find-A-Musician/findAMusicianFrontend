@@ -63,10 +63,23 @@ export function ProfileAbout({ profil, canBeModified }: Props) {
         </>
       ) : (
         <>
-          {description.split('\n').map((paragraph, index) => {
-            if (paragraph.length === 0) return <br />;
-            return <p key={index}>{paragraph}</p>;
-          })}
+          {description.length ? (
+            description.split('\n').map((paragraph, index) => {
+              if (paragraph.length === 0) return <br />;
+              return <p key={index}>{paragraph}</p>;
+            })
+          ) : (
+            <p>
+              Vous n'avez pas de description. Parlez nous de vous et{' '}
+              <button
+                onClick={() => setIsModify(true)}
+                className="text-blue-500 hover:underline"
+              >
+                clickez ici
+              </button>{' '}
+              !
+            </p>
+          )}
         </>
       )}
     </ProfileSection>
