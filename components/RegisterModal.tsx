@@ -7,6 +7,7 @@ import { useAxios } from '../context/AxiosContext';
 import { setCookie, useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
+import { toast } from 'react-toastify';
 
 enum RegisterError {
   'name' = 'Vous devez choisir un prénom et un nom',
@@ -27,6 +28,9 @@ export default function RegisterModal() {
   const { setAuthState } = useAuth();
   const router = useRouter();
 
+  // Notification
+  const notificationError = () => toast.error("Le compte n'a pas pu être créé");
+
   // First page state
   const [givenName, setGivenName] = useState('');
   const [familyName, setFamilyName] = useState('');
@@ -45,7 +49,6 @@ export default function RegisterModal() {
   const [instagramUrl, setInstagramUrl] = useState('');
 
   const [error, setError] = useState<RegisterError>();
-  const [loading, setloading] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -101,7 +104,6 @@ export default function RegisterModal() {
       return;
     }
     setError(undefined);
-    setloading(true);
     publicAxios
       .post('/register', {
         email,
@@ -142,6 +144,7 @@ export default function RegisterModal() {
       )
       .catch((err) => {
         console.log(err);
+        notificationError();
         if (err.response) {
           switch (err.response.status) {
             case 400:
@@ -154,7 +157,6 @@ export default function RegisterModal() {
         } else {
           setError(RegisterError.server);
         }
-        setloading(false);
       });
   }
 
