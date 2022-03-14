@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { ProfileSection } from '../../components/Profile';
 import Banner from '../../components/Banner';
 import Card from '../../components/Card';
+import TagSmall from '../../components/TagSmall';
 
 export default function GroupDetails() {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
@@ -53,6 +54,16 @@ export default function GroupDetails() {
                       (instrument) => instrument.name,
                     )}
                     href={`/profile/${member.musician.id}`}
+                    tagSmall={
+                      member.musician.isLookingForGroups ? (
+                        <TagSmall
+                          label="RG"
+                          description="Ce joueur recherche un groupe"
+                        />
+                      ) : (
+                        <></>
+                      )
+                    }
                   />
                 ))}
               </div>
