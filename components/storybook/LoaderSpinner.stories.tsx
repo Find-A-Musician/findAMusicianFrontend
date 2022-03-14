@@ -1,4 +1,4 @@
-import loaderSpinner, { SPINNER_SIZE } from './LoaderSpinner';
+import loaderSpinner, { SPINNER_SIZE } from '../LoaderSpinner';
 import { Meta } from '@storybook/react';
 
 export default {

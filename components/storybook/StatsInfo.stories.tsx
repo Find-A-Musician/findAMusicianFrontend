@@ -1,4 +1,4 @@
-import StatsInfo from './StatsInfo';
+import StatsInfo from '../StatsInfo';
 import { Meta } from '@storybook/react';
 import { ComponentProps } from 'react';
 

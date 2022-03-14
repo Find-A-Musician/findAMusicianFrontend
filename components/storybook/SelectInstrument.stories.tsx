@@ -1,6 +1,7 @@
-import SelectInsttrument from './SelectInstrument';
+import SelectInsttrument from '../SelectInstrument';
 import { Meta } from '@storybook/react';
-import { INSTRUMENTS_NAME_LIST, Instruments } from '../types/api';
+import { INSTRUMENTS_NAME_LIST } from '../../types/api';
+import { Instrument } from '../../types';
 import { useState } from 'react';
 
 export default {
@@ -9,13 +10,13 @@ export default {
 } as Meta;
 
 export const InstrumentSelect = () => {
-  const instrumentsList: Instruments = INSTRUMENTS_NAME_LIST.map(
+  const instrumentsList: Instrument[] = INSTRUMENTS_NAME_LIST.map(
     (item, index) => {
       return { id: `instrument-${index}`, name: item };
     },
   );
 
-  const [selectedInstrument, setSelectedInstrument] = useState<Instruments>(
+  const [selectedInstrument, setSelectedInstrument] = useState<Instrument[]>(
     instrumentsList.slice(0, 2),
   );
 
@@ -34,7 +35,9 @@ export const InstrumentSelect = () => {
 };
 
 export const Loading = () => {
-  const [selectedInstrument, setSelectedInstrument] = useState<Instruments>([]);
+  const [selectedInstrument, setSelectedInstrument] = useState<Instrument[]>(
+    [],
+  );
 
   return (
     <div className="w-full">

@@ -1,7 +1,8 @@
-import SelectGenre from './SelectGenre';
+import SelectGenre from '../SelectGenre';
 import { Meta } from '@storybook/react';
-import { Genres, GENRE_NAME_LIST } from '../types/api';
+import { GENRE_NAME_LIST } from '../../types/api';
 import { useState } from 'react';
+import { Genre } from '../../types';
 
 export default {
   title: 'Form/SelectGenre',
@@ -9,11 +10,11 @@ export default {
 } as Meta;
 
 export const GenreSelect = () => {
-  const genresList: Genres = GENRE_NAME_LIST.map((item, index) => {
+  const genresList: Genre[] = GENRE_NAME_LIST.map((item, index) => {
     return { id: `genre-${index}`, name: item };
   });
 
-  const [selectedGenre, setSelectedGenre] = useState<Genres>(
+  const [selectedGenre, setSelectedGenre] = useState<Genre[]>(
     genresList.slice(0, 2),
   );
 
@@ -32,7 +33,7 @@ export const GenreSelect = () => {
 };
 
 export const Loading = () => {
-  const [selectedGenre, setSelectedGenre] = useState<Genres>([]);
+  const [selectedGenre, setSelectedGenre] = useState<Genre[]>([]);
 
   return (
     <div className="w-full">

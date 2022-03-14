@@ -52,7 +52,7 @@ export default function Card({
           {format(recherche)}
         </span>
       )}
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full mt-auto flex items-center justify-between">
         <div className="w-full flex-wrap flex-grow flex gap-1.5 ">
           {genres.map((genre, index) => (
             <Tag key={index} text={genre} />

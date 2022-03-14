@@ -1,7 +1,7 @@
-import TextInput from './TextInput';
+import TextInput from '../TextInput';
 import { Meta } from '@storybook/react';
-import { ALL_ICONS, ICONS_DEFINITION } from '../utils/icons';
-import { INPUT_TYPES } from './TextInput';
+import { ALL_ICONS, ICONS_DEFINITION } from '../../utils/icons';
+import { INPUT_TYPES } from '../TextInput';
 export default {
   title: 'Form/TextInput',
   component: TextInput,
