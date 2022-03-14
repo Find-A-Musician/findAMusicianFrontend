@@ -47,7 +47,7 @@ export function ProfileBanner({ profil, isMyProfile = false, groups }: Props) {
                 {profil.givenName} {profil.familyName}
               </h2>
               {profil.isLookingForGroups && !isMyProfile && (
-                <span className="text-sm px-2 py-0.5 text-gray-500 border rounded">
+                <span className="text-sm text-green-500 border-green-500 bg-green-50 px-2 py-0.5 text-gray-500 border rounded">
                   Recherche un groupe
                 </span>
               )}

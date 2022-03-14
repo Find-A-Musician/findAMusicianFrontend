@@ -3,3 +3,4 @@ export { ProfileBanner } from './ProfileBanner';
 export { ProfileButton } from './ProfileButton';
 export { ProfileInformation } from './ProfileInformation';
 export { ProfileSection } from './ProfileSection';
+export { ProfileAbout } from './ProfileAbout';

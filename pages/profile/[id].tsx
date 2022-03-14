@@ -1,7 +1,7 @@
 import ContentLayout from '../../layout/content';
 import {
   ProfileBanner,
-  ProfileSection,
+  ProfileAbout,
   ProfileInformation,
   ProfileGroup,
 } from '../../components/Profile';
@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
 import useSWR from 'swr';
-import { Musician, Groups } from '../../types';
+import { Groups } from '../../types';
 import Card from '../../components/Card';
 
 export default function Profile() {
@@ -46,9 +46,6 @@ export default function Profile() {
         <Header
           title="Profil"
           icon={<IPeople />}
-          rightComponents={
-            <NewButton label="Modifier mon profil" className="rounded-full" />
-          }
           hamburgerOnClick={() => setIsMenuOpen(!isMenuOpen)}
         />
       }
@@ -56,11 +53,7 @@ export default function Profile() {
       {profil && (
         <>
           <ProfileBanner profil={profil} groups={groupList} />
-          {profil.description && (
-            <ProfileSection title="A propos">
-              <p>{profil.description}</p>
-            </ProfileSection>
-          )}
+          {profil.description && <ProfileAbout profil={profil} />}
           <ProfileInformation
             promotion={profil.promotion}
             email={profil.email}
