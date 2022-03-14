@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { apiUrl } from '../config/Url';
 import { Musician } from '../types';
-import useSWR from 'swr';
 
 export type AuthStateType = {
   accessToken: string;
@@ -77,6 +76,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
               Authorization: `Bearer ${accessToken}`,
             },
           });
+
           setAuthState({
             refreshToken,
             accessToken: accessToken,
