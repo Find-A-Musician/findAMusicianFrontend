@@ -1,4 +1,4 @@
-import Tag from './Tag';
+import Tag from '../Tag';
 import { Meta } from '@storybook/react';
 
 export default {
