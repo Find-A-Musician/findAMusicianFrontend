@@ -21,7 +21,6 @@ export default function Login(): JSX.Element {
   const [logginModal, setLogginModal] = useState(false);
   const [registerModal, setRegisterModal] = useState(false);
 
-  const { data, error } = useSwr<StatsInfoType>('/info', publicAxios.get);
   return (
     <div className="flex flex-col p-8 sm:p-14 sm:py-10 h-screen">
       <div className="flex items-center justify-between">

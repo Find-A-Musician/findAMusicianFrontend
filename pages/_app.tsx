@@ -4,17 +4,27 @@ import { AuthProvider } from '../context/AuthContext';
 import { AxiosProvider } from '../context/AxiosContext';
 import AppLayout from '../layout/app';
 import RouteGuard from '../guard/routeGuard';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import { SWRConfig } from 'swr';
+import { errorMiddleware } from '../Middleware/swrErrorToast';
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
-      <AxiosProvider>
-        <RouteGuard>
-          <AppLayout>
-            <Component {...pageProps} />
-          </AppLayout>
-        </RouteGuard>
-      </AxiosProvider>
-    </AuthProvider>
+    <SWRConfig value={{ use: [errorMiddleware] }}>
+      <AuthProvider>
+        <AxiosProvider>
+          <RouteGuard>
+            <AppLayout>
+              <>
+                <Component {...pageProps} />
+                <ToastContainer limit={1} />
+              </>
+            </AppLayout>
+          </RouteGuard>
+        </AxiosProvider>
+      </AuthProvider>
+    </SWRConfig>
   );
 }
 
