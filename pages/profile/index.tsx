@@ -14,6 +14,7 @@ import { useAxios } from '../../context/AxiosContext';
 import useSWR from 'swr';
 import { Musician, Groups } from '../../types';
 import Card from '../../components/Card';
+import { ProfileAbout } from '../../components/Profile';
 
 export default function MyProfile() {
   const { authAxios } = useAxios();
@@ -53,17 +54,7 @@ export default function MyProfile() {
       {profil ? (
         <>
           <ProfileBanner profil={profil} groups={groupList} isMyProfile />
-          <ProfileSection title="A propos">
-            {profil.description ? (
-              <p>{profil.description}</p>
-            ) : (
-              <p>
-                Vous n'avez de description. Clickez{' '}
-                <button className="text-blue-500 hover:underline">ici</button>{' '}
-                pour en rajouter une !
-              </p>
-            )}
-          </ProfileSection>
+          <ProfileAbout profil={profil} canBeModified />
           <ProfileInformation
             promotion={profil.promotion}
             email={profil.email}
