@@ -61,6 +61,7 @@ export default function MyProfile() {
             localisation={profil.location}
             genres={profil.genres}
             instruments={profil.instruments}
+            canBeModified
           />
           {!!groupList?.length && (
             <ProfileGroup>

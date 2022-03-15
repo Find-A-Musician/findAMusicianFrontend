@@ -1,11 +1,9 @@
-import { Genre, Instrument } from '../../types';
 import { ISearch } from '../icons';
 import { Input, Dropdown } from '.';
 import { Options } from './Dropdown';
 import { capitalize } from '../../utils/string';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useAxios } from '../../context/AxiosContext';
-import useSWR from 'swr';
+import { useGetInstruments, useGetGenres } from '../../api';
 
 type Props = {
   usedFilters: ('instruments' | 'genres' | 'name' | 'location' | 'promotion')[];
@@ -23,15 +21,8 @@ export type FiltersType = {
 };
 
 export function Filters({ usedFilters, setFilters }: Props): JSX.Element {
-  const { publicAxios } = useAxios();
-
-  const { data: genres } = useSWR<Genre[]>('/genres', (url) =>
-    publicAxios.get(url).then((res) => res.data),
-  );
-
-  const { data: instruments } = useSWR<Instrument[]>('/instruments', (url) =>
-    publicAxios.get(url).then((res) => res.data),
-  );
+  const { data: instruments } = useGetInstruments();
+  const { data: genres } = useGetGenres();
 
   const optionsPromotion: Options<string>[] = [
     {

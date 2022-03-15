@@ -65,7 +65,7 @@ export function ProfileAbout({ profil, canBeModified }: Props) {
         <>
           {description.length ? (
             description.split('\n').map((paragraph, index) => {
-              if (paragraph.length === 0) return <br />;
+              if (paragraph.length === 0) return <br key={index} />;
               return <p key={index}>{paragraph}</p>;
             })
           ) : (
