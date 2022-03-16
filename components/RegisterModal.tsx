@@ -6,8 +6,8 @@ import NewButton from './NewButton';
 import { useAxios } from '../context/AxiosContext';
 import { setCookie, useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
-import useSWR from 'swr';
 import { toast } from 'react-toastify';
+import { useGetGenres, useGetInstruments } from '../api';
 
 enum RegisterError {
   'name' = 'Vous devez choisir un prénom et un nom',
@@ -52,14 +52,8 @@ export default function RegisterModal() {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data: genresList } = useSWR<Genre[]>('/genres', (url) =>
-    publicAxios.get(url).then(({ data }) => data),
-  );
-
-  const { data: instrumentsList } = useSWR<Instrument[]>(
-    '/instruments',
-    (url) => publicAxios.get(url).then(({ data }) => data),
-  );
+  const { data: genresList } = useGetGenres();
+  const { data: instrumentsList } = useGetInstruments();
 
   function submitFirstPage(e: FormEvent) {
     e.preventDefault();
