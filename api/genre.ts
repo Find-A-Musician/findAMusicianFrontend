@@ -1,13 +1,9 @@
-import { useAxios } from '../context/AxiosContext';
 import { Genre } from '../types';
+import { useFetcher } from './fetcher';
 import useSWR from 'swr';
 
 export function useGetGenres() {
-  const { publicAxios } = useAxios();
-
-  const { data, error } = useSWR<Genre[]>('/genres', (url) =>
-    publicAxios.get(url).then((res) => res.data),
-  );
-
+  const { publicFetch } = useFetcher();
+  const { data, error } = useSWR<Genre[]>('/genres', publicFetch);
   return { data, error };
 }

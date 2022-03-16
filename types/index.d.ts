@@ -5,3 +5,4 @@ export { Musician } from './Musician';
 export { MusicianGroup } from './MusicianGroup';
 export { Token } from './Token';
 export { Event } from './Event';
+export { Pagination } from './Pagination';

@@ -1,13 +1,9 @@
-import { useAxios } from '../context/AxiosContext';
+import { useFetcher } from './fetcher';
 import { Instrument } from '../types';
 import useSWR from 'swr';
 
 export function useGetInstruments() {
-  const { publicAxios } = useAxios();
-
-  const { data, error } = useSWR<Instrument[]>('/instruments', (url) =>
-    publicAxios.get(url).then((res) => res.data),
-  );
-
+  const { publicFetch } = useFetcher();
+  const { data, error } = useSWR<Instrument[]>('/instruments', publicFetch);
   return { data, error };
 }

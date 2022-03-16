@@ -97,6 +97,8 @@ export function ProfileInformation({
       genres,
     };
 
+    console.log(payload);
+
     if (newInstruments.length) payload.instruments = newInstruments;
     if (newGenres.length) payload.genres = newGenres;
 
