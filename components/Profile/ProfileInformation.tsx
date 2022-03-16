@@ -82,7 +82,7 @@ export function ProfileInformation({
   const [newEmail, setNewEmail] = useState<string>(email);
   const [newInstruments, setNewInstruments] =
     useState<Instrument[]>(instruments);
-  const [newGenres, setNewGenres] = useState<Instrument[]>(instruments);
+  const [newGenres, setNewGenres] = useState<Genre[]>(genres);
 
   function format(arr: Instrument[] | Genre[]): string {
     return arr.map((el) => capitalize(el.name)).join(', ');
@@ -96,8 +96,6 @@ export function ProfileInformation({
       instruments,
       genres,
     };
-
-    console.log(payload);
 
     if (newInstruments.length) payload.instruments = newInstruments;
     if (newGenres.length) payload.genres = newGenres;
