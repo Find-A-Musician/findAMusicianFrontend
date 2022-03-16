@@ -6,7 +6,6 @@ import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
 import {
   ProfileGroup,
-  ProfileSection,
   ProfileInformation,
   ProfileBanner,
 } from '../../components/Profile';
@@ -24,7 +23,7 @@ export default function MyProfile() {
   );
 
   const { data: groupList } = useSWR<Groups[]>(
-    () => '/groups',
+    profil ? '/groups' : null,
     (url) =>
       authAxios
         .get(url)
