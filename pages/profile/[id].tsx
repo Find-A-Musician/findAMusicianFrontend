@@ -6,7 +6,6 @@ import {
   ProfileGroup,
 } from '../../components/Profile';
 import Header from '../../components/Header';
-import NewButton from '../../components/NewButton';
 import { IPeople } from '../../components/icons';
 import useSwr from 'swr';
 import { useAxios } from '../../context/AxiosContext';
@@ -14,7 +13,7 @@ import { useRouter } from 'next/router';
 import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
 import useSWR from 'swr';
-import { Groups } from '../../types';
+import { Groups, Pagination } from '../../types';
 import Card from '../../components/Card';
 
 export default function Profile() {
@@ -29,7 +28,7 @@ export default function Profile() {
       .then((res) => res.data)
       .then((res) => {
         if (id)
-          return res.filter((group: Groups) =>
+          return res.results.filter((group: Groups) =>
             JSON.stringify(group.members).includes(id as string),
           );
         return res;

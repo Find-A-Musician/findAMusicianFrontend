@@ -29,7 +29,7 @@ export default function MyProfile() {
         .get(url)
         .then((res) => res.data)
         .then((res) =>
-          res.filter((group: Groups) =>
+          res.results.filter((group: Groups) =>
             JSON.stringify(group.members).includes(profil!.id),
           ),
         ),
@@ -62,7 +62,7 @@ export default function MyProfile() {
             instruments={profil.instruments}
             canBeModified
           />
-          {!!groupList?.length && (
+          {groupList?.length && (
             <ProfileGroup>
               <>
                 {groupList.map((group) => (

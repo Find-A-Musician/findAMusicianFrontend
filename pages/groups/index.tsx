@@ -9,7 +9,7 @@ import ContentLayout from '../../layout/content';
 import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
 import { useAxios } from '../../context/AxiosContext';
-import { Groups } from '../../types';
+import { Groups, Pagination } from '../../types';
 import { Filters } from '../../components/DataEntry';
 import useSWR from 'swr';
 import { FiltersType } from '../../components/DataEntry/Filters';
@@ -20,7 +20,7 @@ export default function GroupsPage(): JSX.Element {
 
   const [filters, setFilters] = useState<FiltersType>({ params: {} });
 
-  const { data: groupList } = useSWR<Groups[]>(
+  const { data: groupList } = useSWR<Pagination<Groups>>(
     ['/groups', filters],
     (url, filters) => authAxios.get(url, filters).then((res) => res.data),
   );
@@ -52,7 +52,7 @@ export default function GroupsPage(): JSX.Element {
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {groupList &&
-            groupList.map((group) => (
+            groupList.results.map((group) => (
               <Card
                 key={group.id}
                 title={group.name}

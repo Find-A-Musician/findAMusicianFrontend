@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import { useAxios } from '../context/AxiosContext';
-import { Musician } from '../types';
+import { Musician, Pagination } from '../types';
 import { IGroup } from '../components/icons';
 import { Filters } from '../components/DataEntry';
 import ContentLayout from '../layout/content';
@@ -18,7 +18,7 @@ export function Musicians(): JSX.Element {
 
   const [filters, setFilters] = useState<FiltersType>({ params: {} });
 
-  const { data: musiciansList, error } = useSWR<Musician[]>(
+  const { data: musiciansList } = useSWR<Pagination<Musician>>(
     ['/musicians', filters],
     (url, filters) => authAxios.get(url, filters).then((res) => res.data),
   );
@@ -28,7 +28,7 @@ export function Musicians(): JSX.Element {
       Header={
         <Header
           title="Musiciens"
-          subtitle={`${musiciansList ? musiciansList.length : '...'} musiciens`}
+          subtitle={`${musiciansList ? musiciansList.size : '...'} musiciens`}
           icon={<IGroup />}
           hamburgerOnClick={() => setIsMenuOpen(!isMenuOpen)}
         />
@@ -53,7 +53,7 @@ export function Musicians(): JSX.Element {
         />
         {musiciansList && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {musiciansList.map((musician) => (
+            {musiciansList.results.map((musician) => (
               <Card
                 key={musician.id}
                 title={`${musician.givenName} ${musician.familyName}`}
