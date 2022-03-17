@@ -5,12 +5,12 @@ import { IPeople } from '../../components/icons';
 import { useAuth } from '../../context/AuthContext';
 import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
-import GroupInvite from '../../components/GroupInvite';
 import {
   ProfileGroup,
   ProfileSection,
   ProfileInformation,
   ProfileBanner,
+  ProfileGroupInvite,
 } from '../../components/Profile';
 
 export default function MyProfile() {
@@ -37,7 +37,7 @@ export default function MyProfile() {
           lastname={profil!.familyName}
           isMyProfile
         />
-        <GroupInvite
+        <ProfileGroupInvite
           groupName="Columbine"
           instrument="chanteur"
           locations={['Douai', 'Lille']}

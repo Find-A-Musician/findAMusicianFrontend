@@ -1,4 +1,4 @@
-import { ICheck, IClose } from './icons';
+import { ICheck, IClose } from '../icons';
 
 type Props = {
   groupName: string;
@@ -7,7 +7,7 @@ type Props = {
   description: string;
 };
 
-export default function GroupInvite({
+export function ProfileGroupInvite({
   groupName,
   instrument,
   locations,
@@ -26,7 +26,7 @@ export default function GroupInvite({
             {locations.map((location) => location).join('/')}
           </span>
         </div>
-        <span className="block text-sm text-gray-100">{description}</span>
+        <span className="block text-gray-100">{description}</span>
       </div>
       <div className="flex gap-4">
         <ICheck size="40px" />
