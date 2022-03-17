@@ -16,7 +16,7 @@ export default function GroupsPage(): JSX.Element {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
 
   const [filters, setFilters] = useState<FiltersType>({ params: {} });
-  const { data: groupList } = useGetGroups(filters);
+  const { data: groupList, size, setSize } = useGetGroups(filters);
 
   return (
     <ContentLayout
@@ -45,7 +45,7 @@ export default function GroupsPage(): JSX.Element {
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {groupList &&
-            groupList.results.map((group) => (
+            groupList.map((group) => (
               <Card
                 key={group.id}
                 title={group.name}
@@ -62,6 +62,9 @@ export default function GroupsPage(): JSX.Element {
               />
             ))}
         </div>
+        <button onClick={() => setSize(size + 1)} className="p-3 bg-green-500">
+          Load More
+        </button>
       </>
     </ContentLayout>
   );
