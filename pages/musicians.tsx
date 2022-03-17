@@ -1,6 +1,3 @@
-import useSWR from 'swr';
-import { useAxios } from '../context/AxiosContext';
-import { Musician, Pagination } from '../types';
 import { IGroup } from '../components/icons';
 import { Filters } from '../components/DataEntry';
 import ContentLayout from '../layout/content';
@@ -11,17 +8,14 @@ import Banner from '../components/Banner';
 import Card from '../components/Card';
 import { FiltersType } from '../components/DataEntry/Filters';
 import TagSmall from '../components/TagSmall';
+import { useGetMusicians } from '../api';
 
 export function Musicians(): JSX.Element {
-  const { authAxios } = useAxios();
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
 
   const [filters, setFilters] = useState<FiltersType>({ params: {} });
 
-  const { data: musiciansList } = useSWR<Pagination<Musician>>(
-    ['/musicians', filters],
-    (url, filters) => authAxios.get(url, filters).then((res) => res.data),
-  );
+  const { data: musiciansList } = useGetMusicians(filters);
 
   return (
     <ContentLayout

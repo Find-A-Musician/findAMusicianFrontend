@@ -1,9 +1,12 @@
 import { useFetcher } from './fetcher';
-import { Musician } from '../types';
+import { Musician, Pagination } from '../types';
 import useSWR from 'swr';
 
-export function useGetMusicians() {
+export function useGetMusicians(filters?: any) {
   const { authFetch } = useFetcher();
-  const { data, error } = useSWR<Musician[]>('/musicians', authFetch);
+  const { data, error } = useSWR<Pagination<Musician>>(
+    ['/musicians', filters],
+    (url) => authFetch(url, filters),
+  );
   return { data, error };
 }

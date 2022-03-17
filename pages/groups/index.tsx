@@ -8,22 +8,15 @@ import { useState } from 'react';
 import ContentLayout from '../../layout/content';
 import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
-import { useAxios } from '../../context/AxiosContext';
-import { Groups, Pagination } from '../../types';
 import { Filters } from '../../components/DataEntry';
-import useSWR from 'swr';
 import { FiltersType } from '../../components/DataEntry/Filters';
+import { useGetGroups } from '../../api';
 
 export default function GroupsPage(): JSX.Element {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
-  const { authAxios } = useAxios();
 
   const [filters, setFilters] = useState<FiltersType>({ params: {} });
-
-  const { data: groupList } = useSWR<Pagination<Groups>>(
-    ['/groups', filters],
-    (url, filters) => authAxios.get(url, filters).then((res) => res.data),
-  );
+  const { data: groupList } = useGetGroups(filters);
 
   return (
     <ContentLayout
