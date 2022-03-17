@@ -6,9 +6,12 @@ import ProfileSection from '../components/Profile/ProfileSection';
 import ContentLayout from '../layout/content';
 import { MenuContext } from '../context/MenuContext';
 import { useContext } from 'react';
+import { toast } from 'react-toastify';
 
 export default function Events(): JSX.Element {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
+  const notifySuccess = () => toast.success('Wow so easy!');
+  const notifyError = () => toast.error('Error');
 
   return (
     <ContentLayout
@@ -37,21 +40,20 @@ export default function Events(): JSX.Element {
             facilisis. Nunc eget est auctor, auctor sapien sed, porta augue.
           </p>
         </ProfileSection>
-        <ProfileSection title="A propos">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            accumsan tristique rutrum. Morbi sit amet diam ac lacus congue
-            facilisis. Nunc eget est auctor, auctor sapien sed, porta augue.
-          </p>
-        </ProfileSection>
-        <ProfileSection title="A propos">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            accumsan tristique rutrum. Morbi sit amet diam ac lacus congue
-            facilisis. Nunc eget est auctor, auctor sapien sed, porta augue.
-          </p>
-        </ProfileSection>
-        <div className="h-10"></div>
+        <div>
+          <button
+            className="px-4 py-1 rounded border bg-gray-50"
+            onClick={notifySuccess}
+          >
+            notif
+          </button>
+          <button
+            className="px-4 py-1 rounded border bg-gray-50"
+            onClick={notifyError}
+          >
+            error
+          </button>
+        </div>
       </>
     </ContentLayout>
   );

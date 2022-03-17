@@ -1,29 +1,14 @@
 import ProfileSection from './ProfileSection';
 import Card from '../Card';
 
-export function ProfileGroup() {
+type Props = {
+  children: JSX.Element;
+};
+
+export function ProfileGroup({ children }: Props) {
   return (
     <ProfileSection title="Mes Groupes">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <Card
-          title="Singe"
-          subtitle="4 membres"
-          genres={['pop', 'rock', 'rock']}
-          href="/musicians"
-        />
-        <Card
-          title="Singe"
-          subtitle="4 membres"
-          genres={['pop', 'rock', 'rock']}
-          href="/musicians"
-        />
-        <Card
-          title="Singe"
-          subtitle="4 membres"
-          genres={['pop', 'rock', 'rock']}
-          href="/musicians"
-        />
-      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">{children}</div>
     </ProfileSection>
   );
 }

@@ -2,11 +2,11 @@ import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
 import { setCookie, useAuth } from '../context/AuthContext';
 import { useAxios } from '../context/AxiosContext';
-import Input from './Input';
+import { Input } from './DataEntry';
 import NewButton from './NewButton';
 import LoaderSpinner from './LoaderSpinner';
-import { Profil, Token } from '../types/api';
-import { ILock, IAtSign } from './icons';
+import { Musician } from '../types';
+import { Token } from '../types/api';
 
 type Props = {
   onForgetPassword: () => void;
@@ -37,7 +37,7 @@ export default function LoginModal({
           musician,
         },
       } = await axios?.publicAxios.post<{
-        musician: Profil;
+        musician: Musician;
         token: Token;
       }>('/login', { email, password });
 

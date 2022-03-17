@@ -1,78 +1,34 @@
 import useSWR from 'swr';
 import { useAxios } from '../context/AxiosContext';
-import { Profil } from '../types/api';
-import { IGroup, ISearch } from '../components/icons';
+import { Musician, Pagination } from '../types';
+import { IGroup } from '../components/icons';
+import { Filters } from '../components/DataEntry';
 import ContentLayout from '../layout/content';
 import Header from '../components/Header';
 import { MenuContext } from '../context/MenuContext';
 import { useContext, useState } from 'react';
 import Banner from '../components/Banner';
-import Dropdown, { Options } from '../components/Dropdown';
-import Input from '../components/Input';
 import Card from '../components/Card';
+import { FiltersType } from '../components/DataEntry/Filters';
 import TagSmall from '../components/TagSmall';
 
 export function Musicians(): JSX.Element {
   const { authAxios } = useAxios();
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
 
-  const { data: musiciansList, error } = useSWR<Profil[]>('/musicians', (url) =>
-    authAxios.get(url).then((res) => res.data),
+  const [filters, setFilters] = useState<FiltersType>({ params: {} });
+
+  const { data: musiciansList } = useSWR<Pagination<Musician>>(
+    ['/musicians', filters],
+    (url, filters) => authAxios.get(url, filters).then((res) => res.data),
   );
-
-  const optionsGenre = [
-    {
-      label: 'Rock',
-      value: 'rock',
-    },
-    {
-      label: 'Metal',
-      value: 'metal',
-    },
-    {
-      label: 'Rap',
-      value: 'rap',
-    },
-  ];
-
-  const optionsSite: Options[] = [
-    {
-      label: 'Douai',
-      value: 'douai',
-    },
-    {
-      label: 'Lille',
-      value: 'lille',
-    },
-  ];
-
-  const optionsInstrument: Options[] = [
-    {
-      label: 'Piano',
-      value: 'piano',
-    },
-    {
-      label: 'Saxophone',
-      value: 'saxophone',
-    },
-    {
-      label: 'Guitar',
-      value: 'guitar',
-    },
-  ];
-
-  const [selectedGenre, setSelectedGenre] = useState<string[]>([]);
-  const [selectedSite, setSelectedSite] = useState<string[]>([]);
-  const [selectedInstrument, setSelectedInstrument] = useState<string[]>([]);
-
-  const [searchValue, setSearchValue] = useState('');
 
   return (
     <ContentLayout
       Header={
         <Header
           title="Musiciens"
-          subtitle={`${musiciansList ? musiciansList.length : '...'} musiciens`}
+          subtitle={`${musiciansList ? musiciansList.size : '...'} musiciens`}
           icon={<IGroup />}
           hamburgerOnClick={() => setIsMenuOpen(!isMenuOpen)}
         />
@@ -85,49 +41,36 @@ export function Musicians(): JSX.Element {
           subtitle="Plus besoin de galérer pour trouver lae musicien⸱ne parfait⸱e"
           imagePath="/images/music_concert.png"
         />
-
-        <div className="sticky top-28 pb-2 -mb-2 bg-white flex flex-wrap gap-4 justify-between">
-          <div className="flex flex-wrap gap-4">
-            <Dropdown
-              label="Instruments"
-              options={optionsInstrument}
-              selected={selectedInstrument}
-              setSelected={setSelectedInstrument}
-            />
-            <Dropdown
-              label="Genres"
-              options={optionsGenre}
-              selected={selectedGenre}
-              setSelected={setSelectedGenre}
-            />
-
-            <Dropdown
-              label="Sites"
-              options={optionsSite}
-              selected={selectedSite}
-              setSelected={setSelectedSite}
-            />
-          </div>
-
-          <Input
-            id="rechercher"
-            placeholder="rechercher"
-            label="searchbar"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            icon={<ISearch />}
-          />
-        </div>
+        <Filters
+          usedFilters={[
+            'name',
+            'instruments',
+            'genres',
+            'promotion',
+            'location',
+          ]}
+          setFilters={setFilters}
+        />
         {musiciansList && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {musiciansList.map((musician) => (
+            {musiciansList.results.map((musician) => (
               <Card
                 key={musician.id}
                 title={`${musician.givenName} ${musician.familyName}`}
                 subtitle={`${musician.location} · ${musician.promotion}`}
-                description="Nous sommes un groupe qui fait les singes. Nous ne cherchons pas de musiciens mais des personnes sachant imiter les singes. ouhouhou."
+                description={musician.description}
                 genres={musician.genres.map((genre) => genre.name)}
                 href={`/profile/${musician.id}`}
+                tagSmall={
+                  musician.isLookingForGroups ? (
+                    <TagSmall
+                      label="RG"
+                      description="Ce joueur recherche un groupe"
+                    />
+                  ) : (
+                    <></>
+                  )
+                }
               />
             ))}
           </div>

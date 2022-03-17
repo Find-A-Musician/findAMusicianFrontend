@@ -1,17 +1,16 @@
 import { FormEvent, useState } from 'react';
-import TextInput from './TextInput';
-import Button from './Button';
-import SelectGenre from './SelectGenre';
-import SelectInstrument from './SelectInstrument';
-import Select from './Select';
-import LoaderSpinner from './LoaderSpinner';
-import { Genres, Instruments } from '../types/api';
+import { Instrument, Genre } from '../types';
+import { Dropdown, Input } from './DataEntry';
+import { Options } from './DataEntry/Dropdown';
+import NewButton from './NewButton';
 import { useAxios } from '../context/AxiosContext';
 import { setCookie, useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
-import useSWR from 'swr';
+import { toast } from 'react-toastify';
+import { useGetGenres, useGetInstruments } from '../api';
 
 enum RegisterError {
+  'name' = 'Vous devez choisir un prénom et un nom',
   'passwordNotEqual' = 'Les mots de passes ne correspondent pas',
   'passwordNotLongEnough' = 'Ton mot de passe doit contenir au moins 8 caractères',
   'genre' = 'Choissis au moins un genre',
@@ -20,65 +19,75 @@ enum RegisterError {
   'email' = "L'email est dejà utilisé",
 }
 
-const promotions = ['L1', 'L2', 'L3', 'M1', 'M2'] as const;
+const promotions = ['L1', 'L2', 'L3', 'M1', 'M2', ''] as const;
 
-const locations = ['Douai', 'Lille'] as const;
+const locations = ['Douai', 'Lille', ''] as const;
 
 export default function RegisterModal() {
   const { publicAxios } = useAxios();
   const { setAuthState } = useAuth();
   const router = useRouter();
 
+  // Notification
+  const notificationError = () => toast.error("Le compte n'a pas pu être créé");
+
   // First page state
   const [givenName, setGivenName] = useState('');
   const [familyName, setFamilyName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState<number>();
+  const [phone, setPhone] = useState('');
   const [passwordFirst, setPasswordFirst] = useState('');
   const [passwordSecond, setPasswordSecond] = useState('');
-  const [promotion, setPromotion] = useState<typeof promotions[number]>(
-    promotions[0],
-  );
-  const [location, setLocation] = useState<typeof locations[number]>(
-    locations[0],
-  );
+  const [promotion, setPromotion] = useState<typeof promotions[number]>('');
+  const [location, setLocation] = useState<typeof locations[number]>('');
 
   // Second page state
-  const [genres, setGenres] = useState<Genres>([]);
-  const [instruments, setInstruments] = useState<Instruments>([]);
-  const [facebookUrl, setFacebookUrl] = useState<string>();
-  const [twitterUrl, setTwitterUrl] = useState<string>();
-  const [instagramUrl, setInstagramUrl] = useState<string>();
+  const [genres, setGenres] = useState<Genre[]>([]);
+  const [instruments, setInstruments] = useState<Instrument[]>([]);
+  const [facebookUrl, setFacebookUrl] = useState('');
+  const [twitterUrl, setTwitterUrl] = useState('');
+  const [instagramUrl, setInstagramUrl] = useState('');
 
   const [error, setError] = useState<RegisterError>();
-  const [loading, setloading] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState<1 | 2>(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const { data: genresList } = useSWR<Genres>('/genres', (url) =>
-    publicAxios.get(url).then(({ data }) => data),
-  );
-
-  const { data: instrumentsList } = useSWR<Instruments>('/instruments', (url) =>
-    publicAxios.get(url).then(({ data }) => data),
-  );
+  const { data: genresList } = useGetGenres();
+  const { data: instrumentsList } = useGetInstruments();
 
   function submitFirstPage(e: FormEvent) {
     e.preventDefault();
-    if (passwordFirst !== passwordSecond) {
-      setError(RegisterError.passwordNotEqual);
-      return;
-    }
-
-    if (passwordFirst.length < 8) {
-      setError(RegisterError.passwordNotLongEnough);
-      return;
-    }
+    if (!givenName || !familyName) return setError(RegisterError.name);
     setError(undefined);
-    setCurrentPage(2);
+    setCurrentPage(currentPage + 1);
   }
 
-  async function submitSecondPage(e: FormEvent) {
+  function submitSecondPage(e: FormEvent) {
+    e.preventDefault();
+    if (!email) return setError(RegisterError.email);
+    setError(undefined);
+    setCurrentPage(currentPage + 1);
+  }
+
+  function submitThirdPage(e: FormEvent) {
+    e.preventDefault();
+    if (passwordFirst.length < 8)
+      return setError(RegisterError.passwordNotLongEnough);
+    if (passwordFirst !== passwordSecond)
+      return setError(RegisterError.passwordNotEqual);
+    setError(undefined);
+    setCurrentPage(currentPage + 1);
+  }
+
+  function submitSixPage(e: FormEvent) {
+    e.preventDefault();
+    if (!instruments.length) return setError(RegisterError.instrument);
+    if (!genres.length) return setError(RegisterError.genre);
+    setError(undefined);
+    setCurrentPage(currentPage + 1);
+  }
+
+  function submitSevenPage(e: FormEvent) {
     e.preventDefault();
     if (genres.length === 0) {
       setError(RegisterError.genre);
@@ -89,22 +98,19 @@ export default function RegisterModal() {
       return;
     }
     setError(undefined);
-    setloading(true);
     publicAxios
       .post('/register', {
-        musician: {
-          email,
-          givenName,
-          familyName,
-          phone,
-          facebook_url: facebookUrl || null,
-          twitter_url: twitterUrl || null,
-          instagram_url: instagramUrl || null,
-          promotion,
-          location,
-          genres,
-          instruments,
-        },
+        email,
+        givenName,
+        familyName,
+        phone,
+        facebook_url: facebookUrl || null,
+        twitter_url: twitterUrl || null,
+        instagram_url: instagramUrl || null,
+        promotion,
+        location,
+        genres,
+        instruments,
         password: passwordFirst,
       })
       .then(
@@ -131,6 +137,8 @@ export default function RegisterModal() {
         },
       )
       .catch((err) => {
+        console.log(err);
+        notificationError();
         if (err.response) {
           switch (err.response.status) {
             case 400:
@@ -143,198 +151,311 @@ export default function RegisterModal() {
         } else {
           setError(RegisterError.server);
         }
-        setloading(false);
       });
   }
 
   return (
-    <div className="w-[800px] h-[500px] flex flex-col items-center justify-between py-2 px-10 rounded-2xl bg-white">
-      <div>
-        <h2 className="text-red-800 text-2xl font-black">Inscris toi !</h2>
-      </div>
-      {currentPage == 1 && (
+    <div className="flex flex-col justify-around p-10 sm:w-96 w-80 rounded-md gap-6 bg-white">
+      <h2 className="text-lg font-bold text-gray-800">Inscris toi !</h2>
+      {currentPage === 1 && (
         <form
-          className="flex flex-col w-full flex-1"
           onSubmit={(e) => submitFirstPage(e)}
+          className="flex flex-col gap-4"
         >
-          <div className="flex flex-wrap justify-between items-center w-full h-full ">
-            <div className="h-full flex flex-col justify-around">
-              <TextInput
-                tabIndex={1}
-                id="registerFamilyNameinput"
-                type="text"
-                label="Nom"
-                placeholder="Votre nom"
-                required
-                autoComplete="family-name"
-                value={familyName}
-                onChange={(e) => {
-                  setFamilyName(e.target.value);
-                }}
-              />
-              <TextInput
-                tabIndex={3}
-                id="registerEmailinput"
-                type="email"
-                label="Email"
-                placeholder="Votre email"
-                autoComplete="email"
-                icon="letter"
-                required
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-              <TextInput
-                tabIndex={5}
-                id="promotion"
-                type="password"
-                label="Mot de passe"
-                placeholder="Votre mot de passe"
-                required
-                value={passwordFirst}
-                onChange={(e) => {
-                  setPasswordFirst(e.target.value);
-                }}
-              />
-              <Select
-                options={promotions}
-                selectedOption={promotion}
-                setSelectedOption={setPromotion}
-                label="Ta promotion"
-                tabIndex={7}
-              />
-            </div>
-            <div className="h-full flex flex-col justify-around">
-              <TextInput
-                tabIndex={2}
-                id="registerGivenNameinput"
-                type="text"
-                label="Prénom"
-                placeholder="Votre prénom"
-                required
-                autoComplete="given-name"
-                value={givenName}
-                onChange={(e) => {
-                  setGivenName(e.target.value);
-                }}
-              />
-
-              <TextInput
-                tabIndex={4}
-                id="registerPhoneinput"
-                type="number"
-                label="Téléphone (optionnel)"
-                placeholder="Votre téléphone"
-                autoComplete="tel"
-                value={phone}
-                icon="phone"
-                onChange={(e) => {
-                  setPhone(parseInt(e.target.value));
-                }}
-              />
-
-              <TextInput
-                tabIndex={6}
-                id="registerSecondMDPinput"
-                type="password"
-                label="Confirmation du mot de passe"
-                placeholder="Confirmer votre mot de passe"
-                value={passwordSecond}
-                required
-                onChange={(e) => {
-                  setPasswordSecond(e.target.value);
-                }}
-              />
-              <Select
-                options={locations}
-                selectedOption={location}
-                setSelectedOption={setLocation}
-                label="Ta ville"
-                tabIndex={8}
-              />
-            </div>
-          </div>
-          <div className="flex justify-end items-center w-full">
-            {error && <p className="text-red-700 "> {error} </p>}
-            <Button tabIndex={9} label="Suivant" isLarge bold type="submit" />
-          </div>
+          <Input
+            id="nameinput"
+            label="Prénom"
+            displayLabel
+            placeholder="Thomas"
+            autoComplete="given-name"
+            required
+            className="w-full"
+            value={givenName}
+            onChange={(e) => setGivenName(e.target.value)}
+          />
+          <Input
+            id="lastnameinput"
+            label="Nom"
+            displayLabel
+            placeholder="Bernard"
+            autoComplete="family-name"
+            required
+            className="w-full"
+            value={familyName}
+            onChange={(e) => setFamilyName(e.target.value)}
+          />
+          {error && (
+            <span className="-mt-2 text-sm text-red-500 "> {error} </span>
+          )}
+          <NewButton type="submit" label="Suivant" className="mt-4 rounded" />
         </form>
       )}
-      {currentPage == 2 && (
+
+      {currentPage === 2 && (
         <form
-          className="flex flex-col w-full flex-1"
           onSubmit={(e) => submitSecondPage(e)}
+          className="flex flex-col gap-4"
         >
-          <div className="flex flex-col justify-around items-center w-full h-full">
-            <div className="flex flex-col items-start w-full" tabIndex={1}>
-              <p className="font-bold">Quels styles de musiques joues-tu ?</p>
-              <SelectGenre
-                selectedGenre={genres}
-                setSelectedGenre={setGenres}
-                genres={genresList}
-              />
-            </div>
-            <div className="flex flex-col items-start w-full" tabIndex={2}>
-              <p className="font-bold">
-                Quels instruments de musiques joues-tu ?
-              </p>
-              <SelectInstrument
-                selectedInstrument={instruments}
-                setSelectedInstrument={setInstruments}
-                instruments={instrumentsList}
-              />
-            </div>
-            <TextInput
-              label="Facebook (Optionnel)"
-              placeholder="URL facebook"
-              icon="facebook"
-              isFull
-              type="text"
-              id="registerFacebook"
-              value={facebookUrl}
-              onChange={(e) => setFacebookUrl(e.target.value)}
-            />
-            <TextInput
-              label="Instagram (Optionnel)"
-              placeholder="URL instagram"
-              icon="instagram"
-              isFull
-              type="text"
-              id="registerinstagram"
-              value={instagramUrl}
-              onChange={(e) => setInstagramUrl(e.target.value)}
-            />
-            <TextInput
-              label="Twitter (Optionnel)"
-              placeholder="URL twitter"
-              icon="twitter"
-              isFull
-              type="text"
-              id="registerTwitter"
-              value={twitterUrl}
-              onChange={(e) => setTwitterUrl(e.target.value)}
-            />
-          </div>
-          <div className="flex justify-between items-center w-full">
-            <Button
+          <Input
+            id="emailinput"
+            label="Email"
+            displayLabel
+            placeholder="myemail@findamusician.com"
+            required
+            autoComplete="email"
+            className="w-full"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            id="phone"
+            label="Téléphone (optionnel)"
+            displayLabel
+            type="tel"
+            pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"
+            placeholder="06 66 66 66 66"
+            autoComplete="family-name"
+            className="w-full"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          {error && (
+            <span className="-mt-2 text-sm text-red-500 "> {error} </span>
+          )}
+          <div className="flex flex-col">
+            <NewButton type="submit" label="Suivant" className="mt-4 rounded" />
+            <NewButton
               label="Retour"
-              isLarge
-              bold
-              type="button"
-              layout="bordered"
+              className="mt-4 rounded"
+              secondary
               onClick={() => {
-                setCurrentPage(1);
+                setCurrentPage(currentPage - 1);
                 setError(undefined);
               }}
             />
-            {error && <p className="text-red-700 "> {error} </p>}
-            {loading ? (
-              <LoaderSpinner size="sm" />
-            ) : (
-              <Button label="Valider" isLarge bold type="submit" />
-            )}
+          </div>
+        </form>
+      )}
+
+      {currentPage === 3 && (
+        <form
+          onSubmit={(e) => submitThirdPage(e)}
+          className="flex flex-col gap-4"
+        >
+          <Input
+            id="password"
+            label="Mot de passe"
+            type="password"
+            displayLabel
+            required
+            autoComplete="password"
+            className="w-full"
+            value={passwordFirst}
+            onChange={(e) => setPasswordFirst(e.target.value)}
+          />
+          <Input
+            id="passwordconfirm"
+            label="Confirmer le mot de passe"
+            displayLabel
+            type="password"
+            autoComplete="password"
+            className="w-full"
+            value={passwordSecond}
+            onChange={(e) => setPasswordSecond(e.target.value)}
+          />
+          {error && (
+            <span className="-mt-2 text-sm text-red-500 "> {error} </span>
+          )}
+          <div className="flex flex-col">
+            <NewButton type="submit" label="Suivant" className="mt-4 rounded" />
+            <NewButton
+              label="Retour"
+              className="mt-4 rounded"
+              secondary
+              onClick={() => {
+                setCurrentPage(currentPage - 1);
+                setError(undefined);
+              }}
+            />
+          </div>
+        </form>
+      )}
+
+      {currentPage === 4 && (
+        <div className="flex flex-col gap-4">
+          <button
+            onClick={() => {
+              setLocation('Douai');
+              setCurrentPage(currentPage + 1);
+            }}
+            className={`w-full p-4 rounded ${
+              location === 'Douai'
+                ? 'bg-red-500 text-white hover:bg-red-600'
+                : 'bg-gray-50 border hover:bg-gray-100'
+            }`}
+          >
+            Douai
+          </button>
+          <button
+            onClick={() => {
+              setLocation('Lille');
+              setCurrentPage(currentPage + 1);
+            }}
+            className={`w-full p-4 rounded ${
+              location === 'Lille'
+                ? 'bg-red-500 text-white hover:bg-red-600'
+                : 'bg-gray-50 border hover:bg-gray-100'
+            }`}
+          >
+            Lille
+          </button>
+
+          <div className="flex flex-col">
+            <NewButton
+              label="Retour"
+              className="mt-4 rounded"
+              secondary
+              onClick={() => {
+                setCurrentPage(currentPage - 1);
+                setError(undefined);
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {currentPage === 5 && (
+        <div className="flex flex-col gap-4">
+          {promotions.map((promo, index) => {
+            if (promo.length)
+              return (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setPromotion(promo);
+                    setCurrentPage(currentPage + 1);
+                  }}
+                  className={`w-full p-3 rounded ${
+                    promotion === promo
+                      ? 'bg-red-500 text-white hover:bg-red-600'
+                      : 'bg-gray-50 border hover:bg-gray-100'
+                  }`}
+                >
+                  {promo}
+                </button>
+              );
+          })}
+
+          <div className="flex flex-col">
+            <NewButton
+              label="Retour"
+              className="mt-4 rounded"
+              secondary
+              onClick={() => {
+                setCurrentPage(currentPage - 1);
+                setError(undefined);
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {currentPage === 6 && (
+        <form
+          onSubmit={(e) => submitSixPage(e)}
+          className="flex flex-col gap-4"
+        >
+          <Dropdown
+            label="Instrument"
+            options={
+              instrumentsList?.map((instrument) => {
+                return { label: instrument.name, value: instrument };
+              }) as Options<Instrument>[]
+            }
+            selected={instruments}
+            setSelected={setInstruments}
+            disableBackgroundColor
+            className="w-full"
+          />
+
+          <Dropdown
+            label="Genres"
+            options={
+              genresList?.map((genre) => {
+                return { label: genre.name, value: genre };
+              }) as Options<Genre>[]
+            }
+            selected={genres}
+            setSelected={setGenres}
+            disableBackgroundColor
+            className="w-full"
+          />
+
+          {error && (
+            <span className="-mt-2 text-sm text-red-500 "> {error} </span>
+          )}
+          <div className="flex flex-col">
+            <NewButton type="submit" label="Suivant" className="mt-4 rounded" />
+            <NewButton
+              label="Retour"
+              className="mt-4 rounded"
+              secondary
+              onClick={() => {
+                setCurrentPage(currentPage - 1);
+                setError(undefined);
+              }}
+            />
+          </div>
+        </form>
+      )}
+
+      {currentPage === 7 && (
+        <form
+          onSubmit={(e) => submitSevenPage(e)}
+          className="flex flex-col gap-4"
+        >
+          <Input
+            id="facebook"
+            label="Facebook (optionnel)"
+            displayLabel
+            className="w-full"
+            value={facebookUrl}
+            onChange={(e) => setFacebookUrl(e.target.value)}
+          />
+
+          <Input
+            id="instagram"
+            label="Instagram (optionnel)"
+            displayLabel
+            className="w-full"
+            value={instagramUrl}
+            onChange={(e) => setInstagramUrl(e.target.value)}
+          />
+
+          <Input
+            id="twitter"
+            label="Twitter (optionnel)"
+            displayLabel
+            className="w-full"
+            value={twitterUrl}
+            onChange={(e) => setTwitterUrl(e.target.value)}
+          />
+
+          <div className="flex flex-col">
+            <NewButton
+              type="submit"
+              label="S'inscrire"
+              className="mt-4 rounded"
+            />
+            <NewButton
+              label="Retour"
+              className="mt-4 rounded"
+              secondary
+              onClick={() => {
+                setCurrentPage(currentPage - 1);
+                setError(undefined);
+              }}
+            />
           </div>
         </form>
       )}
