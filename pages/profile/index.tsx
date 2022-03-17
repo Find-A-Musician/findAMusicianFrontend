@@ -8,6 +8,7 @@ import {
   ProfileGroup,
   ProfileInformation,
   ProfileBanner,
+  ProfileGroupInvite,
 } from '../../components/Profile';
 import { useAxios } from '../../context/AxiosContext';
 import useSWR from 'swr';
@@ -53,6 +54,12 @@ export default function MyProfile() {
       {profil ? (
         <>
           <ProfileBanner profil={profil} groups={groupList} isMyProfile />
+          <ProfileGroupInvite
+            groupName="Columbine"
+            instrument="chanteur"
+            locations={['Douai', 'Lille']}
+            description="Salut Alexandre, on cherche quelqu’un pour remplacer Foda ! Ca fait des mois qu’il ne donne plus aucun signe de vie... Si ça te tente vient rejoindre l’aventure Columbine avec nous."
+          />
           <ProfileAbout profil={profil} canBeModified />
           <ProfileInformation
             promotion={profil.promotion}

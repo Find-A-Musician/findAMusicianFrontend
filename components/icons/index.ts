@@ -13,4 +13,5 @@ export { IAdd } from './IAdd';
 export { IMenu } from './IMenu';
 export { IAtSign } from './IAtSign';
 export { ILock } from './ILock';
+export { IClose } from './IClose';
 export { IEdit } from './IEdit';
