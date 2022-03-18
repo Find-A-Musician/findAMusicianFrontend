@@ -4,19 +4,27 @@ import NewButton from '../../components/NewButton';
 import Card from '../../components/Card';
 import TagSmall from '..//../components/TagSmall';
 import Banner from '../../components/Banner';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ContentLayout from '../../layout/content';
 import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
 import { Filters } from '../../components/DataEntry';
 import { FiltersType } from '../../components/DataEntry/Filters';
 import { useGetGroups } from '../../api';
+import useOnScreen from '../../hooks/useOnScreen';
 
 export default function GroupsPage(): JSX.Element {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
 
   const [filters, setFilters] = useState<FiltersType>({ params: {} });
   const { data: groupList, size, setSize } = useGetGroups(filters);
+
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const isIntersecting = useOnScreen(bottomRef);
+
+  useEffect(() => {
+    if (groupList?.length) setSize(size + 1);
+  }, [isIntersecting]);
 
   return (
     <ContentLayout
@@ -62,9 +70,7 @@ export default function GroupsPage(): JSX.Element {
               />
             ))}
         </div>
-        <button onClick={() => setSize(size + 1)} className="p-3 bg-green-500">
-          Load More
-        </button>
+        <div ref={bottomRef} className="h-4"></div>
       </>
     </ContentLayout>
   );

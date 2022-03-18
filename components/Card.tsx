@@ -1,6 +1,7 @@
 import Tag from './Tag';
 import Link from 'next/link';
 import { capitalize } from '../utils/string';
+import { LegacyRef } from 'react';
 
 type Props = {
   title: string;
@@ -11,6 +12,7 @@ type Props = {
   subtitle?: string;
   tagSmall?: JSX.Element;
   recherche?: Array<string>;
+  ref?: LegacyRef<HTMLDivElement>;
 };
 
 export default function Card({
@@ -21,12 +23,13 @@ export default function Card({
   subtitle,
   tagSmall,
   recherche,
+  ref,
 }: Props) {
   function format(arr: Array<string>): string {
     return arr.map((el) => capitalize(el)).join(', ');
   }
   return (
-    <div className="flex flex-col border rounded-xl px-6 py-5">
+    <div ref={ref} className="flex flex-col border rounded-xl px-6 py-5">
       <div
         className={`flex items-center gap-3 pb-4 ${
           description ? 'border-b' : ''
