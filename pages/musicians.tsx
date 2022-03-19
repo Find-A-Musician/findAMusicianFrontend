@@ -1,34 +1,36 @@
-import useSWR from 'swr';
-import { useAxios } from '../context/AxiosContext';
-import { Musician, Pagination } from '../types';
 import { IGroup } from '../components/icons';
 import { Filters } from '../components/DataEntry';
 import ContentLayout from '../layout/content';
 import Header from '../components/Header';
 import { MenuContext } from '../context/MenuContext';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import Banner from '../components/Banner';
 import Card from '../components/Card';
 import { FiltersType } from '../components/DataEntry/Filters';
 import TagSmall from '../components/TagSmall';
+import { useGetMusicians } from '../api';
+import useOnScreen from '../hooks/useOnScreen';
 
 export function Musicians(): JSX.Element {
-  const { authAxios } = useAxios();
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
 
   const [filters, setFilters] = useState<FiltersType>({ params: {} });
 
-  const { data: musiciansList } = useSWR<Pagination<Musician>>(
-    ['/musicians', filters],
-    (url, filters) => authAxios.get(url, filters).then((res) => res.data),
-  );
+  const { data: musiciansList, size, setSize } = useGetMusicians(filters);
+
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const isIntersecting = useOnScreen(bottomRef);
+
+  useEffect(() => {
+    if (musiciansList?.length) setSize(size + 1);
+  }, [isIntersecting]);
 
   return (
     <ContentLayout
       Header={
         <Header
           title="Musiciens"
-          subtitle={`${musiciansList ? musiciansList.size : '...'} musiciens`}
+          subtitle={`${musiciansList ? musiciansList.length : '...'} musiciens`}
           icon={<IGroup />}
           hamburgerOnClick={() => setIsMenuOpen(!isMenuOpen)}
         />
@@ -53,7 +55,7 @@ export function Musicians(): JSX.Element {
         />
         {musiciansList && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {musiciansList.results.map((musician) => (
+            {musiciansList.map((musician) => (
               <Card
                 key={musician.id}
                 title={`${musician.givenName} ${musician.familyName}`}
@@ -75,6 +77,7 @@ export function Musicians(): JSX.Element {
             ))}
           </div>
         )}
+        <div ref={bottomRef} className="h-4"></div>
       </>
     </ContentLayout>
   );

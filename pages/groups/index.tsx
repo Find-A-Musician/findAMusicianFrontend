@@ -4,26 +4,27 @@ import NewButton from '../../components/NewButton';
 import Card from '../../components/Card';
 import TagSmall from '..//../components/TagSmall';
 import Banner from '../../components/Banner';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ContentLayout from '../../layout/content';
 import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
-import { useAxios } from '../../context/AxiosContext';
-import { Groups, Pagination } from '../../types';
 import { Filters } from '../../components/DataEntry';
-import useSWR from 'swr';
 import { FiltersType } from '../../components/DataEntry/Filters';
+import { useGetGroups } from '../../api';
+import useOnScreen from '../../hooks/useOnScreen';
 
 export default function GroupsPage(): JSX.Element {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
-  const { authAxios } = useAxios();
 
   const [filters, setFilters] = useState<FiltersType>({ params: {} });
+  const { data: groupList, size, setSize } = useGetGroups(filters);
 
-  const { data: groupList } = useSWR<Pagination<Groups>>(
-    ['/groups', filters],
-    (url, filters) => authAxios.get(url, filters).then((res) => res.data),
-  );
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const isIntersecting = useOnScreen(bottomRef);
+
+  useEffect(() => {
+    if (groupList?.length) setSize(size + 1);
+  }, [isIntersecting]);
 
   return (
     <ContentLayout
@@ -52,7 +53,7 @@ export default function GroupsPage(): JSX.Element {
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {groupList &&
-            groupList.results.map((group) => (
+            groupList.map((group) => (
               <Card
                 key={group.id}
                 title={group.name}
@@ -69,6 +70,7 @@ export default function GroupsPage(): JSX.Element {
               />
             ))}
         </div>
+        <div ref={bottomRef} className="h-4"></div>
       </>
     </ContentLayout>
   );

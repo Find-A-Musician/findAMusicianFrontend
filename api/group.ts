@@ -1,15 +1,15 @@
 import useSWRInfinite from 'swr/infinite';
 import { FiltersType } from '../components/DataEntry/Filters';
 import { useAxios } from '../context/AxiosContext';
-import { Groups, Musician } from '../types';
+import { Groups } from '../types';
 import { paramsToString } from './fetcher';
 
-export function useGetMusicians(filters: FiltersType) {
+export function useGetGroups(filters: FiltersType) {
   const { authAxios } = useAxios();
 
-  const getKey = (pageIndex: number, previousPageData?: Musician[][]) => {
+  const getKey = (pageIndex: number, previousPageData?: Groups[][]) => {
     if (previousPageData && !previousPageData.length) return null; // reached the end
-    return `/musicians?${paramsToString(filters, pageIndex)}`;
+    return `/groups?${paramsToString(filters, pageIndex)}`;
   };
 
   const {
@@ -17,7 +17,7 @@ export function useGetMusicians(filters: FiltersType) {
     error,
     size,
     setSize,
-  } = useSWRInfinite<Musician[]>(getKey, (url: string) =>
+  } = useSWRInfinite<Groups[]>(getKey, (url: string) =>
     authAxios.get(url).then((res) => res.data.results),
   );
 
