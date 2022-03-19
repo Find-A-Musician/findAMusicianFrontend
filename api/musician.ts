@@ -1,12 +1,27 @@
-import { useFetcher } from './fetcher';
-import { Musician, Pagination } from '../types';
-import useSWR from 'swr';
+import useSWRInfinite from 'swr/infinite';
+import { FiltersType } from '../components/DataEntry/Filters';
+import { useAxios } from '../context/AxiosContext';
+import { Groups, Musician } from '../types';
+import { paramsToString } from './fetcher';
 
-export function useGetMusicians(filters?: any) {
-  const { authFetch } = useFetcher();
-  const { data, error } = useSWR<Pagination<Musician>>(
-    ['/musicians', filters],
-    (url) => authFetch(url, filters),
+export function useGetMusicians(filters: FiltersType) {
+  const { authAxios } = useAxios();
+
+  const getKey = (pageIndex: number, previousPageData?: Musician[][]) => {
+    if (previousPageData && !previousPageData.length) return null; // reached the end
+    return `/musicians?${paramsToString(filters, pageIndex)}`;
+  };
+
+  const {
+    data: rawData,
+    error,
+    size,
+    setSize,
+  } = useSWRInfinite<Musician[]>(getKey, (url: string) =>
+    authAxios.get(url).then((res) => res.data.results),
   );
-  return { data, error };
+
+  const data = rawData?.flat();
+
+  return { data, error, size, setSize };
 }
