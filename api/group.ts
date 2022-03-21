@@ -1,8 +1,9 @@
+import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import { FiltersType } from '../components/DataEntry/Filters';
 import { useAxios } from '../context/AxiosContext';
 import { Groups } from '../types';
-import { paramsToString } from './fetcher';
+import { paramsToString, useFetcher } from './fetcher';
 
 export function useGetGroups(filters: FiltersType) {
   const { authAxios } = useAxios();
@@ -24,4 +25,13 @@ export function useGetGroups(filters: FiltersType) {
   const data = rawData?.flat();
 
   return { data, error, size, setSize };
+}
+
+export function useGetGroupDetails(groupID?: string) {
+  const { authFetch } = useFetcher();
+  const { data, error } = useSWR<Groups>(
+    groupID ? `/groups/${groupID}` : null,
+    authFetch,
+  );
+  return { data, error };
 }

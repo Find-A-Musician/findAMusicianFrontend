@@ -1,16 +1,22 @@
 import { useState } from 'react';
-import { Musician } from '../../types';
+import { Groups, Musician } from '../../types';
 import { DetailsSection } from './DetailsSection';
 import { useAxios } from '../../context/AxiosContext';
 import { toast } from 'react-toastify';
 import { mutate } from 'swr';
 
 type Props = {
-  profil: Musician;
+  profil: Groups | Musician;
+  isGroup?: boolean;
   canBeModified?: boolean;
 };
 
-export function DetailsAbout({ profil, canBeModified }: Props) {
+/**This component can be used for either a musician or a group. If you use it for a group set isGroup prop to true and pass in a group to profil */
+export function DetailsAbout({
+  profil,
+  isGroup = false,
+  canBeModified,
+}: Props) {
   const [isModify, setIsModify] = useState(false);
   const [description, setDescription] = useState(profil.description || '');
   const { authAxios } = useAxios();
@@ -18,13 +24,15 @@ export function DetailsAbout({ profil, canBeModified }: Props) {
   const notifyError = () =>
     toast.error("La description n'a pas pu être mis à jour");
 
+  const url = isGroup ? `/groups/${profil.id}` : '/profil';
+
   async function saveDescription() {
     authAxios
-      .patch('/profil', { description })
+      .patch(url, { description })
       .then(() => {
         notifySuccess();
         setIsModify(false);
-        mutate('/profil');
+        mutate(isGroup ? '/groups' : 'profil');
       })
       .catch(() => notifyError());
   }

@@ -1,4 +1,5 @@
 export { useGetInstruments } from './instrument';
 export { useGetGenres } from './genre';
 export { useGetMusicians } from './musician';
-export { useGetGroups } from './group';
+export { useGetGroups, useGetGroupDetails } from './group';
+export { useGetProfil } from './profil';
