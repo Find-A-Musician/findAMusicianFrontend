@@ -7,7 +7,7 @@ import { useAxios } from '../../context/AxiosContext';
 import useSWR from 'swr';
 import { Groups } from '../../types';
 import { useRouter } from 'next/router';
-import { ProfileSection } from '../../components/Profile';
+import { DetailsSection } from '../../components/Details';
 import Banner from '../../components/Banner';
 import Card from '../../components/Card';
 import TagSmall from '../../components/TagSmall';
@@ -39,10 +39,10 @@ export default function GroupDetails() {
               subtitle={`${groupData.members.length} membres · ${groupData.location}`}
               imagePath="/images/music_concert.png"
             />
-            <ProfileSection title="A propos">
+            <DetailsSection title="A propos">
               <p>{groupData.description}</p>
-            </ProfileSection>
-            <ProfileSection title="Membres">
+            </DetailsSection>
+            <DetailsSection title="Membres">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {groupData.members.map((member) => (
                   <Card
@@ -67,7 +67,7 @@ export default function GroupDetails() {
                   />
                 ))}
               </div>
-            </ProfileSection>
+            </DetailsSection>
           </>
         )}
       </>

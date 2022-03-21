@@ -12,7 +12,7 @@ type Props = {
   groups?: Groups[];
 };
 
-export function ProfileBanner({ profil, isMyProfile = false, groups }: Props) {
+export function DetailsBanner({ profil, isMyProfile = false, groups }: Props) {
   const [isLookingForGroups, setIsLookingForGroups] = useState(
     profil.isLookingForGroups,
   );
@@ -85,4 +85,4 @@ export function ProfileBanner({ profil, isMyProfile = false, groups }: Props) {
   );
 }
 
-export default ProfileBanner;
+export default DetailsBanner;

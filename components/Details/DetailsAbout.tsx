@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Musician } from '../../types';
-import { ProfileSection } from './ProfileSection';
+import { DetailsSection } from './DetailsSection';
 import { useAxios } from '../../context/AxiosContext';
 import { toast } from 'react-toastify';
 import { mutate } from 'swr';
@@ -10,7 +10,7 @@ type Props = {
   canBeModified?: boolean;
 };
 
-export function ProfileAbout({ profil, canBeModified }: Props) {
+export function DetailsAbout({ profil, canBeModified }: Props) {
   const [isModify, setIsModify] = useState(false);
   const [description, setDescription] = useState(profil.description || '');
   const { authAxios } = useAxios();
@@ -30,7 +30,7 @@ export function ProfileAbout({ profil, canBeModified }: Props) {
   }
 
   return (
-    <ProfileSection
+    <DetailsSection
       title="A propos"
       modifyOnClick={() => {
         setIsModify(!isModify);
@@ -82,6 +82,6 @@ export function ProfileAbout({ profil, canBeModified }: Props) {
           )}
         </>
       )}
-    </ProfileSection>
+    </DetailsSection>
   );
 }

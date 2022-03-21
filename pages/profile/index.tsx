@@ -5,16 +5,16 @@ import { IPeople } from '../../components/icons';
 import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
 import {
-  ProfileGroup,
-  ProfileInformation,
-  ProfileBanner,
-  ProfileGroupInvite,
-} from '../../components/Profile';
+  DetailsGroup,
+  DetailsInformation,
+  DetailsBanner,
+  DetailsGroupInvite,
+} from '../../components/Details';
 import { useAxios } from '../../context/AxiosContext';
 import useSWR from 'swr';
 import { Musician, Groups } from '../../types';
 import Card from '../../components/Card';
-import { ProfileAbout } from '../../components/Profile';
+import { DetailsAbout } from '../../components/Details';
 
 export default function MyProfile() {
   const { authAxios } = useAxios();
@@ -53,15 +53,15 @@ export default function MyProfile() {
     >
       {profil ? (
         <>
-          <ProfileBanner profil={profil} groups={groupList} isMyProfile />
-          <ProfileGroupInvite
+          <DetailsBanner profil={profil} groups={groupList} isMyProfile />
+          <DetailsGroupInvite
             groupName="Columbine"
             instrument="chanteur"
             locations={['Douai', 'Lille']}
             description="Salut Alexandre, on cherche quelqu’un pour remplacer Foda ! Ca fait des mois qu’il ne donne plus aucun signe de vie... Si ça te tente vient rejoindre l’aventure Columbine avec nous."
           />
-          <ProfileAbout profil={profil} canBeModified />
-          <ProfileInformation
+          <DetailsAbout profil={profil} canBeModified />
+          <DetailsInformation
             promotion={profil.promotion}
             email={profil.email}
             localisation={profil.location}
@@ -70,7 +70,7 @@ export default function MyProfile() {
             canBeModified
           />
           {groupList?.length && (
-            <ProfileGroup>
+            <DetailsGroup>
               <>
                 {groupList.map((group) => (
                   <Card
@@ -81,7 +81,7 @@ export default function MyProfile() {
                   />
                 ))}
               </>
-            </ProfileGroup>
+            </DetailsGroup>
           )}
         </>
       ) : (
