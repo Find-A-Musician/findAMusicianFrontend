@@ -4,7 +4,6 @@ import { capitalize } from '../../utils/string';
 import Toggle from '../Toggle';
 import { useAxios } from '../../context/AxiosContext';
 import { mutate } from 'swr';
-import MyProfile from '../../pages/profile';
 
 type Props = {
   profil: Musician;
@@ -20,11 +19,26 @@ export function ProfileBanner({ profil, isMyProfile = false, groups }: Props) {
 
   const { authAxios } = useAxios();
 
-  async function toggleLookingForGroup(isLookingForGroups: boolean) {
+  async function toggleLookingForGroup(
+    isLookingForGroups: boolean,
+  ): Promise<void> {
     await authAxios.patch('/profil', {
       isLookingForGroups: isLookingForGroups,
     });
     mutate('/profil');
+  }
+
+  function displayGroups(): string {
+    if (!groups || groups?.length === 0) return 'Pas de groupe';
+    const tmpGroup = [...groups];
+    let more = '';
+    if (tmpGroup.length > 2) more = ', et plus de groupes';
+    return (
+      tmpGroup
+        .slice(0, 2)
+        .map((group) => capitalize(group.name))
+        .join(', ') + more
+    );
   }
 
   return (
@@ -52,11 +66,7 @@ export function ProfileBanner({ profil, isMyProfile = false, groups }: Props) {
                 </span>
               )}
             </div>
-            <span className="text-lg text-gray-500">
-              {groups?.length
-                ? groups?.map((group) => capitalize(group.name)).join(', ')
-                : 'Pas de groupe'}
-            </span>
+            <span className="text-lg text-gray-500">{displayGroups()}</span>
           </div>
           {isMyProfile && (
             <Toggle
