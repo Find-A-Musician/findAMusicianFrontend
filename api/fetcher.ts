@@ -40,7 +40,5 @@ export function paramsToString(filters?: FiltersType, page = 0, limit = 20) {
   searchParams.append('start', `${page * limit}`);
   searchParams.append('limit', '20');
 
-  console.log(searchParams.toString());
-
   return searchParams.toString();
 }
