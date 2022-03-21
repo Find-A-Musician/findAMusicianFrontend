@@ -32,7 +32,7 @@ export function DetailsAbout({
       .then(() => {
         notifySuccess();
         setIsModify(false);
-        mutate(isGroup ? '/groups' : 'profil');
+        mutate(url);
       })
       .catch(() => notifyError());
   }
