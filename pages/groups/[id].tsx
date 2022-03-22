@@ -14,6 +14,7 @@ import TagSmall from '../../components/TagSmall';
 import { useGetProfil } from '../../api';
 import NewButton from '../../components/NewButton';
 import GroupEdit from '../../components/GroupEdit';
+import { capitalize } from '../../utils/string';
 
 export default function GroupDetails() {
   const { data: profil } = useGetProfil();
@@ -64,7 +65,11 @@ export default function GroupDetails() {
           <>
             <Banner
               boldTitle={groupData.name}
-              subtitle={`${groupData.members.length} membres · ${groupData.location}`}
+              subtitle={`${groupData.members.length} membres · ${
+                groupData.location
+              } · ${groupData.genres
+                .map((genre) => capitalize(genre.name))
+                .join(', ')}`}
               imagePath="/images/music_concert.png"
             />
             {isModify && (
