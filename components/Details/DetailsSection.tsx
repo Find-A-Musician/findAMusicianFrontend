@@ -7,7 +7,7 @@ type Props = {
   modifyOnClick?: () => void;
 };
 
-export function ProfileSection({
+export function DetailsSection({
   title,
   children,
   canBeModified,
@@ -28,4 +28,4 @@ export function ProfileSection({
   );
 }
 
-export default ProfileSection;
+export default DetailsSection;

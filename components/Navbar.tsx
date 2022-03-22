@@ -1,6 +1,6 @@
 import { ITelescope, IGroup, IMusicNote, ILogout, ICalendar } from './icons';
 import NavItem from './NavItem';
-import ProfileButton from './Profile/ProfileButton';
+import DetailsButton from './Details/DetailsButton';
 import { Logout } from '../layout/app';
 import { useAxios } from '../context/AxiosContext';
 import { useAuth } from '../context/AuthContext';
@@ -51,7 +51,7 @@ export default function Navbar({ setIsMenuOpen, className }: Props) {
           </div>
         </nav>
       </div>
-      <ProfileButton className="mt-auto" onClick={() => setIsMenuOpen(false)} />
+      <DetailsButton className="mt-auto" onClick={() => setIsMenuOpen(false)} />
     </div>
   );
 }

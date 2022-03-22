@@ -7,7 +7,7 @@ type Props = {
   description: string;
 };
 
-export function ProfileGroupInvite({
+export function DetailsGroupInvite({
   groupName,
   instrument,
   locations,

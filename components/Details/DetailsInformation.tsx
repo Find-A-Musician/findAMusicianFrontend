@@ -1,4 +1,4 @@
-import ProfileSection from './ProfileSection';
+import DetailsSection from './DetailsSection';
 import { Instrument, Genre } from '../../types';
 import { capitalize } from '../../utils/string';
 import { useState } from 'react';
@@ -60,7 +60,7 @@ function Info<T>({
   );
 }
 
-export function ProfileInformation({
+export function DetailsInformation({
   promotion,
   localisation,
   email,
@@ -111,7 +111,7 @@ export function ProfileInformation({
   }
 
   return (
-    <ProfileSection
+    <DetailsSection
       title="Information"
       canBeModified={canBeModified}
       modifyOnClick={() => setIsModify(!isModify)}
@@ -193,8 +193,8 @@ export function ProfileInformation({
           </div>
         )}
       </>
-    </ProfileSection>
+    </DetailsSection>
   );
 }
 
-export default ProfileInformation;
+export default DetailsInformation;

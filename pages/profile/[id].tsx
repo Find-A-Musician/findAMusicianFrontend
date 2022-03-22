@@ -1,10 +1,10 @@
 import ContentLayout from '../../layout/content';
 import {
-  ProfileBanner,
-  ProfileAbout,
-  ProfileInformation,
-  ProfileGroup,
-} from '../../components/Profile';
+  DetailsBanner,
+  DetailsAbout,
+  DetailsInformation,
+  DetailsGroup,
+} from '../../components/Details';
 import Header from '../../components/Header';
 import { IPeople } from '../../components/icons';
 import useSwr from 'swr';
@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
 import useSWR from 'swr';
-import { Groups, Pagination } from '../../types';
+import { Groups } from '../../types';
 import Card from '../../components/Card';
 
 export default function Profile() {
@@ -51,9 +51,9 @@ export default function Profile() {
     >
       {profil && (
         <>
-          <ProfileBanner profil={profil} groups={groupList} />
-          {profil.description && <ProfileAbout profil={profil} />}
-          <ProfileInformation
+          <DetailsBanner profil={profil} groups={groupList} />
+          {profil.description && <DetailsAbout profil={profil} />}
+          <DetailsInformation
             promotion={profil.promotion}
             email={profil.email}
             localisation={profil.location}
@@ -61,7 +61,7 @@ export default function Profile() {
             instruments={profil.instruments}
           />
           {!!groupList?.length && (
-            <ProfileGroup>
+            <DetailsGroup>
               <>
                 {groupList.map((group) => (
                   <Card
@@ -72,7 +72,7 @@ export default function Profile() {
                   />
                 ))}
               </>
-            </ProfileGroup>
+            </DetailsGroup>
           )}
         </>
       )}
