@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import { FiltersType } from '../components/DataEntry/Filters';
@@ -5,7 +6,7 @@ import { useAxios } from '../context/AxiosContext';
 import { Groups } from '../types';
 import { paramsToString, useFetcher } from './fetcher';
 
-export function useGetGroups(filters: FiltersType) {
+function useGetGroups(filters: FiltersType) {
   const { authAxios } = useAxios();
 
   const getKey = (pageIndex: number, previousPageData?: Groups[][]) => {
@@ -27,11 +28,21 @@ export function useGetGroups(filters: FiltersType) {
   return { data, error, size, setSize };
 }
 
-export function useGetGroupDetails(groupID?: string) {
+function useGetGroupDetails(groupID?: string) {
   const { authFetch } = useFetcher();
   const { data, error } = useSWR<Groups>(
     groupID ? `/groups/${groupID}` : null,
     authFetch,
   );
   return { data, error };
+}
+
+export function useGroup() {
+  const { authAxios } = useAxios();
+
+  async function updateGroup(payload: Partial<Groups>) {
+    return await authAxios.patch(`/groups/${payload.id}`, payload);
+  }
+
+  return { useGetGroups, useGetGroupDetails, updateGroup };
 }

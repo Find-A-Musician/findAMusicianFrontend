@@ -1,7 +1,7 @@
 import ContentLayout from '../../layout/content';
 import Header from '../../components/Header';
 import { IGroup } from '../../components/icons';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { MenuContext } from '../../context/MenuContext';
 import { useAxios } from '../../context/AxiosContext';
 import useSWR from 'swr';
@@ -12,6 +12,8 @@ import Banner from '../../components/Banner';
 import Card from '../../components/Card';
 import TagSmall from '../../components/TagSmall';
 import { useGetProfil } from '../../api';
+import NewButton from '../../components/NewButton';
+import GroupEdit from '../../components/GroupEdit';
 
 export default function GroupDetails() {
   const { data: profil } = useGetProfil();
@@ -22,6 +24,7 @@ export default function GroupDetails() {
   const { data: groupData } = useSWR<Groups>(`/groups/${id}`, (url) =>
     authAxios.get(url).then((res) => res.data),
   );
+  const [isModify, setIsModify] = useState(false);
 
   function isProfilGroupAdmin(): boolean {
     return !!(
@@ -41,6 +44,17 @@ export default function GroupDetails() {
         <Header
           title="Groupe"
           icon={<IGroup />}
+          rightComponents={
+            isProfilGroupAdmin() ? (
+              <NewButton
+                label="Modifier le groupe"
+                className="rounded-full"
+                onClick={() => setIsModify(!isModify)}
+              />
+            ) : (
+              <></>
+            )
+          }
           hamburgerOnClick={() => setIsMenuOpen(!isMenuOpen)}
         />
       }
@@ -53,6 +67,9 @@ export default function GroupDetails() {
               subtitle={`${groupData.members.length} membres · ${groupData.location}`}
               imagePath="/images/music_concert.png"
             />
+            {isModify && (
+              <GroupEdit group={groupData} setIsModify={setIsModify} />
+            )}
             <DetailsAbout
               profil={groupData}
               isGroup

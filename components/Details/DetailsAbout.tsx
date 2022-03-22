@@ -7,6 +7,7 @@ import { mutate } from 'swr';
 
 type Props = {
   profil: Groups | Musician;
+  /**Make this prop true if you are using this component for groups */
   isGroup?: boolean;
   canBeModified?: boolean;
 };

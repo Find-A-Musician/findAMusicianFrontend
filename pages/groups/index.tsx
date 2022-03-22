@@ -10,11 +10,12 @@ import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
 import { Filters } from '../../components/DataEntry';
 import { FiltersType } from '../../components/DataEntry/Filters';
-import { useGetGroups } from '../../api';
+import { useGroup } from '../../api';
 import useOnScreen from '../../hooks/useOnScreen';
 
 export default function GroupsPage(): JSX.Element {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
+  const { useGetGroups } = useGroup();
 
   const [filters, setFilters] = useState<FiltersType>({ params: {} });
   const { data: groupList, size, setSize } = useGetGroups(filters);
