@@ -44,5 +44,12 @@ export function useGroup() {
     return await authAxios.patch(`/groups/${payload.id}`, payload);
   }
 
-  return { useGetGroups, useGetGroupDetails, updateGroup };
+  async function getMembership(musicianID: string, groupID: string) {
+    return await authAxios
+      .get(`/musicians/${musicianID}/groups/${groupID}/membership`)
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+  }
+
+  return { useGetGroups, useGetGroupDetails, getMembership, updateGroup };
 }

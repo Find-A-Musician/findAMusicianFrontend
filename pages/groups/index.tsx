@@ -10,7 +10,7 @@ import { MenuContext } from '../../context/MenuContext';
 import { useContext } from 'react';
 import { Filters } from '../../components/DataEntry';
 import { FiltersType } from '../../components/DataEntry/Filters';
-import { useGroup } from '../../api';
+import { useGetProfil, useGroup } from '../../api';
 import useOnScreen from '../../hooks/useOnScreen';
 
 export default function GroupsPage(): JSX.Element {
@@ -19,6 +19,7 @@ export default function GroupsPage(): JSX.Element {
 
   const [filters, setFilters] = useState<FiltersType>({ params: {} });
   const { data: groupList, size, setSize } = useGetGroups(filters);
+  const { data: profil } = useGetProfil();
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const isIntersecting = useOnScreen(bottomRef);
@@ -54,6 +55,7 @@ export default function GroupsPage(): JSX.Element {
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {groupList &&
+            profil &&
             groupList.map((group) => (
               <Card
                 key={group.id}
@@ -62,6 +64,9 @@ export default function GroupsPage(): JSX.Element {
                 description={group.description}
                 genres={group.genres.map((genre) => genre.name)}
                 href={`/groups/${group.id}`}
+                isDisplayRole
+                groupID={group.id}
+                musicianID={profil.id}
                 tagSmall={
                   <TagSmall
                     label="RJ"

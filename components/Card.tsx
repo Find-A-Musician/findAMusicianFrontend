@@ -1,7 +1,9 @@
 import Tag from './Tag';
 import Link from 'next/link';
 import { capitalize } from '../utils/string';
-import { LegacyRef } from 'react';
+import TagSmall from './TagSmall';
+import { useGroup } from '../api';
+import { useEffect, useState } from 'react';
 
 type Props = {
   title: string;
@@ -12,7 +14,10 @@ type Props = {
   subtitle?: string;
   tagSmall?: JSX.Element;
   recherche?: Array<string>;
-  ref?: LegacyRef<HTMLDivElement>;
+  musicianID?: string;
+  groupID?: string;
+  /**If you want the roles to be displayed you also need to precise musicianID and groupID */
+  isDisplayRole?: boolean;
 };
 
 export default function Card({
@@ -23,13 +28,27 @@ export default function Card({
   subtitle,
   tagSmall,
   recherche,
-  ref,
+  musicianID,
+  groupID,
+  isDisplayRole,
 }: Props) {
   function format(arr: Array<string>): string {
     return arr.map((el) => capitalize(el)).join(', ');
   }
+
+  const { getMembership } = useGroup();
+  const [membership, setMembership] = useState('');
+
+  useEffect(() => {
+    if (isDisplayRole && musicianID && groupID) {
+      getMembership(musicianID, groupID).then((res) => {
+        if (res) setMembership(res.membership);
+      });
+    }
+  }, [getMembership, groupID, isDisplayRole, musicianID]);
+
   return (
-    <div ref={ref} className="flex flex-col border rounded-xl px-6 py-5">
+    <div className="flex flex-col border rounded-xl px-6 py-5">
       <div
         className={`flex items-center gap-3 pb-4 ${
           description ? 'border-b' : ''
@@ -39,7 +58,18 @@ export default function Card({
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
             <span className="text-black">{title}</span>
-            <div>{tagSmall}</div>
+            <div className="flex items-center gap-2">
+              {tagSmall}
+              {isDisplayRole && membership === 'admin' && (
+                <TagSmall label="owner" description="Créateur du groupe" />
+              )}
+              {isDisplayRole && membership === 'lite_admin' && (
+                <TagSmall label="admin" description="Admin du groupe" />
+              )}
+              {isDisplayRole && membership === 'member' && (
+                <TagSmall label="member" description="Appartient au groupe" />
+              )}
+            </div>
           </div>
           <span className="text-sm text-gray-500">{subtitle}</span>
         </div>

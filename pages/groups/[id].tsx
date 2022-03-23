@@ -1,7 +1,7 @@
 import ContentLayout from '../../layout/content';
 import Header from '../../components/Header';
 import { IGroup } from '../../components/icons';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { MenuContext } from '../../context/MenuContext';
 import { useAxios } from '../../context/AxiosContext';
 import useSWR from 'swr';
@@ -11,7 +11,7 @@ import { DetailsAbout, DetailsSection } from '../../components/Details';
 import Banner from '../../components/Banner';
 import Card from '../../components/Card';
 import TagSmall from '../../components/TagSmall';
-import { useGetProfil } from '../../api';
+import { useGetProfil, useGroup } from '../../api';
 import NewButton from '../../components/NewButton';
 import GroupEdit from '../../components/GroupEdit';
 import { capitalize } from '../../utils/string';
@@ -27,17 +27,15 @@ export default function GroupDetails() {
   );
   const [isModify, setIsModify] = useState(false);
 
-  function isProfilGroupAdmin(): boolean {
-    return !!(
-      profil &&
-      groupData &&
-      JSON.stringify(
-        groupData?.members.filter(
-          (musician) => musician.membership === 'admin',
-        ),
-      ).includes(profil.id)
-    );
-  }
+  const [isAdmin, setIsAdmin] = useState(false);
+  const { getMembership } = useGroup();
+  useEffect(() => {
+    if (profil && groupData)
+      getMembership(profil?.id, groupData?.id).then((res) => {
+        if (res.membership === 'admin' || res.membership === 'lite_admin')
+          setIsAdmin(true);
+      });
+  }, [getMembership, profil, groupData]);
 
   return (
     <ContentLayout
@@ -46,7 +44,7 @@ export default function GroupDetails() {
           title="Groupe"
           icon={<IGroup />}
           rightComponents={
-            isProfilGroupAdmin() ? (
+            isAdmin ? (
               <NewButton
                 label="Modifier le groupe"
                 className="rounded-full"
@@ -75,11 +73,7 @@ export default function GroupDetails() {
             {isModify && (
               <GroupEdit group={groupData} setIsModify={setIsModify} />
             )}
-            <DetailsAbout
-              profil={groupData}
-              isGroup
-              canBeModified={isProfilGroupAdmin()}
-            />
+            <DetailsAbout profil={groupData} isGroup canBeModified={isAdmin} />
             <DetailsSection title="Membres">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {groupData.members.map((member) => (
@@ -92,6 +86,9 @@ export default function GroupDetails() {
                       (instrument) => instrument.name,
                     )}
                     href={`/profile/${member.musician.id}`}
+                    isDisplayRole
+                    musicianID={member.musician.id}
+                    groupID={groupData.id}
                     tagSmall={
                       member.musician.isLookingForGroups ? (
                         <TagSmall
