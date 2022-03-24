@@ -36,7 +36,7 @@ export default function GroupsPage(): JSX.Element {
       Header={
         <Header
           title="Groupes"
-          subtitle="420 groupes"
+          subtitle={`${groupList?.length} groupes`}
           icon={<IGroup />}
           rightComponents={
             <NewButton
