@@ -39,9 +39,25 @@ function useGetGroupDetails(groupID?: string) {
 export function useGroup() {
   const { authAxios } = useAxios();
 
+  async function createGroup(payload: any): Promise<Groups> {
+    return await authAxios.post('/groups', payload).then((res) => res.data);
+  }
+
   async function updateGroup(payload: Partial<Groups>) {
     return await authAxios.patch(`/groups/${payload.id}`, payload);
   }
 
-  return { useGetGroups, useGetGroupDetails, updateGroup };
+  async function updateAdmins(groupID: string, payload: string[]) {
+    return await authAxios.put(`/groups/${groupID}/admins/lite_admins`, {
+      lite_admins: payload,
+    });
+  }
+
+  return {
+    useGetGroups,
+    useGetGroupDetails,
+    createGroup,
+    updateGroup,
+    updateAdmins,
+  };
 }

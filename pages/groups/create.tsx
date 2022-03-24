@@ -1,13 +1,12 @@
 import { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useGetGenres, useGetInstruments } from '../../api';
+import { useGetGenres, useGetInstruments, useGroup } from '../../api';
 import Banner from '../../components/Banner';
 import { Input } from '../../components/DataEntry';
 import { Options } from '../../components/DataEntry/Dropdown';
 import Header from '../../components/Header';
 import { IGroup } from '../../components/icons';
 import { Select } from '../../components/Select';
-import { useAxios } from '../../context/AxiosContext';
 import { MenuContext } from '../../context/MenuContext';
 import ContentLayout from '../../layout/content';
 import { Genre, Instrument } from '../../types';
@@ -31,7 +30,7 @@ export function CreateGroup() {
   const notifySuccess = () => toast.success('Le groupe a été créé');
   const notifyError = () => toast.error("Le compte n'a pas pu être créé...");
 
-  const { authAxios } = useAxios();
+  const { createGroup } = useGroup();
   const router = useRouter();
   async function handleCreateGroup() {
     if (!groupeName || !location || !description || !genres || !instruments) {
@@ -49,13 +48,11 @@ export function CreateGroup() {
       instruments,
     };
 
-    await authAxios
-      .post('/groups', payload)
+    createGroup(payload)
       .then((res) => {
         notifySuccess();
-        return res.data;
+        router.push(`/groups/${res.id}`);
       })
-      .then((res) => router.push(`/groups/${res.id}`))
       .catch(notifyError);
   }
 

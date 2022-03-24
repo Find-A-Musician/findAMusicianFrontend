@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { Genre, Groups } from '../types';
+import { Genre, Groups, MusicianGroup } from '../types';
 import { Input } from './DataEntry';
 import { DetailsSection } from './Details';
 import { useGetGenres, useGroup } from '../api';
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export function GroupEdit({ group, setIsModify }: Props) {
-  const { updateGroup } = useGroup();
+  const { updateGroup, updateAdmins } = useGroup();
 
   const notifySuccess = () => toast.success('Information mis à jour !');
   const notifyError = () =>
@@ -23,6 +23,9 @@ export function GroupEdit({ group, setIsModify }: Props) {
   const [groupName, setGroupName] = useState(group.name);
   const [location, setLocation] = useState(group.location);
   const [genres, setGenres] = useState(group.genres);
+  const [admins, setAdmins] = useState<MusicianGroup[]>(
+    group.members.filter((member) => member.membership === 'lite_admin'),
+  );
 
   const { data: genresList } = useGetGenres();
 
@@ -41,6 +44,7 @@ export function GroupEdit({ group, setIsModify }: Props) {
           <div className="flex flex-col gap-1">
             <span>Location</span>
             <Select
+              value={{ label: location, value: location }}
               options={[
                 { label: 'Douai', value: 'Douai' },
                 { label: 'Lille', value: 'Lille' },
@@ -51,6 +55,10 @@ export function GroupEdit({ group, setIsModify }: Props) {
           <div className="flex flex-col gap-1">
             <span>Genres</span>
             <Select
+              value={genres.map((genre) => ({
+                label: genre.name,
+                value: genre,
+              }))}
               options={genresList?.map((genre) => ({
                 label: genre.name,
                 value: genre,
@@ -61,18 +69,51 @@ export function GroupEdit({ group, setIsModify }: Props) {
               }
             />
           </div>
+          <div className="flex flex-col gap-1">
+            <span>Admins</span>
+            <Select
+              value={admins.map((admin) => ({
+                label: admin.musician.givenName,
+                value: admin,
+              }))}
+              options={group.members
+                ?.filter((member) => member.membership !== 'admin')
+                .map((member) => ({
+                  label: `${member.musician.givenName} ${member.musician.familyName}`,
+                  value: member,
+                }))}
+              isMulti
+              onChange={(e: any) =>
+                setAdmins(
+                  e.map((option: Options<MusicianGroup[]>) => option.value),
+                )
+              }
+            />
+          </div>
         </div>
         <div className="flex gap-2 mt-3 w-full justify-end">
           <button
-            onClick={() =>
-              updateGroup({ id: group.id, name: groupName, location, genres })
-                .then(() => {
-                  setIsModify(false);
-                  mutate(`/groups/${group.id}`);
-                  notifySuccess();
-                })
-                .catch(() => notifyError())
-            }
+            onClick={async () => {
+              try {
+                await updateGroup({
+                  id: group.id,
+                  name: groupName,
+                  location,
+                  genres,
+                });
+
+                await updateAdmins(
+                  group.id,
+                  admins.map((member) => member.musician.id),
+                );
+
+                setIsModify(false);
+                mutate(`/groups/${group.id}`);
+                notifySuccess();
+              } catch (error) {
+                notifyError();
+              }
+            }}
             className="px-3 py-1.5 bg-green-500 rounded text-white hover:bg-green-600"
           >
             Sauvegarder
