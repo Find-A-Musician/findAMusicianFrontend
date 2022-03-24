@@ -53,11 +53,16 @@ export function useGroup() {
     });
   }
 
+  async function deleteGroup(groupID: string) {
+    return await authAxios.delete(`/groups/${groupID}`);
+  }
+
   return {
     useGetGroups,
     useGetGroupDetails,
     createGroup,
     updateGroup,
     updateAdmins,
+    deleteGroup,
   };
 }

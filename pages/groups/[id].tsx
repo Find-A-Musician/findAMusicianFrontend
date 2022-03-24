@@ -29,6 +29,8 @@ export default function GroupDetails() {
   const [isModify, setIsModify] = useState(false);
 
   const isAdmin = (): boolean => getMembership(profil, groupData) === 'admin';
+  const isLiteAdmin = (): boolean =>
+    getMembership(profil, groupData) === 'lite_admin';
 
   return (
     <ContentLayout
@@ -37,7 +39,7 @@ export default function GroupDetails() {
           title="Groupe"
           icon={<IGroup />}
           rightComponents={
-            isAdmin() ? (
+            isAdmin() || isLiteAdmin() ? (
               <NewButton
                 label="Modifier le groupe"
                 className="rounded-full"
@@ -64,7 +66,11 @@ export default function GroupDetails() {
               imagePath="/images/music_concert.png"
             />
             {isModify && (
-              <GroupEdit group={groupData} setIsModify={setIsModify} />
+              <GroupEdit
+                group={groupData}
+                setIsModify={setIsModify}
+                isAdmin={isAdmin()}
+              />
             )}
             <DetailsAbout
               profil={groupData}

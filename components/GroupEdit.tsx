@@ -7,18 +7,26 @@ import { toast } from 'react-toastify';
 import { mutate } from 'swr';
 import { Options } from './DataEntry/Dropdown';
 import { Select } from './Select';
+import PopUp from './PopUp';
+import { useRouter } from 'next/router';
+import getMembership from '../utils/membership';
 
 type Props = {
   group: Groups;
   setIsModify: Dispatch<SetStateAction<boolean>>;
+  isAdmin: boolean;
 };
 
-export function GroupEdit({ group, setIsModify }: Props) {
-  const { updateGroup, updateAdmins } = useGroup();
+export function GroupEdit({ group, setIsModify, isAdmin }: Props) {
+  const { updateGroup, updateAdmins, deleteGroup } = useGroup();
+  const router = useRouter();
 
   const notifySuccess = () => toast.success('Information mis à jour !');
   const notifyError = () =>
     toast.error("Les informations du groupes n'ont pas pu être mis à jour");
+  const notifyGroupDelete = () => toast.success('Le groupe a été supprimé');
+  const notifyGroupDeleteError = () =>
+    toast.error("Le groupe n'a pas pu être supprimé");
 
   const [groupName, setGroupName] = useState(group.name);
   const [location, setLocation] = useState(group.location);
@@ -29,9 +37,42 @@ export function GroupEdit({ group, setIsModify }: Props) {
 
   const { data: genresList } = useGetGenres();
 
+  const [deleteGroupModal, setDeleteGroupModal] = useState(false);
+
+  function handleDeleteGroup() {
+    deleteGroup(group.id)
+      .then(() => {
+        router.push('/groups');
+        mutate('/groups');
+        notifyGroupDelete();
+      })
+      .catch(notifyGroupDeleteError);
+  }
+
   return (
     <DetailsSection title="Information">
       <div>
+        {deleteGroupModal && (
+          <PopUp close={() => setDeleteGroupModal(false)}>
+            <div className="bg-white p-10 rounded">
+              <h2>Êtes-vous sûr de vouloir supprimer le groupe ?</h2>
+              <div className="flex gap-2 mt-6">
+                <button
+                  onClick={handleDeleteGroup}
+                  className="px-3 py-1.5 rounded text-white bg-red-500 hover:bg-red-400"
+                >
+                  Oui, supprimer le groupe
+                </button>
+                <button
+                  onClick={() => setDeleteGroupModal(false)}
+                  className="px-3 py-1.5 rounded border hover:bg-gray-100"
+                >
+                  Non, annuler
+                </button>
+              </div>
+            </div>
+          </PopUp>
+        )}
         <div className="grid sm:grid-cols-2 gap-4">
           <Input
             id="groupname"
@@ -69,27 +110,38 @@ export function GroupEdit({ group, setIsModify }: Props) {
               }
             />
           </div>
-          <div className="flex flex-col gap-1">
-            <span>Admins</span>
-            <Select
-              value={admins.map((admin) => ({
-                label: admin.musician.givenName,
-                value: admin,
-              }))}
-              options={group.members
-                ?.filter((member) => member.membership !== 'admin')
-                .map((member) => ({
-                  label: `${member.musician.givenName} ${member.musician.familyName}`,
-                  value: member,
-                }))}
-              isMulti
-              onChange={(e: any) =>
-                setAdmins(
-                  e.map((option: Options<MusicianGroup[]>) => option.value),
-                )
-              }
-            />
-          </div>
+
+          {isAdmin && (
+            <>
+              <div className="flex flex-col gap-1">
+                <span>Admins</span>
+                <Select
+                  value={admins.map((admin) => ({
+                    label: admin.musician.givenName,
+                    value: admin,
+                  }))}
+                  options={group.members
+                    ?.filter((member) => member.membership !== 'admin')
+                    .map((member) => ({
+                      label: `${member.musician.givenName} ${member.musician.familyName}`,
+                      value: member,
+                    }))}
+                  isMulti
+                  onChange={(e: any) =>
+                    setAdmins(
+                      e.map((option: Options<MusicianGroup[]>) => option.value),
+                    )
+                  }
+                />
+              </div>
+              <button
+                className="col-start-2 py-2 rounded bg-red-500 text-white hover:bg-red-400"
+                onClick={() => setDeleteGroupModal(true)}
+              >
+                Supprimer le groupe
+              </button>
+            </>
+          )}
         </div>
         <div className="flex gap-2 mt-3 w-full justify-end">
           <button
