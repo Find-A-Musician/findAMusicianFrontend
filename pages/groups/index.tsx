@@ -12,6 +12,7 @@ import { Filters } from '../../components/DataEntry';
 import { FiltersType } from '../../components/DataEntry/Filters';
 import { useGetProfil, useGroup } from '../../api';
 import useOnScreen from '../../hooks/useOnScreen';
+import { useRouter } from 'next/router';
 
 export default function GroupsPage(): JSX.Element {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
@@ -26,7 +27,9 @@ export default function GroupsPage(): JSX.Element {
 
   useEffect(() => {
     if (groupList?.length) setSize(size + 1);
-  }, [isIntersecting]);
+  }, [isIntersecting, size, setSize, groupList]);
+
+  const router = useRouter();
 
   return (
     <ContentLayout
@@ -36,7 +39,11 @@ export default function GroupsPage(): JSX.Element {
           subtitle="420 groupes"
           icon={<IGroup />}
           rightComponents={
-            <NewButton label="Créer un groupe" className="rounded-full" />
+            <NewButton
+              label="Créer un groupe"
+              className="rounded-full"
+              onClick={() => router.push('/groups/create')}
+            />
           }
           hamburgerOnClick={() => setIsMenuOpen(!isMenuOpen)}
         />
