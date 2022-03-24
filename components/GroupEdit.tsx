@@ -2,12 +2,11 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { Genre, Groups, MusicianGroup } from '../types';
 import { Input } from './DataEntry';
 import { DetailsSection } from './Details';
-import Select from 'react-select';
-import { customTheme, customStyles } from '../utils/selectCustomTheme';
 import { useGetGenres, useGroup } from '../api';
 import { toast } from 'react-toastify';
 import { mutate } from 'swr';
 import { Options } from './DataEntry/Dropdown';
+import { Select } from './Select';
 
 type Props = {
   group: Groups;
@@ -45,9 +44,6 @@ export function GroupEdit({ group, setIsModify }: Props) {
           <div className="flex flex-col gap-1">
             <span>Location</span>
             <Select
-              styles={customStyles}
-              value={{ label: location, value: location }}
-              theme={customTheme}
               options={[
                 { label: 'Douai', value: 'Douai' },
                 { label: 'Lille', value: 'Lille' },
@@ -58,12 +54,6 @@ export function GroupEdit({ group, setIsModify }: Props) {
           <div className="flex flex-col gap-1">
             <span>Genres</span>
             <Select
-              styles={customStyles}
-              value={genres.map((genre) => ({
-                label: genre.name,
-                value: genre,
-              }))}
-              theme={customTheme}
               options={genresList?.map((genre) => ({
                 label: genre.name,
                 value: genre,
@@ -77,8 +67,6 @@ export function GroupEdit({ group, setIsModify }: Props) {
           <div className="flex flex-col gap-1">
             <span>Admins</span>
             <Select
-              styles={customStyles}
-              theme={customTheme}
               value={admins.map((admin) => ({
                 label: admin.musician.givenName,
                 value: admin,

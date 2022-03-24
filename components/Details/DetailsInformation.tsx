@@ -6,11 +6,10 @@ import { Input } from '../DataEntry';
 import { Location, Promotion } from '../../types/Musician';
 import { toast } from 'react-toastify';
 import { mutate } from 'swr';
-import Select from 'react-select';
-import { customTheme, customStyles } from '../../utils/selectCustomTheme';
 import { Options } from '../DataEntry/Dropdown';
 import { useGetInstruments, useGetGenres } from '../../api';
 import { useAxios } from '../../context/AxiosContext';
+import { Select } from '../Select';
 
 type Props = {
   promotion: Promotion;
@@ -30,12 +29,15 @@ function Info<T>({
   isMulti,
 }: {
   title: string;
-  value: string;
+  value: Options<T> | Options<T>[];
   isModify?: boolean;
   onChange?: (e: any) => void;
   options?: Options<T>[];
   isMulti?: boolean;
 }): JSX.Element {
+  function format(arr: any): string {
+    return arr.map((el: any) => capitalize(el.name)).join(', ');
+  }
   return (
     <div>
       <span className="block">{title}</span>
@@ -43,18 +45,26 @@ function Info<T>({
         <>
           {options?.length ? (
             <Select
-              styles={customStyles}
-              theme={customTheme}
+              value={value}
               options={options}
               onChange={onChange}
               isMulti={isMulti}
             />
           ) : (
-            <Input id={title} value={value} label={title} onChange={onChange} />
+            <Input
+              id={title}
+              value={value instanceof Array ? value[0].label : value.label}
+              label={title}
+              onChange={onChange}
+            />
           )}
         </>
       ) : (
-        <span className="text-black block">{value}</span>
+        <span className="text-black block">
+          {value instanceof Array
+            ? format(value.map((v) => v.value))
+            : value.label}
+        </span>
       )}
     </div>
   );
@@ -83,10 +93,6 @@ export function DetailsInformation({
   const [newInstruments, setNewInstruments] =
     useState<Instrument[]>(instruments);
   const [newGenres, setNewGenres] = useState<Genre[]>(genres);
-
-  function format(arr: Instrument[] | Genre[]): string {
-    return arr.map((el) => capitalize(el.name)).join(', ');
-  }
 
   async function saveInformation() {
     let payload = {
@@ -120,7 +126,7 @@ export function DetailsInformation({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <Info
             title="Promotion"
-            value={newPromotion}
+            value={{ label: newPromotion, value: newPromotion }}
             isModify={isModify}
             options={[
               { label: 'L1', value: 'L1' },
@@ -133,7 +139,7 @@ export function DetailsInformation({
           />
           <Info
             title="Localisation"
-            value={newLocation}
+            value={{ label: newLocation, value: newLocation }}
             isModify={isModify}
             options={[
               { label: 'Douai', value: 'Douai' },
@@ -143,7 +149,7 @@ export function DetailsInformation({
           />
           <Info
             title="Email"
-            value={newEmail}
+            value={{ label: newEmail, value: newEmail }}
             isModify={isModify}
             onChange={(e) => setNewEmail(e.target.value)}
           />
@@ -151,11 +157,14 @@ export function DetailsInformation({
             title="Instruments"
             isModify={isModify}
             isMulti
+            value={newInstruments.map((instrument) => ({
+              label: instrument.name,
+              value: instrument,
+            }))}
             options={instrumentList?.map((i) => ({
               label: i.name,
               value: i,
             }))}
-            value={format(instruments)}
             onChange={(e) => {
               setNewInstruments(
                 e.map((option: Options<Instrument>) => option.value),
@@ -170,7 +179,10 @@ export function DetailsInformation({
               label: g.name,
               value: g,
             }))}
-            value={format(genres)}
+            value={newGenres.map((genre) => ({
+              label: capitalize(genre.name),
+              value: genre,
+            }))}
             onChange={(e) => {
               setNewGenres(e.map((option: Options<Genre>) => option.value));
             }}
