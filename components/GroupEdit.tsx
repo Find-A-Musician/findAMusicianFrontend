@@ -14,7 +14,7 @@ type Props = {
 };
 
 export function GroupEdit({ group, setIsModify }: Props) {
-  const { updateGroup } = useGroup();
+  const { updateGroup, updateAdmins } = useGroup();
 
   const notifySuccess = () => toast.success('Information mis à jour !');
   const notifyError = () =>
@@ -88,15 +88,27 @@ export function GroupEdit({ group, setIsModify }: Props) {
         </div>
         <div className="flex gap-2 mt-3 w-full justify-end">
           <button
-            onClick={() =>
-              updateGroup({ id: group.id, name: groupName, location, genres })
-                .then(() => {
-                  setIsModify(false);
-                  mutate(`/groups/${group.id}`);
-                  notifySuccess();
-                })
-                .catch(() => notifyError())
-            }
+            onClick={async () => {
+              try {
+                await updateGroup({
+                  id: group.id,
+                  name: groupName,
+                  location,
+                  genres,
+                });
+
+                await updateAdmins(
+                  group.id,
+                  admins.map((member) => member.musician.id),
+                );
+
+                setIsModify(false);
+                mutate(`/groups/${group.id}`);
+                notifySuccess();
+              } catch (error) {
+                notifyError();
+              }
+            }}
             className="px-3 py-1.5 bg-green-500 rounded text-white hover:bg-green-600"
           >
             Sauvegarder

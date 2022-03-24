@@ -27,7 +27,7 @@ export default function GroupsPage(): JSX.Element {
 
   useEffect(() => {
     if (groupList?.length) setSize(size + 1);
-  }, [isIntersecting, size, setSize, groupList]);
+  }, [isIntersecting]);
 
   const router = useRouter();
 
