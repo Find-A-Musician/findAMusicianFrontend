@@ -44,6 +44,7 @@ export function GroupEdit({ group, setIsModify }: Props) {
           <div className="flex flex-col gap-1">
             <span>Location</span>
             <Select
+              value={{ label: location, value: location }}
               options={[
                 { label: 'Douai', value: 'Douai' },
                 { label: 'Lille', value: 'Lille' },
@@ -54,6 +55,10 @@ export function GroupEdit({ group, setIsModify }: Props) {
           <div className="flex flex-col gap-1">
             <span>Genres</span>
             <Select
+              value={genres.map((genre) => ({
+                label: genre.name,
+                value: genre,
+              }))}
               options={genresList?.map((genre) => ({
                 label: genre.name,
                 value: genre,
