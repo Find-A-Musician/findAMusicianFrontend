@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import { FiltersType } from '../components/DataEntry/Filters';
@@ -44,12 +43,5 @@ export function useGroup() {
     return await authAxios.patch(`/groups/${payload.id}`, payload);
   }
 
-  async function getMembership(musicianID: string, groupID: string) {
-    return await authAxios
-      .get(`/musicians/${musicianID}/groups/${groupID}/membership`)
-      .then((res) => res.data)
-      .catch((err) => console.log(err));
-  }
-
-  return { useGetGroups, useGetGroupDetails, getMembership, updateGroup };
+  return { useGetGroups, useGetGroupDetails, updateGroup };
 }

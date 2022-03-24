@@ -2,8 +2,8 @@ import Tag from './Tag';
 import Link from 'next/link';
 import { capitalize } from '../utils/string';
 import TagSmall from './TagSmall';
-import { useGroup } from '../api';
-import { useEffect, useState } from 'react';
+import { getMembership } from '../utils/membership';
+import { Groups, Musician } from '../types';
 
 type Props = {
   title: string;
@@ -14,10 +14,12 @@ type Props = {
   subtitle?: string;
   tagSmall?: JSX.Element;
   recherche?: Array<string>;
-  musicianID?: string;
-  groupID?: string;
-  /**If you want the roles to be displayed you also need to precise musicianID and groupID */
+  /**If you want the roles to be displayed you also need to precise musician and group */
   isDisplayRole?: boolean;
+  /**If you want to display roles you need to set this prop */
+  musician?: Musician;
+  /**If you want to display roles you need to set this prop */
+  group?: Groups;
 };
 
 export default function Card({
@@ -28,24 +30,13 @@ export default function Card({
   subtitle,
   tagSmall,
   recherche,
-  musicianID,
-  groupID,
   isDisplayRole,
+  musician,
+  group,
 }: Props) {
   function format(arr: Array<string>): string {
     return arr.map((el) => capitalize(el)).join(', ');
   }
-
-  const { getMembership } = useGroup();
-  const [membership, setMembership] = useState('');
-
-  useEffect(() => {
-    if (isDisplayRole && musicianID && groupID) {
-      getMembership(musicianID, groupID).then((res) => {
-        if (res) setMembership(res.membership);
-      });
-    }
-  }, [getMembership, groupID, isDisplayRole, musicianID]);
 
   return (
     <div className="flex flex-col border rounded-xl px-6 py-5">
@@ -60,13 +51,14 @@ export default function Card({
             <span className="text-black">{title}</span>
             <div className="flex items-center gap-2">
               {tagSmall}
-              {isDisplayRole && membership === 'admin' && (
+              {isDisplayRole && getMembership(musician, group) === 'admin' && (
                 <TagSmall label="owner" description="Créateur du groupe" />
               )}
-              {isDisplayRole && membership === 'lite_admin' && (
-                <TagSmall label="admin" description="Admin du groupe" />
-              )}
-              {isDisplayRole && membership === 'member' && (
+              {isDisplayRole &&
+                getMembership(musician, group) === 'lite_admin' && (
+                  <TagSmall label="admin" description="Admin du groupe" />
+                )}
+              {isDisplayRole && getMembership(musician, group) === 'member' && (
                 <TagSmall label="member" description="Appartient au groupe" />
               )}
             </div>

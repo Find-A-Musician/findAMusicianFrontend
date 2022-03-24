@@ -64,9 +64,6 @@ export default function GroupsPage(): JSX.Element {
                 description={group.description}
                 genres={group.genres.map((genre) => genre.name)}
                 href={`/groups/${group.id}`}
-                isDisplayRole
-                groupID={group.id}
-                musicianID={profil.id}
                 tagSmall={
                   <TagSmall
                     label="RJ"

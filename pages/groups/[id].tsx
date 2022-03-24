@@ -11,10 +11,11 @@ import { DetailsAbout, DetailsSection } from '../../components/Details';
 import Banner from '../../components/Banner';
 import Card from '../../components/Card';
 import TagSmall from '../../components/TagSmall';
-import { useGetProfil, useGroup } from '../../api';
+import { useGetProfil } from '../../api';
 import NewButton from '../../components/NewButton';
 import GroupEdit from '../../components/GroupEdit';
 import { capitalize } from '../../utils/string';
+import getMembership from '../../utils/membership';
 
 export default function GroupDetails() {
   const { data: profil } = useGetProfil();
@@ -27,15 +28,7 @@ export default function GroupDetails() {
   );
   const [isModify, setIsModify] = useState(false);
 
-  const [isAdmin, setIsAdmin] = useState(false);
-  const { getMembership } = useGroup();
-  useEffect(() => {
-    if (profil && groupData)
-      getMembership(profil?.id, groupData?.id).then((res) => {
-        if (res.membership === 'admin' || res.membership === 'lite_admin')
-          setIsAdmin(true);
-      });
-  }, [getMembership, profil, groupData]);
+  const isAdmin = (): boolean => getMembership(profil, groupData) === 'admin';
 
   return (
     <ContentLayout
@@ -44,7 +37,7 @@ export default function GroupDetails() {
           title="Groupe"
           icon={<IGroup />}
           rightComponents={
-            isAdmin ? (
+            isAdmin() ? (
               <NewButton
                 label="Modifier le groupe"
                 className="rounded-full"
@@ -73,7 +66,11 @@ export default function GroupDetails() {
             {isModify && (
               <GroupEdit group={groupData} setIsModify={setIsModify} />
             )}
-            <DetailsAbout profil={groupData} isGroup canBeModified={isAdmin} />
+            <DetailsAbout
+              profil={groupData}
+              isGroup
+              canBeModified={isAdmin()}
+            />
             <DetailsSection title="Membres">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {groupData.members.map((member) => (
@@ -87,8 +84,8 @@ export default function GroupDetails() {
                     )}
                     href={`/profile/${member.musician.id}`}
                     isDisplayRole
-                    musicianID={member.musician.id}
-                    groupID={groupData.id}
+                    musician={member.musician}
+                    group={groupData}
                     tagSmall={
                       member.musician.isLookingForGroups ? (
                         <TagSmall
