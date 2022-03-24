@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
 import useSWR from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import { FiltersType } from '../components/DataEntry/Filters';

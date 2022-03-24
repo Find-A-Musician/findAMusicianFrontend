@@ -1,7 +1,7 @@
 import ContentLayout from '../../layout/content';
 import Header from '../../components/Header';
 import { IGroup } from '../../components/icons';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { MenuContext } from '../../context/MenuContext';
 import { useAxios } from '../../context/AxiosContext';
 import useSWR from 'swr';
@@ -15,6 +15,7 @@ import { useGetProfil } from '../../api';
 import NewButton from '../../components/NewButton';
 import GroupEdit from '../../components/GroupEdit';
 import { capitalize } from '../../utils/string';
+import getMembership from '../../utils/membership';
 
 export default function GroupDetails() {
   const { data: profil } = useGetProfil();
@@ -27,17 +28,7 @@ export default function GroupDetails() {
   );
   const [isModify, setIsModify] = useState(false);
 
-  function isProfilGroupAdmin(): boolean {
-    return !!(
-      profil &&
-      groupData &&
-      JSON.stringify(
-        groupData?.members.filter(
-          (musician) => musician.membership === 'admin',
-        ),
-      ).includes(profil.id)
-    );
-  }
+  const isAdmin = (): boolean => getMembership(profil, groupData) === 'admin';
 
   return (
     <ContentLayout
@@ -46,7 +37,7 @@ export default function GroupDetails() {
           title="Groupe"
           icon={<IGroup />}
           rightComponents={
-            isProfilGroupAdmin() ? (
+            isAdmin() ? (
               <NewButton
                 label="Modifier le groupe"
                 className="rounded-full"
@@ -78,7 +69,7 @@ export default function GroupDetails() {
             <DetailsAbout
               profil={groupData}
               isGroup
-              canBeModified={isProfilGroupAdmin()}
+              canBeModified={isAdmin()}
             />
             <DetailsSection title="Membres">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -92,6 +83,9 @@ export default function GroupDetails() {
                       (instrument) => instrument.name,
                     )}
                     href={`/profile/${member.musician.id}`}
+                    isDisplayRole
+                    musician={member.musician}
+                    group={groupData}
                     tagSmall={
                       member.musician.isLookingForGroups ? (
                         <TagSmall

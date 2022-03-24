@@ -68,6 +68,9 @@ export default function Profile() {
                     key={group.id}
                     title={group.name}
                     genres={group.genres.map((genre) => genre.name)}
+                    isDisplayRole
+                    musician={profil}
+                    group={group}
                     href={`/groups/${group.id}`}
                   />
                 ))}
