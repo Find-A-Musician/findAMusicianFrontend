@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { Genre, Groups } from '../types';
+import { Genre, Groups, MusicianGroup } from '../types';
 import { Input } from './DataEntry';
 import { DetailsSection } from './Details';
 import Select from 'react-select';
@@ -24,6 +24,9 @@ export function GroupEdit({ group, setIsModify }: Props) {
   const [groupName, setGroupName] = useState(group.name);
   const [location, setLocation] = useState(group.location);
   const [genres, setGenres] = useState(group.genres);
+  const [admins, setAdmins] = useState<MusicianGroup[]>(
+    group.members.filter((member) => member.membership === 'lite_admin'),
+  );
 
   const { data: genresList } = useGetGenres();
 
@@ -43,6 +46,7 @@ export function GroupEdit({ group, setIsModify }: Props) {
             <span>Location</span>
             <Select
               styles={customStyles}
+              value={{ label: location, value: location }}
               theme={customTheme}
               options={[
                 { label: 'Douai', value: 'Douai' },
@@ -55,6 +59,10 @@ export function GroupEdit({ group, setIsModify }: Props) {
             <span>Genres</span>
             <Select
               styles={customStyles}
+              value={genres.map((genre) => ({
+                label: genre.name,
+                value: genre,
+              }))}
               theme={customTheme}
               options={genresList?.map((genre) => ({
                 label: genre.name,
@@ -63,6 +71,29 @@ export function GroupEdit({ group, setIsModify }: Props) {
               isMulti
               onChange={(e: any) =>
                 setGenres(e.map((option: Options<Genre>) => option.value))
+              }
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <span>Admins</span>
+            <Select
+              styles={customStyles}
+              theme={customTheme}
+              value={admins.map((admin) => ({
+                label: admin.musician.givenName,
+                value: admin,
+              }))}
+              options={group.members
+                ?.filter((member) => member.membership !== 'admin')
+                .map((member) => ({
+                  label: `${member.musician.givenName} ${member.musician.familyName}`,
+                  value: member,
+                }))}
+              isMulti
+              onChange={(e: any) =>
+                setAdmins(
+                  e.map((option: Options<MusicianGroup[]>) => option.value),
+                )
               }
             />
           </div>
