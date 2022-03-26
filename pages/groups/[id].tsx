@@ -70,6 +70,7 @@ export default function GroupDetails() {
                 group={groupData}
                 setIsModify={setIsModify}
                 isAdmin={isAdmin()}
+                isLiteAdmin={isLiteAdmin()}
               />
             )}
             <DetailsAbout

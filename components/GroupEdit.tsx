@@ -9,16 +9,22 @@ import { Options } from './DataEntry/Dropdown';
 import { Select } from './Select';
 import PopUp from './PopUp';
 import { useRouter } from 'next/router';
-import getMembership from '../utils/membership';
 
 type Props = {
   group: Groups;
   setIsModify: Dispatch<SetStateAction<boolean>>;
   isAdmin: boolean;
+  isLiteAdmin: boolean;
 };
 
-export function GroupEdit({ group, setIsModify, isAdmin }: Props) {
-  const { updateGroup, updateAdmins, deleteGroup } = useGroup();
+export function GroupEdit({ group, setIsModify, isAdmin, isLiteAdmin }: Props) {
+  const {
+    updateGroup,
+    updateAdmins,
+    transferOwnership,
+    kickMusician,
+    deleteGroup,
+  } = useGroup();
   const router = useRouter();
 
   const notifySuccess = () => toast.success('Information mis à jour !');
@@ -34,6 +40,8 @@ export function GroupEdit({ group, setIsModify, isAdmin }: Props) {
   const [admins, setAdmins] = useState<MusicianGroup[]>(
     group.members.filter((member) => member.membership === 'lite_admin'),
   );
+  const [kickMusicianID, setKickMusicianID] = useState('');
+  const [newOwnerID, setNewOwnerID] = useState('');
 
   const { data: genresList } = useGetGenres();
 
@@ -47,6 +55,28 @@ export function GroupEdit({ group, setIsModify, isAdmin }: Props) {
         notifyGroupDelete();
       })
       .catch(notifyGroupDeleteError);
+  }
+
+  function handleKickMusician() {
+    if (kickMusicianID.length)
+      kickMusician(group.id, kickMusicianID)
+        .then(() => {
+          notifySuccess();
+          setKickMusicianID('');
+          mutate(`/groups/${group.id}`);
+        })
+        .catch(notifyError);
+  }
+
+  function handleNewOwner() {
+    if (newOwnerID.length)
+      transferOwnership(group.id, newOwnerID)
+        .then(() => {
+          notifySuccess();
+          setNewOwnerID('');
+          mutate(`/groups/${group.id}`);
+        })
+        .catch(notifyError);
   }
 
   return (
@@ -110,8 +140,12 @@ export function GroupEdit({ group, setIsModify, isAdmin }: Props) {
               }
             />
           </div>
+        </div>
 
-          {isAdmin && (
+        <div className="h-px bg-gray-300 my-4"></div>
+
+        <div className="grid sm:grid-cols-2 gap-4">
+          {(isAdmin || isLiteAdmin) && (
             <>
               <div className="flex flex-col gap-1">
                 <span>Admins</span>
@@ -134,8 +168,62 @@ export function GroupEdit({ group, setIsModify, isAdmin }: Props) {
                   }
                 />
               </div>
+              <div className="flex flex-col gap-1">
+                <span>Retirer des musiciens</span>
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="col-span-2">
+                    <Select
+                      onChange={(e) => setKickMusicianID(e.value.musician.id)}
+                      options={group.members
+                        ?.filter((member) => {
+                          if (isAdmin) return member.membership !== 'admin';
+                          return (
+                            member.membership !== 'admin' &&
+                            member.membership !== 'lite_admin'
+                          );
+                        })
+                        .map((member) => ({
+                          label: `${member.musician.givenName} ${member.musician.familyName}`,
+                          value: member,
+                        }))}
+                    />
+                  </div>
+                  <button
+                    onClick={handleKickMusician}
+                    className="bg-red-500 rounded text-white hover:bg-red-400"
+                  >
+                    Bye bye
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+          {isAdmin && (
+            <>
+              <div className="flex flex-col gap-1">
+                <span>Transférer le groupe à un autre musicien</span>
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="col-span-2">
+                    <Select
+                      onChange={(e) => setNewOwnerID(e.value.musician.id)}
+                      options={group.members
+                        ?.filter((member) => member.membership !== 'admin')
+                        .map((member) => ({
+                          label: `${member.musician.givenName} ${member.musician.familyName}`,
+                          value: member,
+                        }))}
+                    />
+                  </div>
+                  <button
+                    onClick={handleNewOwner}
+                    className="bg-orange-500 rounded text-white hover:bg-orange-400"
+                  >
+                    Donner le groupe
+                  </button>
+                </div>
+              </div>
               <button
-                className="col-start-2 py-2 rounded bg-red-500 text-white hover:bg-red-400"
+                className="row-start-3 col-span-2 py-2 mt-6 rounded bg-red-500 text-white hover:bg-red-400"
                 onClick={() => setDeleteGroupModal(true)}
               >
                 Supprimer le groupe
@@ -143,7 +231,7 @@ export function GroupEdit({ group, setIsModify, isAdmin }: Props) {
             </>
           )}
         </div>
-        <div className="flex gap-2 mt-3 w-full justify-end">
+        <div className="flex gap-2 mt-10 w-full justify-end">
           <button
             onClick={async () => {
               try {
