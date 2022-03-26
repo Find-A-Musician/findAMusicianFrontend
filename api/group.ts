@@ -53,6 +53,10 @@ export function useGroup() {
     });
   }
 
+  async function kickMusician(groupID: string, musicianID: string) {
+    return await authAxios.delete(`/groups/${groupID}/kick/${musicianID}`);
+  }
+
   async function deleteGroup(groupID: string) {
     return await authAxios.delete(`/groups/${groupID}`);
   }
@@ -63,6 +67,7 @@ export function useGroup() {
     createGroup,
     updateGroup,
     updateAdmins,
+    kickMusician,
     deleteGroup,
   };
 }
