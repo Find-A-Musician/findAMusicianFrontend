@@ -18,7 +18,7 @@ type Props = {
 };
 
 export function GroupEdit({ group, setIsModify, isAdmin, isLiteAdmin }: Props) {
-  const { updateGroup, updateAdmins, kickMusician, deleteGroup } = useGroup();
+  const { updateGroup, updateAdmins, transferOwnership, kickMusician, deleteGroup } = useGroup();
   const router = useRouter();
 
   const notifySuccess = () => toast.success('Information mis à jour !');
@@ -35,6 +35,7 @@ export function GroupEdit({ group, setIsModify, isAdmin, isLiteAdmin }: Props) {
     group.members.filter((member) => member.membership === 'lite_admin'),
   );
   const [kickMusicianID, setKickMusicianID] = useState('');
+  const [newOwnerID, setNewOwnerID] = useState('')
 
   const { data: genresList } = useGetGenres();
 
@@ -59,6 +60,16 @@ export function GroupEdit({ group, setIsModify, isAdmin, isLiteAdmin }: Props) {
           mutate(`/groups/${group.id}`);
         })
         .catch(notifyError);
+  }
+
+  function handleNewOwner() {
+    if (newOwnerID.length)
+      transferOwnership(group.id, newOwnerID).then(() => {
+        notifySuccess()
+        setNewOwnerID("")
+        mutate(`/groups/${group.id}`)
+      })
+        .catch(notifyError)
   }
 
   return (
@@ -181,12 +192,36 @@ export function GroupEdit({ group, setIsModify, isAdmin, isLiteAdmin }: Props) {
             </>
           )}
           {isAdmin && (
-            <button
-              className="col-start-2 py-2 rounded bg-red-500 text-white hover:bg-red-400"
-              onClick={() => setDeleteGroupModal(true)}
-            >
-              Supprimer le groupe
-            </button>
+            <>
+
+              <div className="flex flex-col gap-1">
+                <span>Transférer le groupe à un autre musicien</span>
+                <div className="grid grid-cols-3 gap-2">
+                  <div className="col-span-2">
+                    <Select
+                      onChange={(e) => setNewOwnerID(e.value.musician.id)}
+                      options={group.members?.filter(member => member.membership !== "admin")
+                        .map((member) => ({
+                          label: `${member.musician.givenName} ${member.musician.familyName}`,
+                          value: member,
+                        }))}
+                    />
+                  </div>
+                  <button
+                    onClick={handleNewOwner}
+                    className="bg-orange-500 rounded text-white hover:bg-orange-400"
+                  >
+                    Donner le groupe
+                  </button>
+                </div>
+              </div>
+              <button
+                className="row-start-3 col-span-2 py-2 mt-6 rounded bg-red-500 text-white hover:bg-red-400"
+                onClick={() => setDeleteGroupModal(true)}
+              >
+                Supprimer le groupe
+              </button>
+            </>
           )}
         </div>
         <div className="flex gap-2 mt-10 w-full justify-end">

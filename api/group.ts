@@ -53,6 +53,10 @@ export function useGroup() {
     });
   }
 
+  async function transferOwnership(groupID: string, musicianID: string) {
+    return await authAxios.post(`/groups/${groupID}/admins/transfer/${musicianID}`)
+  }
+
   async function kickMusician(groupID: string, musicianID: string) {
     return await authAxios.delete(`/groups/${groupID}/kick/${musicianID}`);
   }
@@ -67,6 +71,7 @@ export function useGroup() {
     createGroup,
     updateGroup,
     updateAdmins,
+    transferOwnership,
     kickMusician,
     deleteGroup,
   };
