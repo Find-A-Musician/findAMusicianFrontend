@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useNotifications } from '../../api';
-import { GroupKickNotification } from '../../types';
+import { GroupKickNotification, MembershipNotification } from '../../types';
 import NotificationGroupKick from './NotificationGroupKick';
+import NotificationMembership from './NotificationMembership';
 
 export function NotificationHandler() {
   const { useGetNotifications, deleteNotification } = useNotifications();
@@ -22,12 +23,21 @@ export function NotificationHandler() {
                   close={() => deleteNotification(notification.id)}
                 />
               );
+            case 'MembershipNotification':
+              return (
+                <NotificationMembership
+                  membershipNotification={
+                    notification as MembershipNotification
+                  }
+                  close={() => deleteNotification(notification.id)}
+                />
+              );
           }
         })}
       </>
     );
 
-  return <div></div>;
+  return <></>;
 }
 
 export default NotificationHandler;
