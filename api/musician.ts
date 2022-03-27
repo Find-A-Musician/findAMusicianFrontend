@@ -29,7 +29,7 @@ export function useGetMusicians(filters: FiltersType) {
 
 export function useGetMusicianGroups(musicianID?: string) {
   const { authFetch } = useFetcher();
-  const { data, error } = useSWR<Groups>(
+  const { data, error } = useSWR<Groups[]>(
     musicianID ? `/musicians/${musicianID}/groups` : null,
     authFetch,
   );

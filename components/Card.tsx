@@ -23,6 +23,8 @@ type Props = {
   musician?: Musician;
   /**If you want to display roles you need to set this prop */
   group?: Groups;
+  /**display arrow icon to open invitation modal */
+  canInviteMusician?: boolean;
 };
 
 export default function Card({
@@ -36,6 +38,7 @@ export default function Card({
   isDisplayRole,
   musician,
   group,
+  canInviteMusician,
 }: Props) {
   function format(arr: Array<string>): string {
     return arr.map((el) => capitalize(el)).join(', ');
@@ -82,12 +85,14 @@ export default function Card({
             </div>
             <span className="text-sm text-gray-500">{subtitle}</span>
           </div>
-          <button
-            onClick={() => setDisplayGroupInviteModal(true)}
-            className="ml-auto text-gray-500"
-          >
-            <ISend />
-          </button>
+          {canInviteMusician && (
+            <button
+              onClick={() => setDisplayGroupInviteModal(true)}
+              className="ml-auto text-gray-500"
+            >
+              <ISend />
+            </button>
+          )}
         </div>
         {description && (
           <p className="flex-grow max-h-[6rem] mb-2 text-ellipsis overflow-hidden text-gray-500 block py-4">
