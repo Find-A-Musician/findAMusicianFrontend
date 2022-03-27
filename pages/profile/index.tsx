@@ -65,7 +65,6 @@ export default function MyProfile() {
             locations={['Douai', 'Lille']}
             description="Salut Alexandre, on cherche quelqu’un pour remplacer Foda ! Ca fait des mois qu’il ne donne plus aucun signe de vie... Si ça te tente vient rejoindre l’aventure Columbine avec nous."
           />
-          <NotificationGroupKick groupName="Spiritbox" />
           <DetailsAbout profil={profil} canBeModified />
           <DetailsInformation
             promotion={profil.promotion}
