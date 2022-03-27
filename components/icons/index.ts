@@ -15,3 +15,4 @@ export { IAtSign } from './IAtSign';
 export { ILock } from './ILock';
 export { IClose } from './IClose';
 export { IEdit } from './IEdit';
+export { ISend } from './ISend';

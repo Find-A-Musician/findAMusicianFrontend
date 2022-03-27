@@ -5,7 +5,7 @@ import { useAxios } from '../context/AxiosContext';
 import { Groups } from '../types';
 import { paramsToString, useFetcher } from './fetcher';
 
-function useGetGroups(filters: FiltersType) {
+function useGetGroups(filters?: FiltersType) {
   const { authAxios } = useAxios();
 
   const getKey = (pageIndex: number, previousPageData?: Groups[][]) => {
@@ -54,7 +54,18 @@ export function useGroup() {
   }
 
   async function transferOwnership(groupID: string, musicianID: string) {
-    return await authAxios.post(`/groups/${groupID}/admins/transfer/${musicianID}`)
+    return await authAxios.post(
+      `/groups/${groupID}/admins/transfer/${musicianID}`,
+    );
+  }
+
+  async function inviteMusician(payload: {
+    groupId: string;
+    musicianId: string;
+    instrumentId: string;
+    role: 'member' | 'lite_admin';
+  }) {
+    return await authAxios.post('/groups/invitation/send', payload);
   }
 
   async function kickMusician(groupID: string, musicianID: string) {
@@ -72,6 +83,7 @@ export function useGroup() {
     updateGroup,
     updateAdmins,
     transferOwnership,
+    inviteMusician,
     kickMusician,
     deleteGroup,
   };

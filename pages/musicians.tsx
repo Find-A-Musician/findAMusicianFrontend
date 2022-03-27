@@ -25,6 +25,8 @@ export function Musicians(): JSX.Element {
     if (musiciansList?.length) setSize(size + 1);
   }, [isIntersecting]);
 
+  const [inviteGroupModal, setInviteGroupModal] = useState(false);
+
   return (
     <ContentLayout
       Header={
@@ -63,6 +65,7 @@ export function Musicians(): JSX.Element {
                 description={musician.description}
                 genres={musician.genres.map((genre) => genre.name)}
                 href={`/profile/${musician.id}`}
+                musician={musician}
                 tagSmall={
                   musician.isLookingForGroups ? (
                     <TagSmall
