@@ -25,8 +25,6 @@ export function Musicians(): JSX.Element {
     if (musiciansList?.length) setSize(size + 1);
   }, [isIntersecting]);
 
-  const [inviteGroupModal, setInviteGroupModal] = useState(false);
-
   return (
     <ContentLayout
       Header={
