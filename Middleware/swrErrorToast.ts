@@ -9,7 +9,7 @@ export function errorMiddleware(useSWRNext: any) {
 
     if (swr.error) {
       const notifyError = () => toast.error(swr.error.message);
-      notifyError();
+      //notifyError();
     }
     // After hook runs...
     return swr;

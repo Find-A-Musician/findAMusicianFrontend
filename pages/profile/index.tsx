@@ -54,12 +54,6 @@ export default function MyProfile() {
       {profil ? (
         <>
           <DetailsBanner profil={profil} groups={groupList} isMyProfile />
-          <DetailsGroupInvite
-            groupName="Columbine"
-            instrument="chanteur"
-            locations={['Douai', 'Lille']}
-            description="Salut Alexandre, on cherche quelqu’un pour remplacer Foda ! Ca fait des mois qu’il ne donne plus aucun signe de vie... Si ça te tente vient rejoindre l’aventure Columbine avec nous."
-          />
           <DetailsAbout profil={profil} canBeModified />
           <DetailsInformation
             promotion={profil.promotion}
@@ -69,7 +63,7 @@ export default function MyProfile() {
             instruments={profil.instruments}
             canBeModified
           />
-          {groupList?.length && (
+          {groupList?.length ? (
             <DetailsGroup>
               <>
                 {groupList.map((group) => (
@@ -85,6 +79,8 @@ export default function MyProfile() {
                 ))}
               </>
             </DetailsGroup>
+          ) : (
+            <></>
           )}
         </>
       ) : (
