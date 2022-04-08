@@ -63,6 +63,8 @@ export function Musicians(): JSX.Element {
                 description={musician.description}
                 genres={musician.genres.map((genre) => genre.name)}
                 href={`/profile/${musician.id}`}
+                musician={musician}
+                canInviteMusician
                 tagSmall={
                   musician.isLookingForGroups ? (
                     <TagSmall
