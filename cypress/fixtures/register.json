@@ -1,0 +1,33 @@
+{
+  "token": {
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlMjQzYzcyZS1mMWJiLTQxMjYtYmNmYi02MGZlMmE5NDQ5YzYiLCJncmFudFR5cGUiOjAsImlhdCI6MTY1MjUyNDI4OCwiZXhwIjoxNjUyNTI3ODg4fQ.guibs7X4z2v36cUseA0G81tLZ2UHrzqsMnx2jNtLJ3I",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlMjQzYzcyZS1mMWJiLTQxMjYtYmNmYi02MGZlMmE5NDQ5YzYiLCJncmFudFR5cGUiOjEsImlhdCI6MTY1MjUyNDI4OH0.i9zrRGmOG-lJgxCNDyEqbXU3Kj9OYZRtzIIrGdMjGxQ"
+  },
+  "musician": {
+    "email": "thomas.bernard@bernard.com",
+    "givenName": "Thomas",
+    "familyName": "Bernard",
+    "phone": "",
+    "promotion": "L3",
+    "location": "Douai",
+    "password": "$2b$10$WmOgYMpRtJSyYnLJ4Wq0N.2u3MBGKjIwliZLWACA1MrTPzEZPBwMC",
+    "instruments": [
+      {
+        "id": "7b32ff83-e2b8-41b9-8d4b-dd0def76141d",
+        "name": "batterie"
+      }
+    ],
+    "genres": [
+      {
+        "id": "3466972f-b5d8-420a-b928-e5845be4b402",
+        "name": "rock"
+      }
+    ],
+    "description": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "instagramUrl": null,
+    "id": "e243c72e-f1bb-4126-bcfb-60fe2a9449c6",
+    "isLookingForGroups": false
+  }
+}
