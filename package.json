@@ -6,6 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build:tailwind": "postcss src/scss/base.scss -o src/scss/tailwind.scss"
@@ -44,6 +46,7 @@
     "autoprefixer": "^10.4.1",
     "babel-loader": "^8.2.3",
     "css-loader": "^3.6.0",
+    "cypress": "^9.6.1",
     "eslint": "8.5.0",
     "eslint-config-next": "12.0.7",
     "eslint-config-prettier": "^8.3.0",

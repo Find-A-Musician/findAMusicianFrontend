@@ -131,7 +131,7 @@ function useAuth() {
   return useContext(AuthContext);
 }
 
-export function setCookie(key: 'accessToken' | 'refreshToken', value: String) {
+export function setCookie(key: 'accessToken' | 'refreshToken', value: string) {
   const options: {
     secure: boolean;
     sameSite: 'strict' | 'Strict' | 'lax' | 'Lax' | 'none' | 'None' | undefined;

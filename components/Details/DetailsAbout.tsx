@@ -79,7 +79,7 @@ export function DetailsAbout({
             })
           ) : (
             <p>
-              Vous n'avez pas de description. Parlez nous de vous et{' '}
+              Vous n&apos;avez pas de description. Parlez nous de vous et{' '}
               <button
                 onClick={() => setIsModify(true)}
                 className="text-blue-500 hover:underline"
