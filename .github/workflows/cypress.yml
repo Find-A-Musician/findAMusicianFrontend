@@ -14,7 +14,5 @@ jobs:
         run: npm ci
       - name: Build app
         run: npm run build
-      - name: Run app
-        run: npm run start
       - name: Cypress run
-        run: npm run cy:run
+        run: npm start & npm run cy:run
