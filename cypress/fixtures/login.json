@@ -1,0 +1,45 @@
+{
+  "token": {
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwYjE5NTVkNC1hNDRkLTRjN2ItOWZkZS0zMDA2ZjM3YWMwODEiLCJncmFudFR5cGUiOjAsImlhdCI6MTY1MjUxOTc2MCwiZXhwIjoxNjUyNTIzMzYwfQ.9YT3qs3iZKMbzh1kiaZKyAhGzu7_tY3gPOFQjh2p8sw",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwYjE5NTVkNC1hNDRkLTRjN2ItOWZkZS0zMDA2ZjM3YWMwODEiLCJncmFudFR5cGUiOjEsImlhdCI6MTY1MjUxOTc2MH0.Bwx1v_dp_0Kp7OVQRb48z6AM_zyuUufTvkt4cQ0xvk4"
+  },
+  "musician": {
+    "id": "0b1955d4-a44d-4c7b-9fde-3006f37ac081",
+    "email": "romain.guar91@gmail.com",
+    "description": "Je suis romain guarinoni. Un vrai boute-en-train ! Je code et je fais de la musique. Dans ces 2 domaines je suis très problement bien meilleur que toi désolé fréro le sang.",
+    "givenName": "Romain",
+    "familyName": "Guarinoni",
+    "phone": null,
+    "facebookUrl": null,
+    "twitterUrl": null,
+    "instagramUrl": null,
+    "promotion": "M1",
+    "location": "Douai",
+    "password": "$2b$10$oSkbT5bDabLIuJ5ikcdKT.11kquR8q4MU7sbgo1tFWU67AgnOcppu",
+    "isLookingForGroups": false,
+    "instruments": [
+      {
+        "id": "0f21091e-1a62-41ef-864f-0d52106712c4",
+        "name": "guitare"
+      },
+      {
+        "id": "a60cb062-02ec-4362-8f2c-01c56749eaf7",
+        "name": "piano"
+      },
+      {
+        "id": "7b32ff83-e2b8-41b9-8d4b-dd0def76141d",
+        "name": "batterie"
+      }
+    ],
+    "genres": [
+      {
+        "id": "3466972f-b5d8-420a-b928-e5845be4b402",
+        "name": "rock"
+      },
+      {
+        "id": "2e2a4987-51c3-4b6a-ab4c-859a2721b7b5",
+        "name": "metal"
+      }
+    ]
+  }
+}
