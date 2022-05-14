@@ -2,7 +2,7 @@ describe('login page', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/login');
   });
-  describe.skip('all elements are on the page', () => {
+  describe('all elements are on the page', () => {
     it('should have a title', () => {
       cy.contains('Find a musician');
     });
@@ -24,7 +24,7 @@ describe('login page', () => {
     });
   });
 
-  describe.skip('login form', () => {
+  describe('login form', () => {
     beforeEach(() => {
       cy.get('button').contains('Commencer').click();
     });
