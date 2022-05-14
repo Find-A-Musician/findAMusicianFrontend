@@ -33,7 +33,7 @@ export default function Login(): JSX.Element {
             onClick={() => setRegisterModal(true)}
             className="text-gray-800 hover:text-black"
           >
-            s'inscrire
+            s&apos;inscrire
           </button>
           <button
             onClick={() => setLogginModal(true)}

@@ -15,7 +15,7 @@ export default function Custom404() {
         className="rounded"
       />
       <span className="italic text-xl text-gray-500">
-        Hey ! Qu'est-ce que tu fais là ? Retourne sur{' '}
+        Hey ! Qu&apos;est-ce que tu fais là ? Retourne sur{' '}
         <Link href="/musicians" passHref>
           <a className="text-blue-500 hover:underline">une page qui existe !</a>
         </Link>
