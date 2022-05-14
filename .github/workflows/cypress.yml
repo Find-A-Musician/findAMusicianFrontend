@@ -12,7 +12,9 @@ jobs:
           node-version: 14
       - name: Install dependencies
         run: npm ci
-      - name: Cypress run
+      - name: Build app
         run: npm run build
+      - name: Run app
         run: npm run start
+      - name: Cypress run
         run: npm run cy:run
