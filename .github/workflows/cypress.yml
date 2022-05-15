@@ -1,7 +1,7 @@
 name: End to end tests
 on: [pull_request]
 jobs:
-  e2e-test:
+  install:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -11,4 +11,12 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run build
-      - run: npm run start & npm run cy:run
+  e2e-test:
+    needs: [install]
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 14
+        cache: 'npm'
+    - name: Run tests
+      run: npm run start & npm run cy:run
