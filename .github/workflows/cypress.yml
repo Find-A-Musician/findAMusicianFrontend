@@ -1,23 +1,70 @@
 name: End to end tests
 on: [pull_request]
 jobs:
-  cypress-run:
+  install:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Install node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 14
-      - name: Install dependencies
-        run: npm ci
-      - name: Build app
-        run: npm run build
-      - name: Cypress run
-        run: npm start & npm run cy:run
-      - uses: actions/upload-artifact@v2
-        if: always()
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/cache@v3
         with:
-          name: cypress-videos
+          path: |
+            node_modules
+            /home/runner/.cache/Cypress
+            .next
+          key: npm-${{ hashFiles('**/package-lock.json') }}
+
+  e2e-test-login:
+    runs-on: ubuntu-latest
+    needs: [install]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+          cache: 'npm'
+      - uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            /home/runner/.cache/Cypress
+            .next
+          key: npm-${{ hashFiles('**/package-lock.json') }}
+      - name: Run tests
+        run:
+          npm run start & npm run cy:run -- --spec
+          "cypress/integration/login.spec.js" --browser chrome
+      - uses: actions/upload-artifact@v3
+        with:
+          name: videos
+          path: cypress/videos
+
+  e2e-test-groups:
+    runs-on: ubuntu-latest
+    needs: [install]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+          cache: 'npm'
+      - uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            /home/runner/.cache/Cypress
+            .next
+          key: npm-${{ hashFiles('**/package-lock.json') }}
+      - name: Run tests
+        run:
+          npm run start & npm run cy:run -- --spec
+          "cypress/integration/groups.spec.js" --browser chrome
+      - uses: actions/upload-artifact@v3
+        with:
+          name: videos
           path: cypress/videos

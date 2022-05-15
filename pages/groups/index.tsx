@@ -60,7 +60,10 @@ export default function GroupsPage(): JSX.Element {
           usedFilters={['genres', 'location', 'name']}
           setFilters={setFilters}
         />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div
+          className="grid grid-cols-1 lg:grid-cols-2 gap-4"
+          data-cy="group-list"
+        >
           {groupList &&
             profil &&
             groupList.map((group) => (

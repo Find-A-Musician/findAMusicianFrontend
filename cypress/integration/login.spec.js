@@ -1,6 +1,6 @@
 describe('login page', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/login');
+    cy.visit('/login');
   });
   describe('all elements are on the page', () => {
     it('should have a title', () => {
