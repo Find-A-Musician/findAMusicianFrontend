@@ -1,7 +1,7 @@
 name: End to end tests
 on: [pull_request]
 jobs:
-  install:
+  e2e-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -10,7 +10,7 @@ jobs:
           node-version: 14
           cache: 'npm'
       - run: npm ci
-      - run: npm build
+      - run: npm run build
       - name: 'UI Tests - Chrome'
         uses: cypress-io/github-action@v2
         with:
