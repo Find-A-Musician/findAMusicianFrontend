@@ -1,0 +1,262 @@
+{
+  "results": [
+    {
+      "id": "bf1ba780-5d55-4a11-b630-6d5df7d308eb",
+      "name": "Spiritbox",
+      "description": "vive le prog et le djent",
+      "location": "Douai",
+      "genres": [
+        {
+          "id": "2e2a4987-51c3-4b6a-ab4c-859a2721b7b5",
+          "name": "metal"
+        }
+      ],
+      "members": [
+        {
+          "membership": "admin",
+          "musician": {
+            "id": "10c8d089-df98-4b65-a507-39c31ad339e7",
+            "email": "dorian.viala@gmail.com",
+            "description": null,
+            "givenName": "Dorian",
+            "familyName": "Viala",
+            "phone": null,
+            "facebookUrl": null,
+            "twitterUrl": null,
+            "instagramUrl": null,
+            "promotion": "M1",
+            "location": "Douai",
+            "password": "$2b$10$ebn7aGHs7nvFmyg0PIeaU.z0NegP/ikxX9rt7na4nZuJh9NA60BIq",
+            "isLookingForGroups": false
+          },
+          "instruments": [
+            {
+              "id": "0f21091e-1a62-41ef-864f-0d52106712c4",
+              "name": "guitare"
+            }
+          ]
+        },
+        {
+          "membership": "lite_admin",
+          "musician": {
+            "id": "0b1955d4-a44d-4c7b-9fde-3006f37ac081",
+            "email": "romain.guar91@gmail.com",
+            "description": "Je suis romain guarinoni. Un vrai boute-en-train ! Je code et je fais de la musique. Dans ces 2 domaines je suis très problement bien meilleur que toi désolé fréro le sang.",
+            "givenName": "Romain",
+            "familyName": "Guarinoni",
+            "phone": null,
+            "facebookUrl": null,
+            "twitterUrl": null,
+            "instagramUrl": null,
+            "promotion": "M1",
+            "location": "Douai",
+            "password": "$2b$10$oSkbT5bDabLIuJ5ikcdKT.11kquR8q4MU7sbgo1tFWU67AgnOcppu",
+            "isLookingForGroups": false
+          },
+          "instruments": [
+            {
+              "id": "7b32ff83-e2b8-41b9-8d4b-dd0def76141d",
+              "name": "batterie"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e94debbb-c845-4342-b38c-1bb271268b3c",
+      "name": "Periphery",
+      "description": "trop trop cool",
+      "location": "Lille",
+      "genres": [
+        {
+          "id": "2e2a4987-51c3-4b6a-ab4c-859a2721b7b5",
+          "name": "metal"
+        },
+        {
+          "id": "3466972f-b5d8-420a-b928-e5845be4b402",
+          "name": "rock"
+        }
+      ],
+      "members": [
+        {
+          "membership": "lite_admin",
+          "musician": {
+            "id": "0b1955d4-a44d-4c7b-9fde-3006f37ac081",
+            "email": "romain.guar91@gmail.com",
+            "description": "Je suis romain guarinoni. Un vrai boute-en-train ! Je code et je fais de la musique. Dans ces 2 domaines je suis très problement bien meilleur que toi désolé fréro le sang.",
+            "givenName": "Romain",
+            "familyName": "Guarinoni",
+            "phone": null,
+            "facebookUrl": null,
+            "twitterUrl": null,
+            "instagramUrl": null,
+            "promotion": "M1",
+            "location": "Douai",
+            "password": "$2b$10$oSkbT5bDabLIuJ5ikcdKT.11kquR8q4MU7sbgo1tFWU67AgnOcppu",
+            "isLookingForGroups": false
+          },
+          "instruments": [
+            {
+              "id": "0f21091e-1a62-41ef-864f-0d52106712c4",
+              "name": "guitare"
+            },
+            {
+              "id": "a60cb062-02ec-4362-8f2c-01c56749eaf7",
+              "name": "piano"
+            }
+          ]
+        },
+        {
+          "membership": "lite_admin",
+          "musician": {
+            "id": "10c8d089-df98-4b65-a507-39c31ad339e7",
+            "email": "dorian.viala@gmail.com",
+            "description": null,
+            "givenName": "Dorian",
+            "familyName": "Viala",
+            "phone": null,
+            "facebookUrl": null,
+            "twitterUrl": null,
+            "instagramUrl": null,
+            "promotion": "M1",
+            "location": "Douai",
+            "password": "$2b$10$ebn7aGHs7nvFmyg0PIeaU.z0NegP/ikxX9rt7na4nZuJh9NA60BIq",
+            "isLookingForGroups": false
+          },
+          "instruments": [
+            {
+              "id": "0f21091e-1a62-41ef-864f-0d52106712c4",
+              "name": "guitare"
+            },
+            {
+              "id": "a60cb062-02ec-4362-8f2c-01c56749eaf7",
+              "name": "piano"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b5347851-2d1e-4d3f-a8a7-effe7504607c",
+      "name": "Slipknot",
+      "description": "Du metak bien enervé",
+      "location": "Douai",
+      "genres": [
+        {
+          "id": "2e2a4987-51c3-4b6a-ab4c-859a2721b7b5",
+          "name": "metal"
+        }
+      ],
+      "members": [
+        {
+          "membership": "member",
+          "musician": {
+            "id": "0b1955d4-a44d-4c7b-9fde-3006f37ac081",
+            "email": "romain.guar91@gmail.com",
+            "description": "Je suis romain guarinoni. Un vrai boute-en-train ! Je code et je fais de la musique. Dans ces 2 domaines je suis très problement bien meilleur que toi désolé fréro le sang.",
+            "givenName": "Romain",
+            "familyName": "Guarinoni",
+            "phone": null,
+            "facebookUrl": null,
+            "twitterUrl": null,
+            "instagramUrl": null,
+            "promotion": "M1",
+            "location": "Douai",
+            "password": "$2b$10$oSkbT5bDabLIuJ5ikcdKT.11kquR8q4MU7sbgo1tFWU67AgnOcppu",
+            "isLookingForGroups": false
+          },
+          "instruments": [
+            {
+              "id": "0f21091e-1a62-41ef-864f-0d52106712c4",
+              "name": "guitare"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "884af64c-65f0-4f97-a982-e176d5e01c25",
+      "name": "All that Remains",
+      "description": "metal core à l'ancienne",
+      "location": "Lille",
+      "genres": [
+        {
+          "id": "2e2a4987-51c3-4b6a-ab4c-859a2721b7b5",
+          "name": "metal"
+        }
+      ],
+      "members": [
+        {
+          "membership": "member",
+          "musician": {
+            "id": "0b1955d4-a44d-4c7b-9fde-3006f37ac081",
+            "email": "romain.guar91@gmail.com",
+            "description": "Je suis romain guarinoni. Un vrai boute-en-train ! Je code et je fais de la musique. Dans ces 2 domaines je suis très problement bien meilleur que toi désolé fréro le sang.",
+            "givenName": "Romain",
+            "familyName": "Guarinoni",
+            "phone": null,
+            "facebookUrl": null,
+            "twitterUrl": null,
+            "instagramUrl": null,
+            "promotion": "M1",
+            "location": "Douai",
+            "password": "$2b$10$oSkbT5bDabLIuJ5ikcdKT.11kquR8q4MU7sbgo1tFWU67AgnOcppu",
+            "isLookingForGroups": false
+          },
+          "instruments": [
+            {
+              "id": "0f21091e-1a62-41ef-864f-0d52106712c4",
+              "name": "guitare"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4846dcc5-0d65-465c-b86f-13c68c475a7f",
+      "name": "jazz band",
+      "description": "du jazz",
+      "location": "Douai",
+      "genres": [
+        {
+          "id": "ded184af-6a61-40d2-a4b2-279e51c7b4d7",
+          "name": "jazz"
+        }
+      ],
+      "members": [
+        {
+          "membership": "member",
+          "musician": {
+            "id": "10c8d089-df98-4b65-a507-39c31ad339e7",
+            "email": "dorian.viala@gmail.com",
+            "description": null,
+            "givenName": "Dorian",
+            "familyName": "Viala",
+            "phone": null,
+            "facebookUrl": null,
+            "twitterUrl": null,
+            "instagramUrl": null,
+            "promotion": "M1",
+            "location": "Douai",
+            "password": "$2b$10$ebn7aGHs7nvFmyg0PIeaU.z0NegP/ikxX9rt7na4nZuJh9NA60BIq",
+            "isLookingForGroups": false
+          },
+          "instruments": [
+            {
+              "id": "0f21091e-1a62-41ef-864f-0d52106712c4",
+              "name": "guitare"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "size": 5,
+  "limit": 20,
+  "start": 0,
+  "total": 5,
+  "_links": {
+    "self": "http://localhost:8000/groups",
+    "first": "http://localhost:8000/groups?start=0&limit=20"
+  }
+}
