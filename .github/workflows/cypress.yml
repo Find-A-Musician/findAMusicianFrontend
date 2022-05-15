@@ -38,7 +38,7 @@ jobs:
       - name: Run tests
         run:
           npm run start & npm run cy:run -- --spec
-          "cypress/integration/login.spec.js"
+          "cypress/integration/login.spec.js" --browser chrome
 
   e2e-test-groups:
     runs-on: ubuntu-latest
@@ -59,4 +59,4 @@ jobs:
       - name: Run tests
         run:
           npm run start & npm run cy:run -- --spec
-          "cypress/integration/groups.spec.js"
+          "cypress/integration/groups.spec.js" --browser chrome
