@@ -10,6 +10,7 @@ jobs:
           node-version: 14
           cache: 'npm'
       - run: npm ci
+      - run: npm build
       - name: 'UI Tests - Chrome'
         uses: cypress-io/github-action@v2
         with:
