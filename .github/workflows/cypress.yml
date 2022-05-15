@@ -1,4 +1,4 @@
-name: End to end tests
+name: ci
 on: [pull_request]
 jobs:
   install:
@@ -10,6 +10,7 @@ jobs:
           node-version: 14
           cache: 'npm'
       - run: npm ci
+      - run: npm run lint
       - run: npm run build
       - uses: actions/cache@v3
         with:
