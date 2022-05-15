@@ -10,6 +10,7 @@ jobs:
           node-version: 14
           cache: 'npm'
       - run: npm ci
+      - run: npm run lint
       - run: npm run build
       - uses: actions/cache@v3
         with:

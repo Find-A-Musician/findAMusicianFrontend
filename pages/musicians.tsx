@@ -23,6 +23,7 @@ export function Musicians(): JSX.Element {
 
   useEffect(() => {
     if (musiciansList?.length) setSize(size + 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isIntersecting]);
 
   return (

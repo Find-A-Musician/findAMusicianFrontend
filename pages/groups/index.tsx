@@ -27,6 +27,7 @@ export default function GroupsPage(): JSX.Element {
 
   useEffect(() => {
     if (groupList?.length) setSize(size + 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isIntersecting]);
 
   const router = useRouter();
