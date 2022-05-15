@@ -12,11 +12,13 @@ jobs:
       - run: npm ci
       - run: npm run build
   e2e-test:
+    runs-on: ubuntu-latest
     needs: [install]
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 14
-        cache: 'npm'
-    - name: Run tests
-      run: npm run start & npm run cy:run
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14
+          cache: 'npm'
+      - name: Run tests
+        run: npm run start & npm run cy:run
