@@ -1,4 +1,4 @@
-name: ci
+name: End to end tests
 on: [pull_request]
 jobs:
   install:
