@@ -2,7 +2,7 @@ import Header from '../components/Header';
 import { IPeople } from '../components/icons';
 import NewButton from '../components/NewButton';
 import Banner from '../components/Banner';
-import DetailsSection from '../components/Details/DetailsSection';
+import CardEvent from '../components/CardEvent';
 import ContentLayout from '../layout/content';
 import { MenuContext } from '../context/MenuContext';
 import { useContext } from 'react';
@@ -17,10 +17,11 @@ export default function Events(): JSX.Element {
     <ContentLayout
       Header={
         <Header
-          title="Profil"
+          title="Événements"
+          subtitle="420 groupes"
           icon={<IPeople />}
           rightComponents={
-            <NewButton label="Modifier mon profil" className="rounded-full" />
+            <NewButton label="Créer un événement" className="rounded-full" />
           }
           hamburgerOnClick={() => setIsMenuOpen(!isMenuOpen)}
         />
@@ -28,32 +29,31 @@ export default function Events(): JSX.Element {
     >
       <>
         <Banner
-          title="Trouve le"
-          boldTitle="groupe parfait!"
-          subtitle="Plus besoin de galérer pour trouver l'équipe parfaite"
+          title="Participe à"
+          boldTitle="des événements !"
+          subtitle="Participe aux événements les plys hype du moment"
           imagePath="/images/music_concert.png"
         />
-        <DetailsSection title="A propos">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            accumsan tristique rutrum. Morbi sit amet diam ac lacus congue
-            facilisis. Nunc eget est auctor, auctor sapien sed, porta augue.
-          </p>
-        </DetailsSection>
-        <div>
-          <button
-            className="px-4 py-1 rounded border bg-gray-50"
-            onClick={notifySuccess}
-          >
-            notif
-          </button>
-          <button
-            className="px-4 py-1 rounded border bg-gray-50"
-            onClick={notifyError}
-          >
-            error
-          </button>
-        </div>
+        <CardEvent
+          title="La pioche festival"
+          subtitle="du Samedi au Lundi à Faches-Thumesnil"
+          nbParticipants={45}
+          month="Avril"
+          day="02"
+          description="Piocheuse, Piocheur, Là où les le jour s'endort, l'obscurité s'installe. Entre pierres et projecteurs, l'antre de la mine entame"
+          genres={['Pop', 'Rock']}
+          href={`/groups`}
+        />
+        <CardEvent
+          title="La pioche festival"
+          subtitle="du Samedi au Lundi à Faches-Thumesnil"
+          nbParticipants={1}
+          month="Avril"
+          day="02"
+          description=" Piocheuse, Piocheur, Là où les le jour s'endort, l'obscurité s'installe. Entre pierres et projecteurs, l'antre de la mine entame"
+          genres={['Pop', 'Rock']}
+          href={`/groups`}
+        />
       </>
     </ContentLayout>
   );
